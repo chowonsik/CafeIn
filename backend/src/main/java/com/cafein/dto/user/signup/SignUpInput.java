@@ -1,0 +1,19 @@
+package com.cafein.dto.user.signup;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@AllArgsConstructor
+@Getter
+@Setter
+public class SignUpInput {
+    private String email;
+    private String password;
+    private String nickname;
+    private String info;
+    private String image;
+    private int areaId;
+    private String oauth;
+    private String oauthId;
+}
