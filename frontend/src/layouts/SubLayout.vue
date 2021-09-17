@@ -1,8 +1,6 @@
 <template>
   <q-layout view="lHr LpR lFr">
 
-    <Header />
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -12,17 +10,18 @@
   </q-layout>
 </template>
 
-
 <script>
 import { defineComponent } from 'vue'
-import Header from '../components/common/Header.vue'
 import Footer from '../components/common/Footer.vue'
 
 export default defineComponent({
   name: 'MainLayout',
   components: {
-    Header,
     Footer,
   }
 })
 </script>
+
+<style>
+
+</style>
