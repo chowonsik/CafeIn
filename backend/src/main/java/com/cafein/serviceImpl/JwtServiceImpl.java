@@ -3,7 +3,7 @@ package com.cafein.serviceImpl;
 import io.jsonwebtoken.*;
 import com.cafein.configuration.ValidationCheck;
 import com.cafein.configuration.security.CustomUserDetailsService;
-import com.cafein.entity.UserDB;
+import com.cafein.entity.User;
 import com.cafein.service.JwtService;
 import com.cafein.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +56,7 @@ public class JwtServiceImpl implements JwtService {
             if (!ValidationCheck.isValidId(userId))
                 return -3;
 
-            UserDB userDB = userRepository.findById(userId).orElse(null);
+            User userDB = userRepository.findById(userId).orElse(null);
             if (userDB == null || userDB.getStatus().equals("DELETED"))
                 return -3;
 
@@ -67,7 +67,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public UserDB getUserDB() {
+    public User getUserDB() {
         String accessToken = getAccessToken();
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(ACCESS_TOKEN_SECRET_KEY).parseClaimsJws(accessToken);
@@ -78,7 +78,7 @@ public class JwtServiceImpl implements JwtService {
             if (!ValidationCheck.isValidId(userId))
                 return null;
 
-            UserDB userDB = userRepository.findById(userId).orElse(null);
+            User userDB = userRepository.findById(userId).orElse(null);
             if (userDB == null || userDB.getStatus().equals("DELETED"))
                 return null;
 
@@ -89,7 +89,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public UserDB getChatUserDB(String accessToken) {
+    public User getChatUserDB(String accessToken) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(ACCESS_TOKEN_SECRET_KEY).parseClaimsJws(accessToken);
             if (accessToken == null)
@@ -99,7 +99,7 @@ public class JwtServiceImpl implements JwtService {
             if (!ValidationCheck.isValidId(userId))
                 return null;
 
-            UserDB userDB = userRepository.findById(userId).orElse(null);
+            User userDB = userRepository.findById(userId).orElse(null);
             if (userDB == null || userDB.getStatus().equals("DELETED"))
                 return null;
 
