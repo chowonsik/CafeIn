@@ -7,7 +7,7 @@ import com.cafein.dto.user.email.EmailOutput;
 import com.cafein.dto.user.signin.SignInInput;
 import com.cafein.dto.user.signin.SocialLoginType;
 import com.cafein.dto.user.signup.SignUpInput;
-import com.cafein.entity.UserDB;
+import com.cafein.entity.User;
 import com.cafein.response.Response;
 import com.cafein.service.JwtService;
 import com.cafein.service.UserService;
@@ -53,11 +53,11 @@ public class UserServiceImpl implements UserService {
             return new Response<>(BAD_PASSWORD_VALUE);
 
         // 2. user 정보 가져오기
-        UserDB userDB;
+        User userDB;
         try {
             String email = signInInput.getEmail();
             String password = new AES128(USER_INFO_PASSWORD_KEY).encrypt(signInInput.getPassword());
-            List<UserDB> userDBs = userRepository.findByEmailAndStatus(email, "ACTIVATE");
+            List<User> userDBs = userRepository.findByEmailAndStatus(email, "ACTIVATE");
             if (userDBs.size() == 0) {
                 return new Response<>(NOT_FOUND_USER);
             } else if (!userDBs.get(0).getPassword().equals(password)) {
@@ -100,16 +100,15 @@ public class UserServiceImpl implements UserService {
             return new Response<>(BAD_NAME_VALUE);
 
         // 2. 유저 생성
-        UserDB userDB;
+        User user;
         try {
             String email = signUpInput.getEmail();
             String nickname = signUpInput.getNickname();
             boolean existUsers = userRepository.existsByEmailAndStatus(email, "ACTIVATE");
             boolean existNickname = userRepository.existsByNicknameAndStatus(nickname, "ACTIVATE");
             String password = new AES128(USER_INFO_PASSWORD_KEY).encrypt(signUpInput.getPassword());
-            userDB = UserDB.builder().email(signUpInput.getEmail()).password(password)
-                    .nickname(signUpInput.getNickname()).info(signUpInput.getInfo()).image(signUpInput.getImage())
-                    .oauth(signUpInput.getOauth() == null ? null : SocialLoginType.valueOf(signUpInput.getOauth()))
+            user = User.builder().email(signUpInput.getEmail()).password(password)
+                    .nickname(signUpInput.getNickname()).oauth(signUpInput.getOauth() == null ? null : SocialLoginType.valueOf(signUpInput.getOauth()))
                     .oauthId(signUpInput.getOauthId()).status("ACTIVATE").build();
 
             if (existUsers) { // 이메일 중복 제어
@@ -117,7 +116,7 @@ public class UserServiceImpl implements UserService {
             } else if (existNickname) { // 닉네임 중복 제어
                 return new Response<>(EXISTS_NICKNAME);
             } else {
-                userDB = userRepository.save(userDB);
+                user = userRepository.save(user);
             }
 
         } catch (Exception e) {
@@ -128,7 +127,7 @@ public class UserServiceImpl implements UserService {
         // 3. 토큰 생성
         String accessToken;
         try {
-            accessToken = jwtService.createAccessToken(userDB.getId());
+            accessToken = jwtService.createAccessToken(user.getId());
             if (accessToken.isEmpty()) {
                 return new Response<>(FAILED_TO_CREATE_TOKEN);
             }
@@ -137,7 +136,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // 4. 결과 return
-        SignUpOutput signUpOutput = new SignUpOutput(userDB.getId(), accessToken);
+        SignUpOutput signUpOutput = new SignUpOutput(user.getId(), accessToken);
         return new Response<>(signUpOutput, CREATED_USER);
     }
 
@@ -145,7 +144,7 @@ public class UserServiceImpl implements UserService {
     public Response<Object> changeDeleteStatus() {
         // 1. 로그인한 유저 정보 가져오기
         try {
-            UserDB loginUserDB = jwtService.getUserDB();
+            User loginUserDB = jwtService.getUserDB();
             if(loginUserDB == null) {
                 log.error("[users/patch] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);

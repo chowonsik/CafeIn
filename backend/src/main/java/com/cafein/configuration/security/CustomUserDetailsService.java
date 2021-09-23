@@ -2,7 +2,7 @@ package com.cafein.configuration.security;
 
 import com.cafein.dao.UserRepository;
 import com.cafein.dto.common.UserDetail;
-import com.cafein.entity.UserDB;
+import com.cafein.entity.User;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserDB user = userRepository.findByEmail(email).orElse(null);
+        User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) {
             return null;
         }

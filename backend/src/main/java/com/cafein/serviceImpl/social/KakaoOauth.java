@@ -6,7 +6,7 @@ import com.cafein.dao.UserRepository;
 import com.cafein.dto.user.signin.OauthOutput;
 import com.cafein.dto.user.signin.SignInOutput;
 import com.cafein.dto.user.signin.SocialLoginType;
-import com.cafein.entity.UserDB;
+import com.cafein.entity.User;
 import com.cafein.response.Response;
 import com.cafein.service.JwtService;
 import com.cafein.service.social.SocialOauth;
@@ -90,9 +90,9 @@ public class KakaoOauth implements SocialOauth {
             email = userInfo.get("kakao_account").get("email").asText();
         }
         // 3. user 정보 가져오기
-        UserDB userDB;
+        User userDB;
         try {
-            List<UserDB> userDBs = userRepository.findByEmailAndStatus(email, "ACTIVATE");
+            List<User> userDBs = userRepository.findByEmailAndStatus(email, "ACTIVATE");
             if (userDBs.size() == 0) { // 최초 로그인
                 SignInOutput oauthOutput =
                         SignInOutput.builder()

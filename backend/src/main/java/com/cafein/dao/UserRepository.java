@@ -1,6 +1,6 @@
 package com.cafein.dao;
 
-import com.cafein.entity.UserDB;
+import com.cafein.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserDB, Integer> {
-    Optional<UserDB> findByEmail(String email);
+public interface UserRepository extends JpaRepository<User, Integer> {
+    Optional<User> findByEmail(String email);
 
-    List<UserDB> findByEmailAndStatus(String email, String status);
+    List<User> findByEmailAndStatus(String email, String status);
     boolean existsByEmailAndStatus(String email, String status);
 
     boolean existsByNicknameAndStatus(String nickname, String status);
