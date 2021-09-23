@@ -11,7 +11,7 @@ const routes = [
     path: '/users',
     component: () => import('layouts/EmptyLayout.vue'),
     children: [
-      // { path: }
+      { path: 'login', component: () => import('pages/user/LoginPage.vue') }
     ]
   },
   {
