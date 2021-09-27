@@ -6,21 +6,21 @@
         <q-toolbar-title class="text-black text-weight-bold text-center no-padding">로그인</q-toolbar-title>
       </q-toolbar>
     </q-header>
-    <div style="margin-top: 150px">
-      <div class="flex flex-center">
+    <q-form @submit.stop="checkForm">
+      <div class="flex flex-center" style="margin-top: 150px">
         <div class="q-gutter-y-md column" style="width: 80%">
           <div>
             <span>이메일</span>
-            <q-input class="no-margin" outlined v-model="ph" placeholder="이메일 입력" :dense="dense" />
+            <q-input class="no-margin" outlined v-model="email" placeholder="이메일 입력" :dense="dense" />
           </div>
           <div>
             <span>비밀번호</span>
-            <q-input class="no-margin" outlined v-model="ph" placeholder="비밀번호 입력(영문, 숫자 조합)" :dense="dense" />
+            <q-input class="no-margin" outlined v-model="password" placeholder="비밀번호 입력(영문, 숫자 조합)" :dense="dense" />
           </div>
           <q-btn color="primary" class="full-width" size="lg" style="margin: 50px" label="로그인" />
         </div>
       </div>
-    </div>
+    </q-form>
     <q-separator style="margin-top: 50px" />
     <div class="flex justify-center" style="margin-top: 30px">
       <p>아이디 찾기  |</p>
@@ -39,20 +39,24 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { required, email } from 'vuelidate/lib/validators';
 
 export default {
   name: 'LoginPage',
-  setup () {
+  data() {
     return {
-      ph: ref(''),
-      dense: ref(false),
+      dense: false,
+      email: "",
+      password: "",
     }
   },
   methods: {
     goBack() {
       window.history.back()
     },
+    async checkForm() {
+      // await this.$refs.observer.validate()
+    }
   }
 }
 </script>
