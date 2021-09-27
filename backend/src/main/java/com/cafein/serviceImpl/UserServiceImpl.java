@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
             return new Response<>(BAD_PASSWORD_VALUE);
         if (!ValidationCheck.isValid(signUpInput.getNickname()))
             return new Response<>(BAD_NAME_VALUE);
-
+        System.out.println("들어옴");
         // 2. 유저 생성
         User user;
         try {
@@ -108,8 +108,7 @@ public class UserServiceImpl implements UserService {
             boolean existNickname = userRepository.existsByNicknameAndStatus(nickname, "ACTIVATE");
             String password = new AES128(USER_INFO_PASSWORD_KEY).encrypt(signUpInput.getPassword());
             user = User.builder().email(signUpInput.getEmail()).password(password)
-                    .nickname(signUpInput.getNickname()).oauth(signUpInput.getOauth() == null ? null : SocialLoginType.valueOf(signUpInput.getOauth()))
-                    .oauthId(signUpInput.getOauthId()).status("ACTIVATE").build();
+                    .nickname(signUpInput.getNickname()).status("ACTIVATE").build();
 
             if (existUsers) { // 이메일 중복 제어
                 return new Response<>(EXISTS_EMAIL);

@@ -1,0 +1,57 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+= API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+:docinfo: shared-head
+
+[[introduction]]
+== 소개
+
+Cafein API
+
+[[common]]
+== 공통 사항
+
+API에 관계없이 아래 사항을 지켜주셔야 합니다.
+
+=== Domain
+
+|===
+| 환경 | Domain
+
+| 개발서버
+| `http://j5b204.p.ssafy.io`
+
+|===
+
+=== Common Response
+
+&#160;
+
+== 1. 개요
+
+== 2. User API
+
+=== 2-1. 회원가입
+
+==== 회원가입
+
+include::{snippets}/users/signup/successful/request-fields.adoc[]
+
+include::{snippets}/users/signup/successful/response-fields.adoc[]
+
+==== 회원가입 성공
+
+Request Example
+
+include::{snippets}/users/signup/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/signup/successful/http-response.adoc[]
