@@ -3,7 +3,6 @@ package com.cafein.service;
 import com.cafein.dto.user.email.EmailInput;
 import com.cafein.dto.user.email.EmailOutput;
 import com.cafein.dto.user.signin.SignInInput;
-import com.cafein.response.PageResponse;
 import com.cafein.response.Response;
 import com.cafein.dto.user.signin.SignInOutput;
 import com.cafein.dto.user.signup.SignUpInput;

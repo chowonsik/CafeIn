@@ -13,12 +13,14 @@ import com.cafein.service.JwtService;
 import com.cafein.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.cafein.response.ResponseStatus.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
@@ -27,15 +29,16 @@ public class UserController {
     private final JwtService jwtService;
 
     /**
-     * 회원가입 API [POST] /users/signup
+     * 회원가입 API [POST] /api/users/signup
      * 
      * @return Response<SignUpOutput>
      */
     // Body
     @PostMapping("/signup")
-    public Response<SignUpOutput> signUp(@RequestBody SignUpInput signUpInput) {
+    public ResponseEntity<Response<SignUpOutput>> signUp(@RequestBody SignUpInput signUpInput) {
         log.info("[POST] /users/signup");
-        return userService.signUp(signUpInput);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userService.signUp(signUpInput));
     }
 
     /**
