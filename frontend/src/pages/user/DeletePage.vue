@@ -28,14 +28,18 @@
         <div class="col">회원탈퇴를 원하시면 탈퇴 버튼을 눌러주세요.</div>
       </div>
       <q-separator />
-      <q-btn flat class="full-width text-weight-bold" size="lg" color="red" label="회원탈퇴" />
+      <DeleteDialog />
     </q-footer>
   </div>
 </template>
 
 <script>
+import DeleteDialog from '../../components/user/DeleteDialog.vue'
 export default {
   name: 'DeletePage',
+  components: {
+    DeleteDialog,
+  },
   methods: {
     goBack() {
       window.history.back()

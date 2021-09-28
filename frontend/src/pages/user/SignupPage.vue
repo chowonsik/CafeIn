@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import SignupDialog from '../../components/SignupDialog.vue'
+import SignupDialog from '../../components/user/SignupDialog.vue'
 export default {
   name: 'SignupPage',
   components: {
