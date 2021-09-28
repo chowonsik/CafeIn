@@ -28,6 +28,11 @@ const routes = [
     ],
   },
   {
+    path: "/mycafe",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/MyCafe.vue") }]
+  },
+  {
     path: "/tag",
     component: () => import("layouts/SubLayout.vue"),
     children: [{ path: "", component: () => import("pages/TagRecommend.vue") }],
