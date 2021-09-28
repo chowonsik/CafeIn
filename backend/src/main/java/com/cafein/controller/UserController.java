@@ -41,13 +41,13 @@ public class UserController {
     }
 
     /**
-     * 로그인 API [POST] /users/signin
+     * 로그인 API [POST] /api/users/signin
      * 
      * @return Response<SignInOutput>
      */
     // Body
     @PostMapping("/signin")
-    public Response<SignInOutput> signIn(@RequestBody SignInInput signInInput) {
+    public ResponseEntity<Response<SignInOutput>> signIn(@RequestBody SignInInput signInInput) {
         log.info("[POST] /users/signin");
         return userService.signIn(signInInput);
     }

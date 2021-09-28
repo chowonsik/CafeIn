@@ -55,3 +55,21 @@ include::{snippets}/users/signup/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/users/signup/successful/http-response.adoc[]
+
+=== 2-2. 로그인
+
+==== 로그인
+
+include::{snippets}/users/signin/successful/request-fields.adoc[]
+
+include::{snippets}/users/signin/successful/response-fields.adoc[]
+
+==== 로그인 성공
+
+Request Example
+
+include::{snippets}/users/signin/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/signin/successful/http-response.adoc[]

@@ -45,14 +45,17 @@ public class UserServiceImpl implements UserService {
     private String USER_INFO_PASSWORD_KEY;
 
     @Override
-    public Response<SignInOutput> signIn(SignInInput signInInput) {
+    public ResponseEntity<Response<SignInOutput>> signIn(SignInInput signInInput) {
         // 1. 값 형식 체크
         if (signInInput == null)
-            return new Response<>(NO_VALUES);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(NO_VALUES));
         if (!ValidationCheck.isValid(signInInput.getEmail()))
-            return new Response<>(BAD_EMAIL_VALUE);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(BAD_EMAIL_VALUE));
         if (!ValidationCheck.isValid(signInInput.getPassword()))
-            return new Response<>(BAD_PASSWORD_VALUE);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(BAD_PASSWORD_VALUE));
 
         // 2. user 정보 가져오기
         User userDB;
@@ -61,15 +64,18 @@ public class UserServiceImpl implements UserService {
             String password = new AES128(USER_INFO_PASSWORD_KEY).encrypt(signInInput.getPassword());
             List<User> userDBs = userRepository.findByEmailAndStatus(email, "ACTIVATE");
             if (userDBs.size() == 0) {
-                return new Response<>(NOT_FOUND_USER);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(NOT_FOUND_USER));
             } else if (!userDBs.get(0).getPassword().equals(password)) {
-                return new Response<>(FAILED_TO_SIGN_IN);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(FAILED_TO_SIGN_IN));
             } else {
                 userDB = userDBs.get(0);
             }
         } catch (Exception e) {
             log.error("[users/signin/post] database error", e);
-            return new Response<>(DATABASE_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
         }
 
         // 3. access token 생성
@@ -77,15 +83,18 @@ public class UserServiceImpl implements UserService {
         try {
             accessToken = jwtService.createAccessToken(userDB.getId());
             if (accessToken.isEmpty()) {
-                return new Response<>(FAILED_TO_CREATE_TOKEN);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(FAILED_TO_CREATE_TOKEN));
             }
         } catch (Exception e) {
-            return new Response<>(FAILED_TO_CREATE_TOKEN);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(FAILED_TO_CREATE_TOKEN));
         }
 
         // 4. 결과 return
         SignInOutput signInOutput = SignInOutput.builder().userId(userDB.getId()).accessToken(accessToken).build();
-        return new Response<>(signInOutput, SUCCESS_SIGN_IN);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(signInOutput, SUCCESS_SIGN_IN));
     }
 
     @Override

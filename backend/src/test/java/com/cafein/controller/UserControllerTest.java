@@ -1,5 +1,6 @@
 package com.cafein.controller;
 
+import com.cafein.dto.user.signin.SignInInput;
 import com.cafein.dto.user.signup.SignUpInput;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +60,7 @@ public class UserControllerTest {
 
     @DisplayName("회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공")
     @Test
-    public void userCreate() throws Exception {
+    public void 유저_회원가입() throws Exception {
         //given
         SignUpInput signUpInput = SignUpInput
                 .builder()
@@ -108,6 +109,61 @@ public class UserControllerTest {
                                                 .description("유저 번호"),
                                         fieldWithPath("result.accessToken").type(JsonFieldType.STRING)
                                                 .description("유저 JWT"),
+                                        fieldWithPath("timestamp").type(JsonFieldType.STRING)
+                                                .description("api 호출 일시")
+                                )
+                        ));
+    }
+
+    @DisplayName("로그인 - 모든 유효성 검사에 통과했다면 로그인 성공")
+    @Test
+    public void 유저_로그인() throws Exception {
+        //given
+        SignInInput signInInput = SignInInput
+                .builder()
+                .email("test@naver.com")
+                .password("test1234")
+                .build();
+        //when
+
+        ResultActions result = mockMvc.perform(post("/api/users/signin")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(signInInput)).accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        //then
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(201)))
+                .andDo(
+                        document(
+                                "users/signin/successful",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                requestFields(
+                                        fieldWithPath("email").type(JsonFieldType.STRING)
+                                                .description("사용자 이메일 주소")
+                                                .attributes(key("constraint")
+                                                        .value("최소 3글자, 최대 50글자 이내로 입력해주세요. @*.com의 양식을 갖추어야 합니다.")),
+                                        fieldWithPath("password").type(JsonFieldType.STRING)
+                                                .description("사용자 비밀번호")
+                                                .attributes(key("constraint")
+                                                        .value("최소 3글자, 최대 20글자 이내로 입력해주세요."))
+                                ),
+                                responseFields(
+                                        fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
+                                                .description("요청 성공 여부"),
+                                        fieldWithPath("status").type(JsonFieldType.NUMBER)
+                                                .description("응답 상태"),
+                                        fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                                .description("응답 코드"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING)
+                                                .description("응답 메시지"),
+                                        fieldWithPath("result.userId").type(JsonFieldType.NUMBER)
+                                                .description("유저 번호"),
+                                        fieldWithPath("result.accessToken").type(JsonFieldType.STRING)
+                                                .description("유저 JWT"),
+                                        fieldWithPath("result.oauth").type(JsonFieldType.OBJECT).optional()
+                                                .description("유저 Oauth"),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)
                                                 .description("api 호출 일시")
                                 )

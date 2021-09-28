@@ -10,7 +10,7 @@ import com.cafein.dto.user.signup.SignUpOutput;
 import org.springframework.http.ResponseEntity;
 
 public interface UserService {
-    Response<SignInOutput> signIn(SignInInput signInInput);
+    ResponseEntity<Response<SignInOutput>> signIn(SignInInput signInInput);
     ResponseEntity<Response<SignUpOutput>> signUp(SignUpInput signUpInput);
     Response<EmailOutput> sendMail(EmailInput emailInput);
     Response<Object> changeDeleteStatus();

@@ -13,10 +13,9 @@ compileJava.options.encoding = 'UTF-8'
 def querydslVersion = '4.3.1'
 
 configurations {
-//    compileOnly {
-//        extendsFrom annotationProcessor
-//    }
-    asciidoctorExtensions
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
