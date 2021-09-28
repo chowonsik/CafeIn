@@ -37,8 +37,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<Response<SignUpOutput>> signUp(@RequestBody SignUpInput signUpInput) {
         log.info("[POST] /users/signup");
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.signUp(signUpInput));
+        return userService.signUp(signUpInput);
     }
 
     /**

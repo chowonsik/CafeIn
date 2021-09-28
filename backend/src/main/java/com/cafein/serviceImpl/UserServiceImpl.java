@@ -21,6 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -88,17 +90,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Response<SignUpOutput> signUp(SignUpInput signUpInput) {
+    public ResponseEntity<Response<SignUpOutput>> signUp(SignUpInput signUpInput) {
         // 1. 값 형식 체크
         if (signUpInput == null)
-            return new Response<>(NO_VALUES);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(NO_VALUES));
         if (!ValidationCheck.isValid(signUpInput.getEmail()))
-            return new Response<>(BAD_EMAIL_VALUE);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(BAD_EMAIL_VALUE));
         if (!ValidationCheck.isValid(signUpInput.getPassword()))
-            return new Response<>(BAD_PASSWORD_VALUE);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(BAD_PASSWORD_VALUE));
         if (!ValidationCheck.isValid(signUpInput.getNickname()))
-            return new Response<>(BAD_NAME_VALUE);
-        System.out.println("들어옴");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(BAD_NAME_VALUE));
+
         // 2. 유저 생성
         User user;
         try {
@@ -111,16 +117,19 @@ public class UserServiceImpl implements UserService {
                     .nickname(signUpInput.getNickname()).status("ACTIVATE").build();
 
             if (existUsers) { // 이메일 중복 제어
-                return new Response<>(EXISTS_EMAIL);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(EXISTS_EMAIL));
             } else if (existNickname) { // 닉네임 중복 제어
-                return new Response<>(EXISTS_NICKNAME);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(EXISTS_NICKNAME));
             } else {
                 user = userRepository.save(user);
             }
 
         } catch (Exception e) {
             log.error("[users/signup/post] database error", e);
-            return new Response<>(DATABASE_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
         }
 
         // 3. 토큰 생성
@@ -128,15 +137,18 @@ public class UserServiceImpl implements UserService {
         try {
             accessToken = jwtService.createAccessToken(user.getId());
             if (accessToken.isEmpty()) {
-                return new Response<>(FAILED_TO_CREATE_TOKEN);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(FAILED_TO_CREATE_TOKEN));
             }
         } catch (Exception exception) {
-            return new Response<>(FAILED_TO_CREATE_TOKEN);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(FAILED_TO_CREATE_TOKEN));
         }
 
         // 4. 결과 return
         SignUpOutput signUpOutput = new SignUpOutput(user.getId(), accessToken);
-        return new Response<>(signUpOutput, CREATED_USER);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new Response<>(signUpOutput, CREATED_USER));
     }
 
     @Override
