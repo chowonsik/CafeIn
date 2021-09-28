@@ -35,7 +35,7 @@
           <q-card flat bordered style="width: 90%">
             <q-card-section class="flex justify-around items-center">
               <q-checkbox v-model="checkbox" />
-              <div class="text-h6">약관 및 정보수신 동의</div>
+              <SignupDialog />
             </q-card-section>
           </q-card>
           <q-btn color="primary" class="full-width" size="lg" label="동의하고 가입" />
@@ -49,8 +49,12 @@
 </template>
 
 <script>
+import SignupDialog from '../../components/SignupDialog.vue'
 export default {
   name: 'SignupPage',
+  components: {
+    SignupDialog,
+  },
   data() {
     return {
       dense: false,
@@ -66,8 +70,8 @@ export default {
     goBack() {
       window.history.back()
     },
-    async checkForm() {
-      // await this.$refs.observer.validate()
+    checkForm() {
+      
     }
   }
 }
