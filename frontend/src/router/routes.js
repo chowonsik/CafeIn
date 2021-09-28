@@ -11,7 +11,9 @@ const routes = [
     path: '/users',
     component: () => import('layouts/EmptyLayout.vue'),
     children: [
-      { path: 'login', component: () => import('pages/user/LoginPage.vue') }
+      { path: 'login', component: () => import('pages/user/LoginPage.vue') },
+      { path: 'signup', component: () => import('pages/user/SignupPage.vue') },
+      { path: 'delete', component: () => import('pages/user/DeletePage.vue') },
     ]
   },
   {
