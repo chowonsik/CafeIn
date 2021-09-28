@@ -1,4 +1,5 @@
 <template>
+  <div class="tag-body" style="height: 100vh">
   <q-header reveal bordered class="bg-white text-white">
     <q-toolbar>
       <q-icon size="sm" color="black" name="arrow_back_ios" @click="goBack()" />
@@ -27,7 +28,7 @@
         text-color="primary"
         size="sm"
       >
-        <q-checkbox v-model="selection" :val="tag" :label="tag" color="primary" />
+        <q-checkbox class="tag-recommend" v-model="selection" :val="tag" :label="tag" color="primary" />
       </q-btn>
     </div>
       <h5 style="color: #FAF8E2; marginLeft: 1.2rem; marginTop: 0; marginBottom: 1.3rem">공부</h5>
@@ -39,7 +40,7 @@
         text-color="primary"
         size="sm"
         >
-        <q-checkbox v-model="selection" size="0.5rem" :val="tag" :label="tag" color="primary" />
+        <q-checkbox class="tag-recommend" v-model="selection" size="0.5rem" :val="tag" :label="tag" color="primary" />
       </q-btn>
     </div>
       <h5 style="color: #FAF8E2; marginLeft: 1.2rem; marginTop: 0; marginBottom: 1.3rem">데이트</h5>
@@ -51,7 +52,7 @@
         text-color="primary"
         size="sm"
         >
-        <q-checkbox v-model="selection" size="0.5rem" :val="tag" :label="tag" color="primary" />
+        <q-checkbox class="tag-recommend" v-model="selection" size="0.5rem" :val="tag" :label="tag" color="primary" />
       </q-btn>
     </div>
       <h5 style="color: #FAF8E2; marginLeft: 1.2rem; marginTop: 0; marginBottom: 1.3rem">포토스팟</h5>
@@ -63,7 +64,7 @@
         text-color="primary"
         size="sm"
         >
-        <q-checkbox v-model="selection" size="0.5rem" :val="tag" :label="tag" color="primary" />
+        <q-checkbox class="tag-recommend" v-model="selection" size="0.5rem" :val="tag" :label="tag" color="primary" />
       </q-btn>
     </div>
 
@@ -75,6 +76,7 @@
       size="1.4rem"
       label="추천받기"
     />
+  </div>
   </div>
 </template>
 
@@ -102,11 +104,11 @@ export default defineComponent({
 </script>
 
 <style>
-body {
+.tag-body {
   background-color: #104138;
 }
 
-.q-checkbox__inner {
+.tag-recommend > .q-checkbox__inner {
   display: none;
 }
 
