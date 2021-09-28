@@ -14,7 +14,7 @@ import static javax.persistence.GenerationType.*;
 @Getter @Setter
 @Entity
 @Table(name = "menu")
-public class Menu {
+public class Bookmark {
     @Id
     @Column(name = "id", nullable = false, updatable = false)
     @GeneratedValue(strategy = IDENTITY)
