@@ -19,6 +19,7 @@ public enum ResponseStatus {
     SUCCESS_SELECT_PROFILE(200, 203, "프로필 조회에 성공하였습니다."),
     SUCCESS_SELECT_USER(200, 205, "유저 조회에 성공하였습니다."),
     SUCCESS_SEND_MAIL(200, 210, "메일 발송에 성공하였습니다."),
+    SUCCESS_SELECT_CAFE(200, 211, "카페 조회에 성공하였습니다."),
 
     // 201 Created - 클라이언트의 요청을 서버가 정상적으로 처리했고 새로운 리소스가 생겼다.,
     CREATED_USERDEAL(201, 203, "유저 거래 내력 등록에 성공하였습니다."),
