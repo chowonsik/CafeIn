@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
 @RestController
-@RequestMapping("/cafes")
+@RequestMapping("/api/cafes")
 @RequiredArgsConstructor
 @Slf4j
 public class CafeController {
