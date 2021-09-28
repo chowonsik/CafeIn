@@ -35,10 +35,10 @@ public class Cafe {
     @Column(name = "address", length = 100)
     private String address;
 
-    @Column(name = "latitude")
-    private float latitude;
+    @Column(name = "latitude", length = 30)
+    private String latitude;
 
-    @Column(name = "longitude")
-    private float longitude;
-    
+    @Column(name = "longitude", length = 30)
+    private String longitude;
+
 }
