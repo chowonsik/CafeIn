@@ -36,7 +36,7 @@ public class UserController {
     // Body
     @PostMapping("/signup")
     public ResponseEntity<Response<SignUpOutput>> signUp(@RequestBody SignUpInput signUpInput) {
-        log.info("[POST] /users/signup");
+        log.info("[POST] /api/users/signup");
         return userService.signUp(signUpInput);
     }
 
@@ -48,19 +48,19 @@ public class UserController {
     // Body
     @PostMapping("/signin")
     public ResponseEntity<Response<SignInOutput>> signIn(@RequestBody SignInInput signInInput) {
-        log.info("[POST] /users/signin");
+        log.info("[POST] /api/users/signin");
         return userService.signIn(signInInput);
     }
 
     /**
      * 회원탈퇴 API
-     * [PATCH] /users/deactivate
+     * [PATCH] api/users/deactivate
      * @return Response<Object>
      */
     // Body
     @PatchMapping("/deactivate")
-    public Response<Object> changeDeleteStatus() {
-        log.info("[PATCH] /users/deactivate");
+    public ResponseEntity<Response<Object>> changeDeleteStatus() {
+        log.info("[PATCH] /api/users/deactivate");
         return userService.changeDeleteStatus();
     }
 

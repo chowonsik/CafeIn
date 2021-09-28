@@ -161,23 +161,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Response<Object> changeDeleteStatus() {
+    public ResponseEntity<Response<Object>> changeDeleteStatus() {
         // 1. 로그인한 유저 정보 가져오기
         try {
             User loginUserDB = jwtService.getUserDB();
             if(loginUserDB == null) {
                 log.error("[users/patch] NOT FOUND LOGIN USER error");
-                return new Response<>(NOT_FOUND_USER);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(NOT_FOUND_USER));
             }
             // 2. 로그인한 유저 상태 DELETED 로 변경
             loginUserDB.setStatus("DELETED");
             userRepository.save(loginUserDB);
         } catch (Exception e) {
             log.error("[users/patch] database error", e);
-            return new Response<>(DATABASE_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
         }
         // 3. 결과 return
-        return new Response<>(null, SUCCESS_DELETE_USER);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(new Response<>(null, SUCCESS_DELETE_USER));
     }
 
     @Override

@@ -73,3 +73,19 @@ include::{snippets}/users/signin/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/users/signin/successful/http-response.adoc[]
+
+=== 2-3. 회원탈퇴
+
+==== 회원탈퇴
+
+include::{snippets}/users/deactivate/successful/response-fields.adoc[]
+
+==== 회원탈퇴 성공
+
+Request Example
+
+include::{snippets}/users/deactivate/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/deactivate/successful/http-response.adoc[]
