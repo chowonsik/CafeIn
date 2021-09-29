@@ -1,12 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import sqlalchemy
 import mysql.connector
+import pandas as pd
+import os
 
 db = {
-    'user': 'root',	        # 1)
-    'password': 'root',		# 2)
-    'host': 'localhost',    # 3)
+    'user': 'admin',	        # 1)
+    'password': 'ssafy204',		# 2)
+    'host': 'cafein.cckcnhsswc6w.ap-northeast-2.rds.amazonaws.com',    # 3)
     'port': 3306,			# 4)
     'database': 'cafein'		# 5)
 }
@@ -43,3 +46,58 @@ def init_db():  # 테이블을 생성해주는 함수
 
 def clear_db():  # 모든 테이블을 삭제하는 함수
     Base.metadata.drop_all()
+
+def insult_cafe(): #카페데이터 db에 저장    
+    #DATA 경로
+    DATA_DIR = "../datas"
+    #카페, 리뷰 피클
+    CAFE_FILE = os.path.join(DATA_DIR, "cafe.pkl")
+    REVIEW_FILE = os.path.join(DATA_DIR, "review.pkl")
+    df = pd.read_pickle(CAFE_FILE)
+    dfrv = pd.read_pickle(REVIEW_FILE)
+    #  len(df)
+    for i in range(0,len(df)):
+        try:
+            engine.execute("INSERT INTO cafe VALUE({},\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",\"{}\")".format(df.loc[i,'id'],df.loc[i,'address'],df.loc[i,'area'],df.loc[i,'branch'],df.loc[i,'latitude'],df.loc[i,'longitude'],df.loc[i,'store_name'],df.loc[i,'tel']))
+        except:
+            continue
+        
+def insult_review(): #리뷰데이터 db에 저장    
+    #DATA 경로
+    DATA_DIR = "../datas"
+    #카페, 리뷰 피클
+    REVIEW_FILE = os.path.join(DATA_DIR, "review.pkl")
+    df = pd.read_pickle(REVIEW_FILE)
+    #  len(df)
+    for i in range(0,len(df)):
+        engine.execute("INSERT INTO review(content,created_at,total_score,cafe_id,user_id) VALUES(\"{}\",\"{}\",{},{},1)".format(df.loc[i,'content'].replace('\"',''),df.loc[i,'reg_time'],df.loc[i,'score'],df.loc[i,'store_id']))
+
+def insult_review2(): #리뷰데이터 db에 저장    
+    #DATA 경로
+    DATA_DIR = "../datas"
+    #카페, 리뷰 피클
+    REVIEW_FILE = os.path.join(DATA_DIR, "review.pkl")
+    df = pd.read_pickle(REVIEW_FILE)
+    values_list = []
+    metadata = sqlalchemy.MetaData()
+    table = sqlalchemy.Table('review', metadata, autoload=True, autoload_with=engine)
+    query = sqlalchemy.insert(table)
+    #  len(df)
+    for i in df.index:
+        values_list.append({'content':df.loc[i,'content'].replace('\"',''), 'created_at':df.loc[i,'reg_time'], 'total_score':df.loc[i,'score'], 'cafe_id':df.loc[i,'store_id'], 'user_id':1})
+        if(i>1 and i%100000 ==0):
+            metadata = sqlalchemy.MetaData()
+            table = sqlalchemy.Table('review', metadata, autoload=True, autoload_with=engine)
+            query = sqlalchemy.insert(table)
+            engine.execute(query,values_list)
+            values_list = []         
+
+    engine.execute(query,values_list)
+
+        
+# insult_cafe()
+insult_review()
+
+
+#%%
+
