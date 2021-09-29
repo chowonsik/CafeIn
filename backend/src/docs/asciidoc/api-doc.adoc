@@ -55,3 +55,121 @@ include::{snippets}/users/signup/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/users/signup/successful/http-response.adoc[]
+
+=== 2-2. 로그인
+
+==== 로그인
+
+include::{snippets}/users/signin/successful/request-fields.adoc[]
+
+include::{snippets}/users/signin/successful/response-fields.adoc[]
+
+==== 로그인 성공
+
+Request Example
+
+include::{snippets}/users/signin/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/signin/successful/http-response.adoc[]
+
+=== 2-3. 회원탈퇴
+
+==== 회원탈퇴
+
+Request Header
+
+include::{snippets}/users/deactivate/successful/request-headers.adoc[]
+
+include::{snippets}/users/deactivate/successful/response-fields.adoc[]
+
+==== 회원탈퇴 성공
+
+Request Example
+
+include::{snippets}/users/deactivate/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/deactivate/successful/http-response.adoc[]
+
+=== 2-4. JWT 토큰 검증
+
+==== JWT 토큰 검증
+
+Request Header
+
+include::{snippets}/users/jwt/successful/request-headers.adoc[]
+
+include::{snippets}/users/jwt/successful/response-fields.adoc[]
+
+==== JWT 토큰 검증 성공
+
+Request Example
+
+include::{snippets}/users/jwt/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/jwt/successful/http-response.adoc[]
+
+=== 2-5. 이메일 인증
+
+==== 이메일 인증
+
+include::{snippets}/users/email/successful/request-fields.adoc[]
+
+include::{snippets}/users/email/successful/response-fields.adoc[]
+
+==== 이메일 인증 성공
+
+Request Example
+
+include::{snippets}/users/email/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/email/successful/http-response.adoc[]
+
+=== 2-6. 프로필 조회
+
+==== 프로필 조회
+
+Request Header
+
+include::{snippets}/users/me/successful/request-headers.adoc[]
+
+include::{snippets}/users/me/successful/response-fields.adoc[]
+
+==== 프로필 조회 성공
+
+Request Example
+
+include::{snippets}/users/me/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/me/successful/http-response.adoc[]
+
+=== 2-7. 프로필 수정
+
+==== 프로필 수정
+
+Request Header
+
+include::{snippets}/users/update/successful/request-headers.adoc[]
+
+include::{snippets}/users/update/successful/request-fields.adoc[]
+
+include::{snippets}/users/update/successful/response-fields.adoc[]
+
+==== 프로필 수정 성공
+
+Request Example
+
+include::{snippets}/users/update/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/update/successful/http-response.adoc[]
