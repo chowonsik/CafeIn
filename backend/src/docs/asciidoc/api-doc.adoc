@@ -78,6 +78,10 @@ include::{snippets}/users/signin/successful/http-response.adoc[]
 
 ==== 회원탈퇴
 
+Request Header
+
+include::{snippets}/users/deactivate/successful/request-headers.adoc[]
+
 include::{snippets}/users/deactivate/successful/response-fields.adoc[]
 
 ==== 회원탈퇴 성공
@@ -93,6 +97,10 @@ include::{snippets}/users/deactivate/successful/http-response.adoc[]
 === 2-4. JWT 토큰 검증
 
 ==== JWT 토큰 검증
+
+Request Header
+
+include::{snippets}/users/jwt/successful/request-headers.adoc[]
 
 include::{snippets}/users/jwt/successful/response-fields.adoc[]
 
@@ -123,3 +131,23 @@ include::{snippets}/users/email/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/users/email/successful/http-response.adoc[]
+
+=== 2-6. 프로필 조회
+
+==== 프로필 조회
+
+Request Header
+
+include::{snippets}/users/me/successful/request-headers.adoc[]
+
+include::{snippets}/users/me/successful/response-fields.adoc[]
+
+==== 프로필 조회 성공
+
+Request Example
+
+include::{snippets}/users/me/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/me/successful/http-response.adoc[]

@@ -4,6 +4,7 @@ import com.cafein.configuration.AES128;
 import com.cafein.configuration.ValidationCheck;
 import com.cafein.dto.user.email.EmailInput;
 import com.cafein.dto.user.email.EmailOutput;
+import com.cafein.dto.user.selectprofile.SelectProfileOutput;
 import com.cafein.dto.user.signin.SignInInput;
 import com.cafein.dto.user.signin.SocialLoginType;
 import com.cafein.dto.user.signup.SignUpInput;
@@ -222,5 +223,22 @@ public class UserServiceImpl implements UserService {
         // 4. 결과 return
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new Response<>(emailOutput, SUCCESS_SEND_MAIL));
+    }
+
+    @Override
+    public ResponseEntity<Response<SelectProfileOutput>> selectProfile() {
+        SelectProfileOutput selectProfileOutput;
+        try {
+            // 유저 id 가져오기
+            int userId = jwtService.getUserId();
+            selectProfileOutput = userRepository.findUserProfile(userId);
+        } catch (Exception e) {
+            log.error("[users/me/get] database error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(selectProfileOutput, SUCCESS_SELECT_PROFILE));
     }
 }

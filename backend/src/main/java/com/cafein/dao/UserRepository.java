@@ -1,5 +1,6 @@
 package com.cafein.dao;
 
+import com.cafein.dto.user.selectprofile.SelectProfileOutput;
 import com.cafein.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,5 +19,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsByEmailAndStatus(String email, String status);
 
     boolean existsByNicknameAndStatus(String nickname, String status);
+
+    @Query("select new com.cafein.dto.user.selectprofile.SelectProfileOutput(u.id, u.nickname)"
+            + " from User u where u.id = ?1")
+    SelectProfileOutput findUserProfile(int userId);
 
 }

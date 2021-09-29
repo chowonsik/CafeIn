@@ -28,7 +28,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static com.cafein.ApiDocumentUtils.getDocumentRequest;
 import static com.cafein.ApiDocumentUtils.getDocumentResponse;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -194,6 +197,7 @@ public class UserControllerTest {
                                 "users/deactivate/successful",
                                 getDocumentRequest(),
                                 getDocumentResponse(),
+                                requestHeaders(headerWithName("X-ACCESS-TOKEN").description("JWT Token")),
                                 responseFields(
                                         fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
                                                 .description("요청 성공 여부"),
@@ -229,6 +233,7 @@ public class UserControllerTest {
                                 "users/jwt/successful",
                                 getDocumentRequest(),
                                 getDocumentResponse(),
+                                requestHeaders(headerWithName("X-ACCESS-TOKEN").description("JWT Token")),
                                 responseFields(
                                         fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
                                                 .description("요청 성공 여부"),
@@ -285,6 +290,45 @@ public class UserControllerTest {
                                                 .description("응답 메시지"),
                                         fieldWithPath("result.auth").type(JsonFieldType.STRING)
                                                 .description("인증 번호"),
+                                        fieldWithPath("timestamp").type(JsonFieldType.STRING)
+                                                .description("api 호출 일시")
+                                )
+                        ));
+    }
+
+    @DisplayName("프로필 조회 - JWT 토큰을 통해 프로필 조회 성공")
+    @Test
+    public void 유저_프로필_조회() throws Exception {
+        //given
+        String JWT = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQ5LCJpYXQiOjE2MzI4MDgyMDF9.ImwkfxLW84OCWp2hBqYiJzGnZqUO6Ni-GskrZZyoTgM";
+        //when
+        ResultActions result = mockMvc.perform(get("/api/users/me")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("X-ACCESS-TOKEN", JWT)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        //then
+        result.andExpect(status().isOk())
+                .andDo(
+                        document(
+                                "users/me/successful",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                requestHeaders(headerWithName("X-ACCESS-TOKEN").description("JWT Token")),
+                                responseFields(
+                                        fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
+                                                .description("요청 성공 여부"),
+                                        fieldWithPath("status").type(JsonFieldType.NUMBER)
+                                                .description("응답 상태"),
+                                        fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                                .description("응답 코드"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING)
+                                                .description("응답 메시지"),
+                                        fieldWithPath("result.userId").type(JsonFieldType.NUMBER)
+                                                .description("유저 번호"),
+                                        fieldWithPath("result.nickname").type(JsonFieldType.STRING)
+                                                .description("유저 닉네임"),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)
                                                 .description("api 호출 일시")
                                 )

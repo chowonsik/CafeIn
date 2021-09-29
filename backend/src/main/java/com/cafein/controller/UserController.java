@@ -3,6 +3,7 @@ package com.cafein.controller;
 import com.cafein.dto.user.email.EmailInput;
 import com.cafein.dto.user.email.EmailOutput;
 import com.cafein.dto.user.jwt.JwtOutput;
+import com.cafein.dto.user.selectprofile.SelectProfileOutput;
 import com.cafein.dto.user.signin.SignInInput;
 import com.cafein.dto.user.signin.SignInOutput;
 import com.cafein.dto.user.signup.SignUpOutput;
@@ -92,5 +93,17 @@ public class UserController {
     public ResponseEntity<Response<EmailOutput>> mailSend(@RequestBody EmailInput emailInput) {
         log.info("[POST] /users/email");
         return userService.sendMail(emailInput);
+    }
+
+    /**
+     * 프로필 조회 API [GET] /api/users/email
+     *
+     * @return ResponseEntity<Response<EmailOutput>>
+     */
+    // Body
+    @GetMapping("/me")
+    public ResponseEntity<Response<SelectProfileOutput>> selectProfile() {
+        log.info("[GET] /users/me");
+        return userService.selectProfile();
     }
 }
