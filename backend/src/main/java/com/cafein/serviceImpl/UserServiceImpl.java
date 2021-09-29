@@ -184,21 +184,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Response<EmailOutput> sendMail(EmailInput emailInput) {
+    public ResponseEntity<Response<EmailOutput>> sendMail(EmailInput emailInput) {
         // 1. 값 형식 체크
         if (emailInput == null)
-            return new Response<>(NO_VALUES);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(NO_VALUES));
         if (!ValidationCheck.isValid(emailInput.getEmail()))
-            return new Response<>(BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(BAD_REQUEST));
         // 2. 중복 메일인지 체크
         try {
             if (userRepository.existsByEmailAndStatus(emailInput.getEmail(), "ACTIVATE")) {
                 log.error("[users/email/post] DUPLICATE EMAIL error");
-                return new Response<>(EXISTS_EMAIL);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(EXISTS_EMAIL));
             }
         } catch (Exception e) {
             log.error("[users/email/post] database error", e);
-            return new Response<>(DATABASE_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
         }
         // 3. 인증 메일 전송
         EmailOutput emailOutput;
@@ -212,9 +216,11 @@ public class UserServiceImpl implements UserService {
             mailSender.send(message);
         } catch (Exception e) {
             log.error("[users/email/post] send email error", e);
-            return new Response<>(FAILED_TO_SEND_EMAIL);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(FAILED_TO_SEND_EMAIL));
         }
         // 4. 결과 return
-        return new Response<>(emailOutput, SUCCESS_SEND_MAIL);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(emailOutput, SUCCESS_SEND_MAIL));
     }
 }

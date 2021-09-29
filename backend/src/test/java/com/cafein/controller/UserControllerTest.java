@@ -1,5 +1,6 @@
 package com.cafein.controller;
 
+import com.cafein.dto.user.email.EmailInput;
 import com.cafein.dto.user.signin.SignInInput;
 import com.cafein.dto.user.signup.SignUpInput;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -239,6 +240,51 @@ public class UserControllerTest {
                                                 .description("응답 메시지"),
                                         fieldWithPath("result.userId").type(JsonFieldType.NUMBER)
                                                 .description("유저 번호"),
+                                        fieldWithPath("timestamp").type(JsonFieldType.STRING)
+                                                .description("api 호출 일시")
+                                )
+                        ));
+    }
+
+    @DisplayName("인증번호 전송 - 모든 유효성 검사에 통과했다면 이메일로 인증번호 전송 성공")
+    @Test
+    public void 유저_이메일인증() throws Exception {
+        //given
+        EmailInput emailInput = EmailInput
+                .builder()
+                .email("test2@naver.com")
+                .build();
+        //when
+
+        ResultActions result = mockMvc.perform(post("/api/users/email")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(emailInput)).accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        //then
+        result.andExpect(status().isOk())
+                .andDo(
+                        document(
+                                "users/email/successful",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                requestFields(
+                                        fieldWithPath("email").type(JsonFieldType.STRING)
+                                                .description("사용자 이메일 주소")
+                                                .attributes(key("constraint")
+                                                        .value("최소 3글자, 최대 50글자 이내로 입력해주세요. @*.com의 양식을 갖추어야 합니다."))
+                                ),
+                                responseFields(
+                                        fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
+                                                .description("요청 성공 여부"),
+                                        fieldWithPath("status").type(JsonFieldType.NUMBER)
+                                                .description("응답 상태"),
+                                        fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                                .description("응답 코드"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING)
+                                                .description("응답 메시지"),
+                                        fieldWithPath("result.auth").type(JsonFieldType.STRING)
+                                                .description("인증 번호"),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)
                                                 .description("api 호출 일시")
                                 )

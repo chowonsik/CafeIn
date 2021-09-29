@@ -12,6 +12,6 @@ import org.springframework.http.ResponseEntity;
 public interface UserService {
     ResponseEntity<Response<SignInOutput>> signIn(SignInInput signInInput);
     ResponseEntity<Response<SignUpOutput>> signUp(SignUpInput signUpInput);
-    Response<EmailOutput> sendMail(EmailInput emailInput);
+    ResponseEntity<Response<EmailOutput>> sendMail(EmailInput emailInput);
     ResponseEntity<Response<Object>> changeDeleteStatus();
 }

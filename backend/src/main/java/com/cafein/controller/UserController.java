@@ -83,13 +83,13 @@ public class UserController {
     }
 
     /**
-     * 이메일 인증 API [POST] /users/email
+     * 이메일 인증 API [POST] /api/users/email
      * 
-     * @return Response<EmailOutput>
+     * @return ResponseEntity<Response<EmailOutput>>
      */
     // Body
     @PostMapping("/email")
-    public Response<EmailOutput> mailSend(@RequestBody EmailInput emailInput) {
+    public ResponseEntity<Response<EmailOutput>> mailSend(@RequestBody EmailInput emailInput) {
         log.info("[POST] /users/email");
         return userService.sendMail(emailInput);
     }

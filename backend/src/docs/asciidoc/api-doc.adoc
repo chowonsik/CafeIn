@@ -105,3 +105,21 @@ include::{snippets}/users/jwt/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/users/jwt/successful/http-response.adoc[]
+
+=== 2-5. 이메일 인증
+
+==== 이메일 인증
+
+include::{snippets}/users/email/successful/request-fields.adoc[]
+
+include::{snippets}/users/email/successful/response-fields.adoc[]
+
+==== 이메일 인증 성공
+
+Request Example
+
+include::{snippets}/users/email/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/email/successful/http-response.adoc[]
