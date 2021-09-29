@@ -21,10 +21,10 @@ const routes = [
     ],
   },
   {
-    path: "/service",
+    path: "/",
     component: () => import("layouts/SubLayout.vue"),
     children: [
-      // { path: }
+      { path: "profile", component: () => import("pages/user/ProfilePage.vue") }
     ],
   },
   {
