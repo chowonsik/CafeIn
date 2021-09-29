@@ -26,26 +26,36 @@
       <q-icon size="sm" color="black" name="arrow_forward_ios" />
     </q-toolbar>
     <q-separator class="q-my-sm" color="grey-4" size="5px" />
-    <q-toolbar>
+    <q-toolbar @click="icon = true">
       <q-toolbar-title class="text-black text-weight-bold no-padding">가입 약관</q-toolbar-title>
       <q-icon size="sm" color="black" name="arrow_forward_ios" />
     </q-toolbar>
+    <q-dialog v-model="icon">
+      <TermCard />
+    </q-dialog>
     <q-separator class="q-my-sm" color="grey-4" size="5px" />
     <q-toolbar @click="goUserDelete()">
       <q-toolbar-title class="text-black text-weight-bold no-padding">회원 탈퇴</q-toolbar-title>
       <q-icon size="sm" color="black" name="arrow_forward_ios" />
     </q-toolbar>
     <q-separator class="q-my-sm" color="grey-4" size="5px" />
-    
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+import TermCard from '../../components/user/TermCard.vue'
 import RecentlyCafeItem from '../../components/cafe/RecentlyCafeItem.vue'
 export default {
   name: 'ProfilePage',
   components: {
     RecentlyCafeItem,
+    TermCard,
+  },
+  setup() {
+    return {
+      icon: ref(false),
+    }
   },
   data () {
     return {

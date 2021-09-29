@@ -2,45 +2,27 @@
   <div class="q-pa-md">
     <q-card class="my-card" flat >
       <q-card-section horizontal style="overflow: auto">
-      <q-item v-for="cafe in cafeList" :key="cafe.cafeName">
-        <q-card>
-        <q-item-section>
-          <q-img
-            :src="cafe.img"
-            :ratio="1"
-            style="height: 150px; width: 150px"
-          />
-        </q-item-section>
-        <q-item-section>
-          <div class="text-h6 text-weight-bold">{{ cafe.cafeName }}</div>
-          <div class="text-subtitle2">{{cafe.address}}</div>
-        </q-item-section>
-        <q-card-section class="q-pt-none">
-          불라불라
-        </q-card-section>
-        </q-card>
-      </q-item>
+        <q-item v-for="cafe in cafeList" :key="cafe.cafeName">
+          <q-card style="max-width:180px">
+          <q-item-section>
+            <q-img
+              :src="cafe.img"
+              :ratio="1"
+              spinner-color="primary"
+              position
+              style="height: 180px; width: 180px"
+            />
+          </q-item-section>
+          <q-item-section>
+            <div class="text-subtitle1 q-my-md text-weight-bold text-center">{{ cafe.cafeName }}</div>
+          </q-item-section>
+          <q-item-section>
+            <div class="text-subtitle2 q-mb-md">{{ cafe.address }}</div>
+          </q-item-section>
+          </q-card>
+        </q-item>
       </q-card-section>
     </q-card>
-  </div>
-
-  <div>
-      <div class="row"> 
-        <div v-for="cafe in cafeList" :key="cafe.cafeName">
-          <q-card class="my-card">
-            <img :src="cafe.img" style="height: 200px;">
-
-            <q-card-section>
-              <div class="text-h6 text-weight-bold">{{ cafe.cafeName }}</div>
-              <div class="text-subtitle2">{{cafe.address}}</div>
-            </q-card-section>
-
-            <q-card-section class="q-pt-none">
-              불라불라
-            </q-card-section>
-          </q-card>
-        </div>
-      </div>
   </div>
 </template>
 
