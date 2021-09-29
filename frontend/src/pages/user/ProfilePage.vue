@@ -7,10 +7,13 @@
       </q-toolbar>
     </q-header>
     <q-card flat bordered class="q-pa-md q-my-sm bg-primary text-white">
-      <q-card-section>
+      <q-card-section class="row justify-between">
         <div class="row items-center">
           <q-avatar color="white" text-color="black" icon="coffee" />
           <div class="text-h5 text-weight-bold q-px-md col">{{ nickname }}</div>
+        </div>
+        <div class="row items-center">
+          <EditUserDialog />
         </div>
       </q-card-section>
     </q-card>
@@ -46,15 +49,18 @@
 import { ref } from 'vue'
 import TermCard from '../../components/user/TermCard.vue'
 import RecentlyCafeItem from '../../components/cafe/RecentlyCafeItem.vue'
+import EditUserDialog from '../../components/user/EditUserDialog.vue'
 export default {
   name: 'ProfilePage',
   components: {
     RecentlyCafeItem,
     TermCard,
+    EditUserDialog,
   },
   setup() {
     return {
       icon: ref(false),
+      edit: ref(false),
     }
   },
   data () {
