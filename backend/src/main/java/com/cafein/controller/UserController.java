@@ -8,6 +8,7 @@ import com.cafein.dto.user.signin.SignInInput;
 import com.cafein.dto.user.signin.SignInOutput;
 import com.cafein.dto.user.signup.SignUpOutput;
 import com.cafein.dto.user.signup.SignUpInput;
+import com.cafein.dto.user.updateprofile.UpdateProfileInput;
 import com.cafein.response.PageResponse;
 import com.cafein.response.Response;
 import com.cafein.service.JwtService;
@@ -105,5 +106,17 @@ public class UserController {
     public ResponseEntity<Response<SelectProfileOutput>> selectProfile() {
         log.info("[GET] /users/me");
         return userService.selectProfile();
+    }
+
+    /**
+     * 프로필 조회 API [GET] /api/users/email
+     *
+     * @return ResponseEntity<Response<EmailOutput>>
+     */
+    // Body
+    @PatchMapping
+    public ResponseEntity<Response<Object>> updateProfile(@RequestBody UpdateProfileInput updateProfileInput) {
+        log.info("[GET] /users/me");
+        return userService.updateProfile(updateProfileInput);
     }
 }

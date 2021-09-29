@@ -3,6 +3,7 @@ package com.cafein.controller;
 import com.cafein.dto.user.email.EmailInput;
 import com.cafein.dto.user.signin.SignInInput;
 import com.cafein.dto.user.signup.SignUpInput;
+import com.cafein.dto.user.updateprofile.UpdateProfileInput;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -83,7 +84,6 @@ public class UserControllerTest {
 
         //then
         result.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.code", is(201)))
                 .andDo(
                         document(
                                 "users/signup/successful",
@@ -140,7 +140,6 @@ public class UserControllerTest {
 
         //then
         result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(201)))
                 .andDo(
                         document(
                                 "users/signin/successful",
@@ -190,7 +189,7 @@ public class UserControllerTest {
                 .andDo(print());
 
         //then
-        result.andExpect(status().isNoContent())
+        result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.code", is(444)))
                 .andDo(
                         document(
@@ -329,6 +328,59 @@ public class UserControllerTest {
                                                 .description("유저 번호"),
                                         fieldWithPath("result.nickname").type(JsonFieldType.STRING)
                                                 .description("유저 닉네임"),
+                                        fieldWithPath("timestamp").type(JsonFieldType.STRING)
+                                                .description("api 호출 일시")
+                                )
+                        ));
+    }
+
+    @DisplayName("프로필 수정 - 모든 유효성 검사에 통과했다면 프로필 수정 성공")
+    @Test
+    public void 유저_프로필_수정() throws Exception {
+        //given
+        String JWT = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQ5LCJpYXQiOjE2MzI4MDgyMDF9.ImwkfxLW84OCWp2hBqYiJzGnZqUO6Ni-GskrZZyoTgM";
+        UpdateProfileInput updateProfileInput = UpdateProfileInput
+                .builder()
+                .password("test12345")
+                .nickname("test3")
+                .build();
+        //when
+        ResultActions result = mockMvc.perform(patch("/api/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("X-ACCESS-TOKEN", JWT)
+                        .content(objectMapper.writeValueAsString(updateProfileInput))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        //then
+        result.andExpect(status().isOk())
+                .andDo(
+                        document(
+                                "users/update/successful",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                requestHeaders(headerWithName("X-ACCESS-TOKEN").description("JWT Token")),
+                                requestFields(
+                                        fieldWithPath("password").type(JsonFieldType.STRING)
+                                                .description("사용자 비밀번호")
+                                                .optional()
+                                                .attributes(key("constraint")
+                                                        .value("최소 3글자, 최대 20글자 이내로 입력해주세요.")),
+                                        fieldWithPath("nickname").type(JsonFieldType.STRING)
+                                                .description("사용자 닉네임")
+                                                .optional()
+                                                .attributes(key("constraint")
+                                                        .value("최소 2글자, 최대 10글자 이내로 입력해주세요."))
+                                ),
+                                responseFields(
+                                        fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
+                                                .description("요청 성공 여부"),
+                                        fieldWithPath("status").type(JsonFieldType.NUMBER)
+                                                .description("응답 상태"),
+                                        fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                                .description("응답 코드"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING)
+                                                .description("응답 메시지"),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)
                                                 .description("api 호출 일시")
                                 )

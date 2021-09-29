@@ -151,3 +151,25 @@ include::{snippets}/users/me/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/users/me/successful/http-response.adoc[]
+
+=== 2-7. 프로필 수정
+
+==== 프로필 수정
+
+Request Header
+
+include::{snippets}/users/update/successful/request-headers.adoc[]
+
+include::{snippets}/users/update/successful/request-fields.adoc[]
+
+include::{snippets}/users/update/successful/response-fields.adoc[]
+
+==== 프로필 수정 성공
+
+Request Example
+
+include::{snippets}/users/update/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/update/successful/http-response.adoc[]

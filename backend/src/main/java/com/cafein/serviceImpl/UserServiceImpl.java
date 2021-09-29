@@ -8,6 +8,7 @@ import com.cafein.dto.user.selectprofile.SelectProfileOutput;
 import com.cafein.dto.user.signin.SignInInput;
 import com.cafein.dto.user.signin.SocialLoginType;
 import com.cafein.dto.user.signup.SignUpInput;
+import com.cafein.dto.user.updateprofile.UpdateProfileInput;
 import com.cafein.entity.User;
 import com.cafein.response.Response;
 import com.cafein.service.JwtService;
@@ -21,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -180,7 +182,7 @@ public class UserServiceImpl implements UserService {
                     .body(new Response<>(DATABASE_ERROR));
         }
         // 3. 결과 return
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(new Response<>(null, SUCCESS_DELETE_USER));
     }
 
@@ -240,5 +242,35 @@ public class UserServiceImpl implements UserService {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new Response<>(selectProfileOutput, SUCCESS_SELECT_PROFILE));
+    }
+
+    @Override
+    public ResponseEntity<Response<Object>> updateProfile(UpdateProfileInput updateProfileInput) {
+        try {
+            // 유저 id 가져오기
+            int userId = jwtService.getUserId();
+            User selectUser = userRepository.findByIdAndStatus(userId, "ACTIVATE");
+
+            // 입력 값 벨리데이션
+            if (StringUtils.isNotBlank(updateProfileInput.getPassword()))
+                selectUser.setPassword(new AES128(USER_INFO_PASSWORD_KEY).encrypt(updateProfileInput.getPassword()));
+            if (StringUtils.isNotBlank(updateProfileInput.getNickname())) {
+                boolean existNickname = userRepository.existsByNicknameAndStatus(updateProfileInput.getNickname(), "ACTIVATE");
+                if (existNickname) { // 닉네임 중복 제어
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .body(new Response<>(EXISTS_NICKNAME));
+                }
+                selectUser.setNickname(updateProfileInput.getNickname());
+            }
+
+            userRepository.save(selectUser);
+        } catch (Exception e) {
+            log.error("[users/patch] database error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(null, SUCCESS_UPDATE_PROFILE));
     }
 }
