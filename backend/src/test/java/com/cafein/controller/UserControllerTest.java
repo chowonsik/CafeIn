@@ -208,4 +208,41 @@ public class UserControllerTest {
                         ));
     }
 
+    @DisplayName("JWT 토큰 검증 - 모든 유효성 검사에 통과했다면 JWT 토큰 검증 성공")
+    @Test
+    public void 유저_jwt_토큰_검증() throws Exception {
+        //given
+        String JWT = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQ5LCJpYXQiOjE2MzI4MDgyMDF9.ImwkfxLW84OCWp2hBqYiJzGnZqUO6Ni-GskrZZyoTgM";
+        //when
+        ResultActions result = mockMvc.perform(post("/api/users/jwt")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("X-ACCESS-TOKEN", JWT)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        //then
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(201)))
+                .andDo(
+                        document(
+                                "users/jwt/successful",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                responseFields(
+                                        fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
+                                                .description("요청 성공 여부"),
+                                        fieldWithPath("status").type(JsonFieldType.NUMBER)
+                                                .description("응답 상태"),
+                                        fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                                .description("응답 코드"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING)
+                                                .description("응답 메시지"),
+                                        fieldWithPath("result.userId").type(JsonFieldType.NUMBER)
+                                                .description("유저 번호"),
+                                        fieldWithPath("timestamp").type(JsonFieldType.STRING)
+                                                .description("api 호출 일시")
+                                )
+                        ));
+    }
+
 }

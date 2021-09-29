@@ -89,3 +89,19 @@ include::{snippets}/users/deactivate/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/users/deactivate/successful/http-response.adoc[]
+
+=== 2-4. JWT 토큰 검증
+
+==== JWT 토큰 검증
+
+include::{snippets}/users/jwt/successful/response-fields.adoc[]
+
+==== JWT 토큰 검증 성공
+
+Request Example
+
+include::{snippets}/users/jwt/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/jwt/successful/http-response.adoc[]

@@ -31,7 +31,7 @@ public class UserController {
     /**
      * 회원가입 API [POST] /api/users/signup
      * 
-     * @return Response<SignUpOutput>
+     * @return ResponseEntity<Response<SignUpOutput>>
      */
     // Body
     @PostMapping("/signup")
@@ -43,7 +43,7 @@ public class UserController {
     /**
      * 로그인 API [POST] /api/users/signin
      * 
-     * @return Response<SignInOutput>
+     * @return ResponseEntity<<Response<SignInOutput>>
      */
     // Body
     @PostMapping("/signin")
@@ -55,7 +55,7 @@ public class UserController {
     /**
      * 회원탈퇴 API
      * [PATCH] api/users/deactivate
-     * @return Response<Object>
+     * @return ResponseEntity<<Response<Object>>
      */
     // Body
     @PatchMapping("/deactivate")
@@ -65,17 +65,21 @@ public class UserController {
     }
 
     @PostMapping("/jwt")
-    public Response<JwtOutput> jwt() {
-        System.out.println("[POST] /user/jwt");
+    public ResponseEntity<Response<JwtOutput>> jwt() {
+        System.out.println("[POST] /api/users/jwt");
         int userId = jwtService.getUserId();
         if (userId == -1)
-            return new Response<>(UNAUTHORIZED_TOKEN);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new Response<>(UNAUTHORIZED_TOKEN));
         if (userId == -2)
-            return new Response<>(BAD_ACCESS_TOKEN_VALUE);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(BAD_ACCESS_TOKEN_VALUE));
         if (userId == -3)
-            return new Response<>(FORBIDDEN_USER_ID);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(new Response<>(FORBIDDEN_USER_ID));
         JwtOutput jwtOutput = new JwtOutput(userId);
-        return new Response<>(jwtOutput, SUCCESS_SIGN_IN);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(jwtOutput, SUCCESS_SIGN_IN));
     }
 
     /**
