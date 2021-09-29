@@ -14,10 +14,10 @@ const routes = [
     ]
   },
   {
-    path: "/cafes",
+    path: "/",
     component: () => import("layouts/EmptyLayout.vue"),
     children: [
-      // { path: }
+      { path: "myreview", component: () => import('pages/MyReviewPage') }
     ],
   },
   {

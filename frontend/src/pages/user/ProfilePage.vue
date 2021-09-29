@@ -24,7 +24,7 @@
     </q-toolbar>
     <RecentlyCafeItem />
     <q-separator class="q-my-sm" color="grey-4" size="5px" />
-    <q-toolbar>
+    <q-toolbar @click="goMyReview()">
       <q-toolbar-title class="text-black text-weight-bold no-padding">내 리뷰</q-toolbar-title>
       <q-icon size="sm" color="black" name="arrow_forward_ios" />
     </q-toolbar>
@@ -74,7 +74,10 @@ export default {
     },
     goUserDelete() {
       this.$router.push({path:'/users/delete'}).catch(()=>{})
-    }
+    },
+    goMyReview() {
+      this.$router.push({path:'/myreview'}).catch(()=>{})
+    },
   }
 }
 </script>
