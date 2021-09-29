@@ -1,6 +1,30 @@
 <template>
+  <div class="q-pa-md">
+    <q-card class="my-card" flat >
+      <q-card-section horizontal style="overflow: auto">
+      <q-item v-for="cafe in cafeList" :key="cafe.cafeName">
+        <q-card>
+        <q-item-section>
+          <q-img
+            :src="cafe.img"
+            :ratio="1"
+            style="height: 150px; width: 150px"
+          />
+        </q-item-section>
+        <q-item-section>
+          <div class="text-h6 text-weight-bold">{{ cafe.cafeName }}</div>
+          <div class="text-subtitle2">{{cafe.address}}</div>
+        </q-item-section>
+        <q-card-section class="q-pt-none">
+          불라불라
+        </q-card-section>
+        </q-card>
+      </q-item>
+      </q-card-section>
+    </q-card>
+  </div>
+
   <div>
-    <q-scroll-area style="height: 350px; max-width: 100%;">
       <div class="row"> 
         <div v-for="cafe in cafeList" :key="cafe.cafeName">
           <q-card class="my-card">
@@ -17,7 +41,6 @@
           </q-card>
         </div>
       </div>
-    </q-scroll-area>
   </div>
 </template>
 
@@ -97,7 +120,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 200px
+
 </style>
