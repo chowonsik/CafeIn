@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import static com.cafein.response.ResponseStatus.*;
@@ -25,35 +27,41 @@ public class CafeServiceImpl implements CafeService {
     private final CafeRepository cafeRepository;
 
     @Override
-    public Response<SelectCafeDetailOutput> selectCafe(int id) {
+    public ResponseEntity<Response<SelectCafeDetailOutput>> selectCafe(int id) {
         // 값 형식 체크
         if(!ValidationCheck.isValidId(id))
-            return new Response<>(NO_VALUES);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(NO_VALUES));
 
         SelectCafeDetailOutput selectCafeDetailOutput = cafeRepository.findById(id);
-        if(selectCafeDetailOutput==null) return new Response<>(BAD_ID_VALUE);
+        if(selectCafeDetailOutput==null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(BAD_ID_VALUE));
 
         // 결과 return
-        return new Response<>(selectCafeDetailOutput, SUCCESS_SELECT_CAFE);
-
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(selectCafeDetailOutput, SUCCESS_SELECT_CAFE));
     }
 
     @Override
-    public PageResponse<CafeSearchOutput> selectCafeListByWord(CafeSearchInput cafeSearchInput, Pageable pageable) {
+    public ResponseEntity<PageResponse<CafeSearchOutput>> selectCafeListByWord(CafeSearchInput cafeSearchInput, Pageable pageable) {
 
         // 값 형식 체크
         if(cafeSearchInput == null)
-            return new PageResponse<>(NO_VALUES);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new PageResponse<>(NO_VALUES));
 
         Page<CafeSearchOutput> cafeSearchOutput;
         try {
             cafeSearchOutput = cafeRepository.findByWord(cafeSearchInput, pageable);
         } catch (Exception e) {
             log.error("[GET]/cafe database error", e);
-            return new PageResponse<>(DATABASE_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new PageResponse<>(DATABASE_ERROR));
         }
         // 결과 return
-        return new PageResponse<>(cafeSearchOutput, SUCCESS_SELECT_CAFE);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new PageResponse<>(cafeSearchOutput, SUCCESS_SELECT_CAFE));
     }
 
 
