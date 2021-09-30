@@ -26,8 +26,7 @@
 					/>
         </q-card-section>
 				<q-card-section class="no-padding col-2">
-					<!-- <q-btn flat round icon="more_vert"></q-btn> -->
-					<EditReviewDialog />
+					<ReviewListDialog />
 				</q-card-section>
 					
 	
@@ -49,11 +48,11 @@
 </template>
 
 <script>
-import EditReviewDialog from '../../components/cafe/EditReviewDialog.vue'
+import ReviewListDialog from './ReviewListDialog.vue'
 export default {
 	name: 'ReviewItem',
 	components: {
-		EditReviewDialog,
+		ReviewListDialog,
 	},
 	data() {
 		return {
