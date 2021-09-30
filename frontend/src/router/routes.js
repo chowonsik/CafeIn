@@ -17,15 +17,21 @@ const routes = [
     path: "/",
     component: () => import("layouts/EmptyLayout.vue"),
     children: [
-      { path: "myreview", component: () => import('pages/MyReviewPage') }
+      { path: "myreview", component: () => import("pages/MyReviewPage") },
     ],
   },
   {
     path: "/",
     component: () => import("layouts/SubLayout.vue"),
     children: [
-      { path: "profile", component: () => import("pages/user/ProfilePage.vue") },
-      { path: "profile/edit", component: () => import("pages/user/EditUserPage.vue") }
+      {
+        path: "profile",
+        component: () => import("pages/user/ProfilePage.vue"),
+      },
+      {
+        path: "profile/edit",
+        component: () => import("pages/user/EditUserPage.vue"),
+      },
     ],
   },
   {
@@ -42,6 +48,11 @@ const routes = [
     path: "/cafedetail",
     component: () => import("layouts/EmptyLayout.vue"),
     children: [{ path: "", component: () => import("pages/CafeDetail.vue") }],
+  },
+  {
+    path: "/cafereview",
+    component: () => import("layouts/SubLayout.vue"),
+    children: [{ path: "", component: () => import("pages/CafeReview.vue") }],
   },
 
   // Always leave this as last one,
