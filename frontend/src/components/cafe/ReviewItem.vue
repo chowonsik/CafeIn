@@ -14,7 +14,8 @@
         <q-card-section class="q-pt-xs col-6">
           <div class="text-subtitle1 text-weight-bold q-mt-sm q-mb-xs">{{ cafe.cafeName }}</div>
           <q-rating
-						v-model="rating_star"
+						v-model="cafe.rating"
+            readonly
 						max="5"
 						size="30px"
 						color="yellow"
@@ -48,17 +49,11 @@
 </template>
 
 <script>
-import { ref } from 'vue'
 import EditReviewDialog from '../../components/cafe/EditReviewDialog.vue'
 export default {
 	name: 'ReviewItem',
 	components: {
 		EditReviewDialog,
-	},
-	setup() {
-		return {
-			rating_star: ref(3.5),
-		}
 	},
 	data() {
 		return {
