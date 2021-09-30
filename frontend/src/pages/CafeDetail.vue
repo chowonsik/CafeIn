@@ -68,7 +68,7 @@
           <q-btn text-color="negative" round color="primary" icon="favorite" />
         </div>
         <div style="marginRight: 1rem">
-          <q-btn color="primary" label="리뷰작성"/>
+          <review-dialog />
         </div>
       </q-toolbar-title>
     </q-toolbar>
@@ -78,9 +78,13 @@
 
 <script>
 import { defineComponent } from 'vue';
+import ReviewDialog from '../components/cafe/ReviewDialog.vue'
 
 export default defineComponent({
   name: 'CafeDetail',
+  components: {
+    ReviewDialog,
+  },
   data() {
     return {
       cafeInfo: {
