@@ -30,7 +30,7 @@ public class CafeServiceImpl implements CafeService {
         if(!ValidationCheck.isValidId(id))
             return new Response<>(NO_VALUES);
 
-        SelectCafeDetailOutput selectCafeDetailOutput = cafeRepository.findById(id);
+        SelectCafeDetailOutput selectCafeDetailOutput = cafeRepository.findByIdCustom(id);
         if(selectCafeDetailOutput==null) return new Response<>(BAD_ID_VALUE);
 
         // 결과 return
@@ -47,7 +47,7 @@ public class CafeServiceImpl implements CafeService {
 
         Page<CafeSearchOutput> cafeSearchOutput;
         try {
-            cafeSearchOutput = cafeRepository.findByWord(cafeSearchInput, pageable);
+            cafeSearchOutput = cafeRepository.findByWordCustom(cafeSearchInput, pageable);
         } catch (Exception e) {
             log.error("[GET]/cafe database error", e);
             return new PageResponse<>(DATABASE_ERROR);

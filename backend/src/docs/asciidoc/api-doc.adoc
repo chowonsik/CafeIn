@@ -173,3 +173,27 @@ include::{snippets}/users/update/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/users/update/successful/http-response.adoc[]
+
+== 3. Review API
+
+=== 3-1. 리뷰 작성
+
+==== 리뷰 작성
+
+Request Header
+
+include::{snippets}/reviews/create/successful/request-headers.adoc[]
+
+include::{snippets}/reviews/create/successful/request-fields.adoc[]
+
+include::{snippets}/reviews/create/successful/response-fields.adoc[]
+
+==== 리뷰 작성 성공
+
+Request Example
+
+include::{snippets}/reviews/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/create/successful/http-response.adoc[]
