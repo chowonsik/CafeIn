@@ -247,3 +247,25 @@ include::{snippets}/reviews/select/search/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/reviews/select/search/successful/http-response.adoc[]
+
+=== 3-3. 리뷰 수정
+
+==== 리뷰 수정
+
+Request Header
+
+include::{snippets}/reviews/update/successful/request-headers.adoc[]
+
+include::{snippets}/reviews/update/successful/request-fields.adoc[]
+
+include::{snippets}/reviews/update/successful/response-fields.adoc[]
+
+==== 리뷰 수정 성공
+
+Request Example
+
+include::{snippets}/reviews/update/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/update/successful/http-response.adoc[]

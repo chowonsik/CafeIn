@@ -8,6 +8,7 @@ import com.cafein.dao.UserRepository;
 import com.cafein.dto.review.createreview.CreateReviewInput;
 import com.cafein.dto.review.selectreview.SelectReviewInput;
 import com.cafein.dto.review.selectreview.SelectReviewOutput;
+import com.cafein.dto.review.updatereview.UpdateReviewInput;
 import com.cafein.dto.user.email.EmailInput;
 import com.cafein.dto.user.email.EmailOutput;
 import com.cafein.dto.user.selectprofile.SelectProfileOutput;
@@ -116,5 +117,38 @@ public class ReviewServiceImpl implements ReviewService {
         // 3. 결과 return
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new PageResponse<>(selectReviewOutput, SUCCESS_SELECT_REVIEW));
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<Response<Object>> updateReview(UpdateReviewInput updateReviewInput, int reviewId) {
+        try {
+            // 1. 리뷰 조회
+            Review review = reviewRepository.findById(reviewId).orElse(null);
+
+            // 2. 리뷰 수정
+            if (review == null)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(BAD_ID_VALUE));
+            if (StringUtils.isNotBlank(updateReviewInput.getContent()))
+                review.setContent(updateReviewInput.getContent());
+            if (updateReviewInput.getTotalScore() != null) {
+                if (!ValidationCheck.isValidScore(updateReviewInput.getTotalScore()))
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .body(new Response<>(BAD_SCORE_VALUE));
+                review.setTotalScore(updateReviewInput.getTotalScore());
+            }
+
+            reviewRepository.save(review);
+
+        } catch (Exception e) {
+            log.error("[reviews/patch] database error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
+        }
+
+        // 3. 결과 return
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(null, SUCCESS_UPDATE_REVIEW));
     }
 }

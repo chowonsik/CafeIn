@@ -2,6 +2,7 @@ package com.cafein.controller;
 
 import com.cafein.ApiDocumentationTest;
 import com.cafein.dto.review.createreview.CreateReviewInput;
+import com.cafein.dto.review.updatereview.UpdateReviewInput;
 import com.cafein.entity.Review;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -268,6 +269,59 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("리뷰 내용"),
                                         fieldWithPath("result.[].reviewCreatedAt").type(JsonFieldType.STRING)
                                                 .description("리뷰 작성일"),
+                                        fieldWithPath("timestamp").type(JsonFieldType.STRING)
+                                                .description("api 호출 일시")
+                                )
+                        ));
+    }
+
+    @DisplayName("리뷰 수정 - 모든 유효성 검사에 통과했다면 리뷰 수정 성공")
+    @Test
+    public void 리뷰_수정() throws Exception {
+        //given
+        String JWT = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQ5LCJpYXQiOjE2MzI4MDgyMDF9.ImwkfxLW84OCWp2hBqYiJzGnZqUO6Ni-GskrZZyoTgM";
+        UpdateReviewInput updateReviewInput = UpdateReviewInput
+                .builder()
+                .content("커피가 맛있다.")
+                .totalScore(3)
+                .build();
+
+        //when
+        ResultActions result = mockMvc.perform(patch("/api/reviews/615595")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("X-ACCESS-TOKEN", JWT)
+                        .content(objectMapper.writeValueAsString(updateReviewInput)).accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        //then
+        result.andExpect(status().isOk())
+                .andDo(
+                        document(
+                                "reviews/update/successful",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                requestHeaders(headerWithName("X-ACCESS-TOKEN").description("JWT Token")),
+                                requestFields(
+                                        fieldWithPath("content").type(JsonFieldType.STRING)
+                                                .description("평가 내용")
+                                                .optional()
+                                                .attributes(key("constraint")
+                                                        .value("최소 1글자 이상으로 입력해주세요.")),
+                                        fieldWithPath("totalScore").type(JsonFieldType.NUMBER)
+                                                .description("종합 별점")
+                                                .optional()
+                                                .attributes(key("constraint")
+                                                        .value("1~5점 사이로 입력해주세요."))
+                                ),
+                                responseFields(
+                                        fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
+                                                .description("요청 성공 여부"),
+                                        fieldWithPath("status").type(JsonFieldType.NUMBER)
+                                                .description("응답 상태"),
+                                        fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                                .description("응답 코드"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING)
+                                                .description("응답 메시지"),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)
                                                 .description("api 호출 일시")
                                 )
