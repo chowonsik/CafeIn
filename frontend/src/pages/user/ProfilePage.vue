@@ -12,8 +12,8 @@
           <q-avatar color="white" text-color="black" icon="coffee" />
           <div class="text-h5 text-weight-bold q-px-md col">{{ nickname }}</div>
         </div>
-        <div class="row items-center">
-          <EditUserDialog />
+        <div @click="goEditUser()" class="row items-center">
+          <EditUserButton />
         </div>
       </q-card-section>
     </q-card>
@@ -49,13 +49,13 @@
 import { ref } from 'vue'
 import TermCard from '../../components/user/TermCard.vue'
 import RecentlyCafeItem from '../../components/cafe/RecentlyCafeItem.vue'
-import EditUserDialog from '../../components/user/EditUserDialog.vue'
+import EditUserButton from '../../components/user/EditUserButton.vue'
 export default {
   name: 'ProfilePage',
   components: {
     RecentlyCafeItem,
     TermCard,
-    EditUserDialog,
+    EditUserButton,
   },
   setup() {
     return {
@@ -78,6 +78,9 @@ export default {
     goMyReview() {
       this.$router.push({path:'/myreview'}).catch(()=>{})
     },
+    goEditUser() {
+      this.$router.push({path:'/profile/edit'}).catch(()=>{})
+    }
   }
 }
 </script>

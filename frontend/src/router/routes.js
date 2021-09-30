@@ -24,7 +24,8 @@ const routes = [
     path: "/",
     component: () => import("layouts/SubLayout.vue"),
     children: [
-      { path: "profile", component: () => import("pages/user/ProfilePage.vue") }
+      { path: "profile", component: () => import("pages/user/ProfilePage.vue") },
+      { path: "profile/edit", component: () => import("pages/user/EditUserPage.vue") }
     ],
   },
   {
