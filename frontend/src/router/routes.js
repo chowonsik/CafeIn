@@ -14,17 +14,18 @@ const routes = [
     ],
   },
   {
-    path: "/cafes",
+    path: "/",
     component: () => import("layouts/EmptyLayout.vue"),
     children: [
-      // { path: }
+      { path: "myreview", component: () => import('pages/MyReviewPage') }
     ],
   },
   {
-    path: "/service",
+    path: "/",
     component: () => import("layouts/SubLayout.vue"),
     children: [
-      // { path: }
+      { path: "profile", component: () => import("pages/user/ProfilePage.vue") },
+      { path: "profile/edit", component: () => import("pages/user/EditUserPage.vue") }
     ],
   },
   {
