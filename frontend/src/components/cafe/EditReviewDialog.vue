@@ -1,57 +1,42 @@
 <template>
-  <div class="q-pa-md q-gutter-sm">
-    <q-btn flat round icon="more_vert" @click="show()"></q-btn>
+  <div>
+    <q-btn flat round icon="more_vert" @click="open"/>
+    <q-dialog v-model="dialog" :position="position" maximized>
+      <q-card class="edit-review">
+        <q-card-actions vertical align="center">
+          <q-btn class="full-width" flat>수정하기</q-btn>
+          <q-btn class="full-width" flat>삭제하기</q-btn>
+          <q-btn class="full-width" flat>취소하기</q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
-import { useQuasar } from 'quasar'
+import { ref } from 'vue'
 export default {
   name: "EditReviewDialog",
-    setup () {
-    const $q = useQuasar()
+  setup () {
+    const dialog = ref(false)
+    const position = ref('bottom')
 
-    function show (grid) {
-      $q.bottomSheet({
-        grid,
-        actions: [
-          {
-            label: '수정하기',
-            icon: 'autorenew',
-            classes: [ 'edit-word' ]
-          },
-          {
-            label: '삭제하기',
-            icon: 'delete',
-            classes: [ 'delete-word' ]
-          },
-          {},
-          {
-            label: '취소하기',
-            icon: 'cancel',
-            classes: [ 'edit-word' ]
-          },
-        ]
-      }).onOk(action => {
-        // console.log('Action chosen:', action.id)
-      }).onCancel(() => {
-        // console.log('Dismissed')
-      }).onDismiss(() => {
-        // console.log('I am triggered on both OK and Cancel')
-      })
+    return {
+      dialog,
+      position,
+
+      open () {
+        dialog.value = true
+      }
     }
-
-    return { show }
   }
 }
 </script>
 
 <style>
-.edit-word {
-  text-align: center;
-}
-.delete-word{
-  text-align: center;
-  color: red;
+.edit-review {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 </style>
