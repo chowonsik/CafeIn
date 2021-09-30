@@ -197,3 +197,53 @@ include::{snippets}/reviews/create/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/reviews/create/successful/http-response.adoc[]
+
+=== 3-2. 리뷰 조회
+
+==== 카페 리뷰 조회
+
+include::{snippets}/reviews/select/cafe/successful/request-parameters.adoc[]
+
+include::{snippets}/reviews/select/cafe/successful/response-fields.adoc[]
+
+==== 카페 리뷰 조회 성공
+
+Request Example
+
+include::{snippets}/reviews/select/cafe/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/select/cafe/successful/http-response.adoc[]
+
+==== 유저 리뷰 조회
+
+include::{snippets}/reviews/select/user/successful/request-parameters.adoc[]
+
+include::{snippets}/reviews/select/user/successful/response-fields.adoc[]
+
+==== 유저 리뷰 조회 성공
+
+Request Example
+
+include::{snippets}/reviews/select/user/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/select/user/successful/http-response.adoc[]
+
+==== 워드클라우드 리뷰 조회
+
+include::{snippets}/reviews/select/search/successful/request-parameters.adoc[]
+
+include::{snippets}/reviews/select/search/successful/response-fields.adoc[]
+
+==== 워드클라우드 리뷰 조회 성공
+
+Request Example
+
+include::{snippets}/reviews/select/search/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/select/search/successful/http-response.adoc[]

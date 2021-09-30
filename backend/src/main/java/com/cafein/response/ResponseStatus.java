@@ -19,6 +19,7 @@ public enum ResponseStatus {
     SUCCESS_SELECT_USER(200, 205, "유저 조회에 성공하였습니다."),
     SUCCESS_SEND_MAIL(200, 210, "메일 발송에 성공하였습니다."),
     SUCCESS_SELECT_CAFE(200, 211, "카페 조회에 성공하였습니다."),
+    SUCCESS_SELECT_REVIEW(200, 212, "리뷰 조회에 성공하였습니다."),
 
     // 201 Created - 클라이언트의 요청을 서버가 정상적으로 처리했고 새로운 리소스가 생겼다.,
     CREATED_USERDEAL(201, 203, "유저 거래 내력 등록에 성공하였습니다."),
@@ -26,14 +27,7 @@ public enum ResponseStatus {
     CREATED(201, 200, "리소스 생성에 성공하였습니다."),
     CREATED_USER(201, 201, "회원가입에 성공하였습니다."),
     CREATED_REVIEW(201, 202, "리뷰 등록에 성공하였습니다."),
-    CREATED_FOLLOW(201, 202, "새로운 팔로우 관계 등록에 성공하였습니다."),
-    CREATED_LIKEDEAL(201, 211, "관심 거래 등록에 성공하였습니다."),
     CREATED_REPORT(201, 210, "신고 등록에 성공하였습니다."),
-    CREATED_USERAREA(201, 211, "유저 거래 지역 등록에 성공하였습니다."),
-    CREATED_COMMENT(201, 209, "한줄평 등록에 성공하였습니다."),
-    CREATED_LIKE_COMMENT(201, 208, "관심 한줄평 등록에 성공하였습니다."),
-    CREATED_DEAL(201, 203, "거래글 등록에 성공하였습니다."),
-    CREATED_LIKE_BOOK(201, 219, "관심 책 등록에 성공하였습니다."),
 
     // 202 Accepted - 클라이언트의 요청은 정상적이나, 서버가 아직 요청을 완료하지 못했다. 비동기
     ACCEPTED(202, 200, "요청에 성공하였습니다."),

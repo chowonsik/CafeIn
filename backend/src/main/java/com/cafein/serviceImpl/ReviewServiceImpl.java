@@ -6,6 +6,8 @@ import com.cafein.dao.CafeRepository;
 import com.cafein.dao.ReviewRepository;
 import com.cafein.dao.UserRepository;
 import com.cafein.dto.review.createreview.CreateReviewInput;
+import com.cafein.dto.review.selectreview.SelectReviewInput;
+import com.cafein.dto.review.selectreview.SelectReviewOutput;
 import com.cafein.dto.user.email.EmailInput;
 import com.cafein.dto.user.email.EmailOutput;
 import com.cafein.dto.user.selectprofile.SelectProfileOutput;
@@ -17,6 +19,7 @@ import com.cafein.dto.user.updateprofile.UpdateProfileInput;
 import com.cafein.entity.Cafe;
 import com.cafein.entity.Review;
 import com.cafein.entity.User;
+import com.cafein.response.PageResponse;
 import com.cafein.response.Response;
 import com.cafein.service.JwtService;
 import com.cafein.service.ReviewService;
@@ -26,6 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -85,5 +92,29 @@ public class ReviewServiceImpl implements ReviewService {
         // 3. 결과 return
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new Response<>(null, CREATED_REVIEW));
+    }
+
+    @Override
+    public ResponseEntity<PageResponse<SelectReviewOutput>> selectReview(SelectReviewInput selectReviewInput) {
+        // 1. 값 형식 체크
+        if (selectReviewInput == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new PageResponse<>(NO_VALUES));
+
+        // 2. 리뷰 조회
+        Pageable pageable = PageRequest.of(selectReviewInput.getPage() - 1, selectReviewInput.getSize());
+        Page<SelectReviewOutput> selectReviewOutput;
+        try {
+            selectReviewOutput = reviewRepository.findByDynamicQuery(selectReviewInput, pageable);
+
+        } catch (Exception e) {
+            log.error("[reviews/get] database error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new PageResponse<>(DATABASE_ERROR));
+        }
+
+        // 3. 결과 return
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new PageResponse<>(selectReviewOutput, SUCCESS_SELECT_REVIEW));
     }
 }

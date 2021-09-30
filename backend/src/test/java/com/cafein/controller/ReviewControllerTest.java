@@ -2,7 +2,7 @@ package com.cafein.controller;
 
 import com.cafein.ApiDocumentationTest;
 import com.cafein.dto.review.createreview.CreateReviewInput;
-import com.cafein.dto.user.signup.SignUpInput;
+import com.cafein.entity.Review;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -11,12 +11,12 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static com.cafein.ApiDocumentUtils.getDocumentRequest;
 import static com.cafein.ApiDocumentUtils.getDocumentResponse;
-import static org.hamcrest.Matchers.is;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -73,6 +73,201 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("응답 코드"),
                                         fieldWithPath("message").type(JsonFieldType.STRING)
                                                 .description("응답 메시지"),
+                                        fieldWithPath("timestamp").type(JsonFieldType.STRING)
+                                                .description("api 호출 일시")
+                                )
+                        ));
+    }
+
+    @DisplayName("리뷰 조회 - 카페 리뷰 조회")
+    @Test
+    public void 카페_리뷰_조회() throws Exception {
+        //given
+
+        //when
+        ResultActions result = mockMvc.perform(get("/api/reviews")
+                        .queryParam("cafeId", "91")
+                        .queryParam("userId", "")
+                        .queryParam("search", "")
+                        .queryParam("size", "10")
+                        .queryParam("page", "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        //then
+        result.andExpect(status().isOk())
+                .andDo(
+                        document(
+                                "reviews/select/cafe/successful",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                requestParameters(
+                                        parameterWithName("cafeId").description("카페 번호").optional(),
+                                        parameterWithName("userId").description("유저 번호").optional(),
+                                        parameterWithName("search").description("리뷰 내용 검색어").optional(),
+                                        parameterWithName("page").description("페이지 번호"),
+                                        parameterWithName("size").description("페이지 사이즈")
+                                ),
+                                responseFields(
+                                        fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
+                                                .description("요청 성공 여부"),
+                                        fieldWithPath("status").type(JsonFieldType.NUMBER)
+                                                .description("응답 상태"),
+                                        fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                                .description("응답 코드"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING)
+                                                .description("응답 메시지"),
+                                        fieldWithPath("page.currentPage").type(JsonFieldType.NUMBER)
+                                                .description("현재 페이지 번호"),
+                                        fieldWithPath("page.pageSize").type(JsonFieldType.NUMBER)
+                                                .description("페이지 사이즈"),
+                                        fieldWithPath("page.totalPages").type(JsonFieldType.NUMBER)
+                                                .description("전체 페이지 수"),
+                                        fieldWithPath("page.totalElements").type(JsonFieldType.NUMBER)
+                                                .description("전체 요소 수"),
+                                        fieldWithPath("result.[].cafeId").type(JsonFieldType.NUMBER)
+                                                .description("카페 번호"),
+                                        fieldWithPath("result.[].cafeName").type(JsonFieldType.STRING)
+                                                .description("카페 이름"),
+                                        fieldWithPath("result.[].reviewId").type(JsonFieldType.NUMBER)
+                                                .description("리뷰 번호"),
+                                        fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
+                                                .description("리뷰 작성 유저 번호"),
+                                        fieldWithPath("result.[].reviewContent").type(JsonFieldType.STRING)
+                                                .description("리뷰 내용"),
+                                        fieldWithPath("result.[].reviewCreatedAt").type(JsonFieldType.STRING)
+                                                .description("리뷰 작성일"),
+                                        fieldWithPath("timestamp").type(JsonFieldType.STRING)
+                                                .description("api 호출 일시")
+                                )
+                        ));
+    }
+
+    @DisplayName("리뷰 조회 - 유저 리뷰 조회")
+    @Test
+    public void 유저_리뷰_조회() throws Exception {
+        //given
+
+        //when
+        ResultActions result = mockMvc.perform(get("/api/reviews")
+                        .queryParam("cafeId", "")
+                        .queryParam("userId", "49")
+                        .queryParam("search", "")
+                        .queryParam("size", "10")
+                        .queryParam("page", "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        //then
+        result.andExpect(status().isOk())
+                .andDo(
+                        document(
+                                "reviews/select/user/successful",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                requestParameters(
+                                        parameterWithName("cafeId").description("카페 번호").optional(),
+                                        parameterWithName("userId").description("유저 번호").optional(),
+                                        parameterWithName("search").description("리뷰 내용 검색어").optional(),
+                                        parameterWithName("page").description("페이지 번호"),
+                                        parameterWithName("size").description("페이지 사이즈")
+                                ),
+                                responseFields(
+                                        fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
+                                                .description("요청 성공 여부"),
+                                        fieldWithPath("status").type(JsonFieldType.NUMBER)
+                                                .description("응답 상태"),
+                                        fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                                .description("응답 코드"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING)
+                                                .description("응답 메시지"),
+                                        fieldWithPath("page.currentPage").type(JsonFieldType.NUMBER)
+                                                .description("현재 페이지 번호"),
+                                        fieldWithPath("page.pageSize").type(JsonFieldType.NUMBER)
+                                                .description("페이지 사이즈"),
+                                        fieldWithPath("page.totalPages").type(JsonFieldType.NUMBER)
+                                                .description("전체 페이지 수"),
+                                        fieldWithPath("page.totalElements").type(JsonFieldType.NUMBER)
+                                                .description("전체 요소 수"),
+                                        fieldWithPath("result.[].cafeId").type(JsonFieldType.NUMBER)
+                                                .description("카페 번호"),
+                                        fieldWithPath("result.[].cafeName").type(JsonFieldType.STRING)
+                                                .description("카페 이름"),
+                                        fieldWithPath("result.[].reviewId").type(JsonFieldType.NUMBER)
+                                                .description("리뷰 번호"),
+                                        fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
+                                                .description("리뷰 작성 유저 번호"),
+                                        fieldWithPath("result.[].reviewContent").type(JsonFieldType.STRING)
+                                                .description("리뷰 내용"),
+                                        fieldWithPath("result.[].reviewCreatedAt").type(JsonFieldType.STRING)
+                                                .description("리뷰 작성일"),
+                                        fieldWithPath("timestamp").type(JsonFieldType.STRING)
+                                                .description("api 호출 일시")
+                                )
+                        ));
+    }
+
+    @DisplayName("리뷰 조회 - 워드클라우드 리뷰 조회")
+    @Test
+    public void 워드클라우드_리뷰_조회() throws Exception {
+        //given
+
+        //when
+        ResultActions result = mockMvc.perform(get("/api/reviews")
+                        .queryParam("cafeId", "91")
+                        .queryParam("userId", "")
+                        .queryParam("search", "주차")
+                        .queryParam("size", "10")
+                        .queryParam("page", "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        //then
+        result.andExpect(status().isOk())
+                .andDo(
+                        document(
+                                "reviews/select/search/successful",
+                                getDocumentRequest(),
+                                getDocumentResponse(),
+                                requestParameters(
+                                        parameterWithName("cafeId").description("카페 번호").optional(),
+                                        parameterWithName("userId").description("유저 번호").optional(),
+                                        parameterWithName("search").description("리뷰 내용 검색어").optional(),
+                                        parameterWithName("page").description("페이지 번호"),
+                                        parameterWithName("size").description("페이지 사이즈")
+                                ),
+                                responseFields(
+                                        fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
+                                                .description("요청 성공 여부"),
+                                        fieldWithPath("status").type(JsonFieldType.NUMBER)
+                                                .description("응답 상태"),
+                                        fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                                .description("응답 코드"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING)
+                                                .description("응답 메시지"),
+                                        fieldWithPath("page.currentPage").type(JsonFieldType.NUMBER)
+                                                .description("현재 페이지 번호"),
+                                        fieldWithPath("page.pageSize").type(JsonFieldType.NUMBER)
+                                                .description("페이지 사이즈"),
+                                        fieldWithPath("page.totalPages").type(JsonFieldType.NUMBER)
+                                                .description("전체 페이지 수"),
+                                        fieldWithPath("page.totalElements").type(JsonFieldType.NUMBER)
+                                                .description("전체 요소 수"),
+                                        fieldWithPath("result.[].cafeId").type(JsonFieldType.NUMBER)
+                                                .description("카페 번호"),
+                                        fieldWithPath("result.[].cafeName").type(JsonFieldType.STRING)
+                                                .description("카페 이름"),
+                                        fieldWithPath("result.[].reviewId").type(JsonFieldType.NUMBER)
+                                                .description("리뷰 번호"),
+                                        fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
+                                                .description("리뷰 작성 유저 번호"),
+                                        fieldWithPath("result.[].reviewContent").type(JsonFieldType.STRING)
+                                                .description("리뷰 내용"),
+                                        fieldWithPath("result.[].reviewCreatedAt").type(JsonFieldType.STRING)
+                                                .description("리뷰 작성일"),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)
                                                 .description("api 호출 일시")
                                 )
