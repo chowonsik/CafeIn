@@ -9,15 +9,20 @@
     <div>
       <KakaoMap />
     </div>
+    <div>
+      <NearCafeItem />
+    </div>
   </div>
 </template>
 
 <script>
 import KakaoMap from '../components/common/KakaoMap.vue'
+import NearCafeItem from '../components/cafe/NearCafeItem.vue'
 export default {
   name: "NearCafe",
   components: {
     KakaoMap,
+    NearCafeItem,
   },
   methods: {
     goBack() {
