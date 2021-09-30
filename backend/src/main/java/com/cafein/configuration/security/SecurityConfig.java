@@ -39,7 +39,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지
                 // 않습니다.
                 .and().authorizeRequests() // 요청에 대한 사용권한 체크
-                .antMatchers("/**").permitAll()
+                .antMatchers("/api/users/signin").permitAll()
+                .antMatchers("/api/users/signup").permitAll()
+                .antMatchers("/api/users/email").permitAll()
+                .antMatchers("/api/cafes/{id}").permitAll()
+                .antMatchers("/api/cafes").permitAll()
+                .antMatchers("/docs/**").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()).and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class);
