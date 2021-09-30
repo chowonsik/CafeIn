@@ -17,7 +17,10 @@
     <q-card class="my-card" flat >
 
       <q-card-section>
-        <div class="text-h5 text-bold">{{ cafeInfo.cafeName }}</div>
+        <div class="row justify-between">
+          <div class="text-h5 text-bold">{{ cafeInfo.cafeName }}</div>
+          <cafe-menu-dialog />
+        </div>
         <div class="text-subtitle2">{{ cafeInfo.address }}</div>
       </q-card-section>
       <q-card-section style="paddingTop: 0">
@@ -26,12 +29,18 @@
         <q-icon name="edit_note" class="text-primary" /><span style="marginRight: 0.5rem">{{ cafeInfo.reviewCount }}</span>
       </q-card-section>
 
-      <q-card-section class="q-pt-none">
+      <q-separator />
+
+      <q-card-section>
         <div class="text-h6 text-bold">매장소개</div>
-        <q-item-label caption>전화번호 : 010-0101-0101</q-item-label>
+        <q-item-label caption>전화번호 : {{ cafeInfo.phoneNumber }}</q-item-label>
         <div class="text-h6 text-bold" style="marginTop: 1rem">영업시간</div>
-        <q-item-label caption>전화번호 : 010-0101-0101</q-item-label>
+        <q-item-label caption>{{ cafeInfo.openingHours }}</q-item-label>
       </q-card-section>
+
+      <q-separator />
+
+
     </q-card>
   </div>
 
@@ -57,6 +66,7 @@
               readonly
             />
         </q-item-section>
+        <q-separator />
       </q-item>
     </q-card>
   </div>
@@ -79,11 +89,13 @@
 <script>
 import { defineComponent } from 'vue';
 import ReviewDialog from '../components/cafe/ReviewDialog.vue'
+import CafeMenuDialog from '../components/cafe/CafeMenuDialog.vue'
 
 export default defineComponent({
   name: 'CafeDetail',
   components: {
     ReviewDialog,
+    CafeMenuDialog
   },
   data() {
     return {
@@ -91,10 +103,11 @@ export default defineComponent({
         cafeName: "녹턴 커피 로스터스",
         img: "https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fmyplace-phinf.pstatic.net%2F20210905_216%2F1630806743080jydIp_JPEG%2Fupload_a8d1132fa3378eb5d6ee572d7d829d74.jpeg",
         address: "인천 부평구 부평문화로71번길 19 1층",
+        phoneNumber: "010-5124-3004",
         openingHours: "매일 12:00 - 22:00",
         liked: 35,
         rating: 4.3,
-        reviewCount: 19,
+        reviewCount: 5,
         reviews: [
           {
             content: "라떼가 진짜 맛있음",
