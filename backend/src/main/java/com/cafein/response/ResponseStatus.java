@@ -13,12 +13,12 @@ public enum ResponseStatus {
      * 2XX Success
      */
     // 200 OK - 클라이언트의 요청을 서버가 정상적으로 처리했다.
-    SUCCESS_UPDATE_PROFILE(200, 204, "프로필 수정에 성공하였습니다."),
     SUCCESS(200, 200, "요청에 성공하였습니다."),
     SUCCESS_SIGN_IN(200, 201, "로그인에 성공하였습니다."),
     SUCCESS_SELECT_PROFILE(200, 203, "프로필 조회에 성공하였습니다."),
     SUCCESS_SELECT_USER(200, 205, "유저 조회에 성공하였습니다."),
     SUCCESS_SEND_MAIL(200, 210, "메일 발송에 성공하였습니다."),
+    SUCCESS_SELECT_CAFE(200, 211, "카페 조회에 성공하였습니다."),
 
     // 201 Created - 클라이언트의 요청을 서버가 정상적으로 처리했고 새로운 리소스가 생겼다.,
     CREATED_USERDEAL(201, 203, "유저 거래 내력 등록에 성공하였습니다."),
@@ -40,6 +40,7 @@ public enum ResponseStatus {
 
     // 204 No Content - 클라이언트의 요청은 정상적이다. 하지만 컨텐츠를 제공하지 않는다.
     NO_CONTENT(204, 200, "요청에 성공하였습니다."),
+    SUCCESS_UPDATE_PROFILE(204, 204, "프로필 수정에 성공하였습니다."),
     SUCCESS_UPDATE_DEAL(204, 202, "거래 수정에 성공하였습니다."),
     SUCCESS_DELETE_DEAL(204, 203, "거래 삭제에 성공하였습니다."),
     SUCCESS_DELETE_FOLLOW(204, 201, "팔로우 관계를 삭제하는데 성공하였습니다."),
