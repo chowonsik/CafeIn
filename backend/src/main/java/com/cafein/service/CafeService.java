@@ -7,8 +7,9 @@ import com.cafein.entity.Cafe;
 import com.cafein.response.PageResponse;
 import com.cafein.response.Response;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 public interface CafeService {
-    Response<SelectCafeDetailOutput> selectCafe(int id);
-    PageResponse<CafeSearchOutput> selectCafeListByWord(CafeSearchInput cafeSearchInput, Pageable pageable);
+    ResponseEntity<Response<SelectCafeDetailOutput>> selectCafe(int id);
+    ResponseEntity<PageResponse<CafeSearchOutput>> selectCafeListByWord(CafeSearchInput cafeSearchInput, Pageable pageable);
 }

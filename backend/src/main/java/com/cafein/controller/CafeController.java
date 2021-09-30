@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
@@ -25,23 +26,23 @@ public class CafeController {
     /**
      * 카페 상세 정보 조회 API [GET] /cafes/{id}
      * @param id 검색하고 싶은 카페의 id
-     * @return Response<Cafe>
+     * @return ResponseEntity<Response<SelectCafeDetailOutput>>
      */
     // Params
     @GetMapping("/{id}")
-    public Response<SelectCafeDetailOutput> getCafeInfo(@PathVariable int id){
+    public ResponseEntity<Response<SelectCafeDetailOutput>> getCafeInfo(@PathVariable int id){
         log.info("[GET] /cafes/{id}");
         return cafeService.selectCafe(id);
     }
 
     /**
      * 카페 단어로 검색 API [GET] /cafes
-     * @param
-     * @return Response<CafeSearchOutput>
+     *
+     * @return ResponseEntity<PageResponse<CafeSearchOutput>>
      */
     // Params
     @GetMapping
-    public PageResponse<CafeSearchOutput> searchCafeByWord(CafeSearchInput cafeSearchInput) {
+    public ResponseEntity<PageResponse<CafeSearchOutput>> searchCafeByWord(CafeSearchInput cafeSearchInput) {
         log.info("[GET] /cafes");
         Pageable pageable = PageRequest.of(cafeSearchInput.getPage(), cafeSearchInput.getSize(), Sort.Direction.ASC,
                 "cafeDistance");
