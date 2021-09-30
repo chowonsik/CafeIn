@@ -137,6 +137,8 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("리뷰 작성 유저 번호"),
                                         fieldWithPath("result.[].reviewContent").type(JsonFieldType.STRING)
                                                 .description("리뷰 내용"),
+                                        fieldWithPath("result.[].reviewScore").type(JsonFieldType.NUMBER)
+                                                .description("리뷰 점수"),
                                         fieldWithPath("result.[].reviewCreatedAt").type(JsonFieldType.STRING)
                                                 .description("리뷰 작성일"),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)
@@ -202,6 +204,8 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("리뷰 작성 유저 번호"),
                                         fieldWithPath("result.[].reviewContent").type(JsonFieldType.STRING)
                                                 .description("리뷰 내용"),
+                                        fieldWithPath("result.[].reviewScore").type(JsonFieldType.NUMBER)
+                                                .description("리뷰 점수"),
                                         fieldWithPath("result.[].reviewCreatedAt").type(JsonFieldType.STRING)
                                                 .description("리뷰 작성일"),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)
@@ -267,6 +271,8 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("리뷰 작성 유저 번호"),
                                         fieldWithPath("result.[].reviewContent").type(JsonFieldType.STRING)
                                                 .description("리뷰 내용"),
+                                        fieldWithPath("result.[].reviewScore").type(JsonFieldType.NUMBER)
+                                                .description("리뷰 점수"),
                                         fieldWithPath("result.[].reviewCreatedAt").type(JsonFieldType.STRING)
                                                 .description("리뷰 작성일"),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)

@@ -16,15 +16,17 @@ public class SelectReviewOutput {
     private Integer reviewId;
     private Integer userId;
     private String reviewContent;
+    private Integer reviewScore;
     private Date reviewCreatedAt;
 
     @QueryProjection
-    public SelectReviewOutput(Integer cafeId, String cafeName, Integer reviewId, Integer userId, String reviewContent, Date reviewCreatedAt) {
+    public SelectReviewOutput(Integer cafeId, String cafeName, Integer reviewId, Integer userId, String reviewContent, Integer reviewScore, Date reviewCreatedAt) {
         this.cafeId = cafeId;
         this.cafeName = cafeName;
         this.reviewId = reviewId;
         this.userId = userId;
         this.reviewContent = reviewContent;
+        this.reviewScore = reviewScore;
         this.reviewCreatedAt = reviewCreatedAt;
     }
 }

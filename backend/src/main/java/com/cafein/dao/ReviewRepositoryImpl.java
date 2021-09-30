@@ -33,6 +33,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 						qReview.id,
 						qReview.user.id,
 						qReview.content,
+						qReview.totalScore,
 						qReview.created_at
 				))
 				.from(qReview)
@@ -41,7 +42,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 				.where(eqSearch(selectReviewInput.getSearch()), eqCafeId(selectReviewInput.getCafeId()), eqUserId(selectReviewInput.getUserId()))
 				.orderBy(qReview.created_at.desc())
 				.offset(pageable.getOffset()).limit(pageable.getPageSize())
-				.fetchResults();;
+				.fetchResults();
 		long totalCount = queryResult.getTotal();
 		List<SelectReviewOutput> content = queryResult.getResults();
 
