@@ -1,5 +1,6 @@
 package com.cafein.configuration.security;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/users/signin").permitAll()
                 .antMatchers("/api/users/signup").permitAll()
                 .antMatchers("/api/users/email").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/reviews").permitAll()
                 .antMatchers("/api/cafes/{id}").permitAll()
                 .antMatchers("/api/cafes").permitAll()
                 .antMatchers("/docs/**").permitAll()
