@@ -18,7 +18,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 
 @AutoConfigureRestDocs
-@SpringBootTest
+@SpringBootTest(
+        properties = "spring.config.location ="+
+                "classpath:/application_test.yml"
+)
 @AutoConfigureMockMvc
 @ExtendWith(RestDocumentationExtension.class)
 @Transactional
