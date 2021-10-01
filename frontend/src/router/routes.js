@@ -54,6 +54,11 @@ const routes = [
     component: () => import("layouts/SubLayout.vue"),
     children: [{ path: "", component: () => import("pages/CafeReview.vue") }],
   },
+  {
+    path: "/cafecuration",
+    component: () => import("layouts/SubLayout.vue"),
+    children: [{ path: "", component: () => import("pages/CafeCuration.vue") }],
+  },
 
   // Always leave this as last one,
   // but you can also remove it
