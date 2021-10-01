@@ -1,35 +1,37 @@
 <template>
-  <q-header reveal bordered class="bg-white text-white">
-    <q-toolbar>
-      <q-icon size="sm" color="black" name="arrow_back_ios" @click="goBack()" />
-      <q-toolbar-title class="text-black text-weight-bold text-center no-padding" style="marginRight: 1.2rem">카페 리뷰</q-toolbar-title>
-    </q-toolbar>
-  </q-header>
+  <div>
+    <q-header reveal bordered class="bg-white text-white">
+      <q-toolbar>
+        <q-icon size="sm" color="black" name="arrow_back_ios" @click="goBack()" />
+        <q-toolbar-title class="text-black text-weight-bold text-center no-padding" style="marginRight: 1.2rem">카페 리뷰</q-toolbar-title>
+      </q-toolbar>
+    </q-header>
 
-  <div class="q-pa-md">
-    <q-card class="my-card" flat >
-      <q-card-section>
-        <div class="text-h6 text-bold">리뷰 ({{ cafeInfo.reviewCount }})</div>
-      </q-card-section>
+    <div class="q-pa-md">
+      <q-card class="my-card" flat >
+        <q-card-section>
+          <div class="text-h6 text-bold">리뷰 ({{ cafeInfo.reviewCount }})</div>
+        </q-card-section>
 
-      <q-item v-for="review in cafeInfo.reviews" :key="review.created_at">
-        <q-item-section>
-          <q-item-label>{{ review.content }}</q-item-label>
-        </q-item-section>
+        <q-item v-for="review in cafeInfo.reviews" :key="review.created_at">
+          <q-item-section>
+            <q-item-label>{{ review.content }}</q-item-label>
+          </q-item-section>
 
-        <q-item-section side top>
-          <q-item-label caption>{{ review.created_at }}</q-item-label>
-            <q-rating
-              v-model="review.rating"
-              size="1em"
-              color="primary"
-              icon="star_border"
-              icon-selected="star"
-              readonly
-            />
-        </q-item-section>
-      </q-item>
-    </q-card>
+          <q-item-section side top>
+            <q-item-label caption>{{ review.created_at }}</q-item-label>
+              <q-rating
+                v-model="review.rating"
+                size="1em"
+                color="primary"
+                icon="star_border"
+                icon-selected="star"
+                readonly
+              />
+          </q-item-section>
+        </q-item>
+      </q-card>
+    </div>
   </div>
 </template>
 

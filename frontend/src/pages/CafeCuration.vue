@@ -1,46 +1,48 @@
 <template>
-  <q-header reveal bordered class="bg-white text-white">
-    <q-toolbar>
-      <q-icon size="sm" color="black" name="arrow_back_ios" @click="goBack()" />
-      <q-toolbar-title class="text-black text-weight-bold text-center no-padding" style="marginRight: 1.2rem">카페 큐레이션</q-toolbar-title>
-    </q-toolbar>
-  </q-header>
+  <div>
+    <q-header reveal bordered class="bg-white text-white">
+      <q-toolbar>
+        <q-icon size="sm" color="black" name="arrow_back_ios" @click="goBack()" />
+        <q-toolbar-title class="text-black text-weight-bold text-center no-padding" style="marginRight: 1.2rem">카페 큐레이션</q-toolbar-title>
+      </q-toolbar>
+    </q-header>
 
-  <q-item-label header class="text-h6 text-center text-weight-bold text-primary" style="marginTop: 1rem">코코님의 취향에 맞는 카페 큐레이션</q-item-label>
-  
+    <q-item-label header class="text-h6 text-center text-weight-bold text-primary" style="marginTop: 1rem">코코님의 취향에 맞는 카페 큐레이션</q-item-label>
+    
 
-  <q-item-label caption class="text-center" style="marginTop: 1rem">코코님의 관심 카페를 기반으로 추천한 카페입니다.</q-item-label>
-  <swiper :effect="'coverflow'" :grabCursor="true" :centeredSlides="true" :slidesPerView="'auto'" :coverflowEffect='{
-    "rotate": 50,
-    "stretch": 0,
-    "depth": 100,
-    "modifier": 1,
-    "slideShadows": true
-    }' :pagination="true" class="mySwiper"
-  >
-    <swiper-slide v-for="cafe in cafeList" :key="cafe.cafeName">
-      <q-img :src="cafe.img" :ratio="1" />
-        <q-card class="my-card" flat >
-          <q-card-section class="row justify-center">
-            <q-banner rounded class="bg-primary text-white text-center" style="paddingTop: 0; paddingBottom: 0">
-              {{ cafe.tag }}
-            </q-banner>
-          </q-card-section>
+    <q-item-label caption class="text-center" style="marginTop: 1rem">코코님의 관심 카페를 기반으로 추천한 카페입니다.</q-item-label>
+    <swiper :effect="'coverflow'" :grabCursor="true" :centeredSlides="true" :slidesPerView="'auto'" :coverflowEffect='{
+      "rotate": 50,
+      "stretch": 0,
+      "depth": 100,
+      "modifier": 1,
+      "slideShadows": true
+      }' :pagination="true" class="mySwiper"
+    >
+      <swiper-slide v-for="cafe in cafeList" :key="cafe.cafeName">
+        <q-img :src="cafe.img" :ratio="1" />
+          <q-card class="my-card" flat >
+            <q-card-section class="row justify-center">
+              <q-banner rounded class="bg-primary text-white text-center" style="paddingTop: 0; paddingBottom: 0">
+                {{ cafe.tag }}
+              </q-banner>
+            </q-card-section>
 
-          <q-card-section class="text-center">
-              <div class="text-h6 text-bold">{{ cafe.cafeName }}</div>
-            <div class="text-subtitle2">{{ cutAddress(cafe.address) }}</div>
-          </q-card-section>
-          <q-card-section class="text-center" style="paddingTop: 0">
-            <q-icon name="favorite" class="text-negative" /><span style="marginRight: 0.5rem">{{ cafe.liked }}</span>
-            <q-icon name="star" class="text-yellow"/><span style="marginRight: 0.5rem">{{ cafe.rating }}</span>
-            <q-icon name="edit_note" class="text-primary" /><span style="marginRight: 0.5rem">{{ cafe.reviewCount }}</span>
-          </q-card-section>
+            <q-card-section class="text-center">
+                <div class="text-h6 text-bold">{{ cafe.cafeName }}</div>
+              <div class="text-subtitle2">{{ cutAddress(cafe.address) }}</div>
+            </q-card-section>
+            <q-card-section class="text-center" style="paddingTop: 0">
+              <q-icon name="favorite" class="text-negative" /><span style="marginRight: 0.5rem">{{ cafe.liked }}</span>
+              <q-icon name="star" class="text-yellow"/><span style="marginRight: 0.5rem">{{ cafe.rating }}</span>
+              <q-icon name="edit_note" class="text-primary" /><span style="marginRight: 0.5rem">{{ cafe.reviewCount }}</span>
+            </q-card-section>
 
-          <q-separator />
-        </q-card>
-    </swiper-slide>
-  </swiper>
+            <q-separator />
+          </q-card>
+      </swiper-slide>
+    </swiper>
+  </div>
 </template>
 
 <script>
