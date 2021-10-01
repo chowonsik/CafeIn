@@ -64,7 +64,7 @@ def import_data(data_path=DATA_FILE):
     for d in data:
         
         categories = [c["category"] for c in d["category_list"]]
-        if("카페" in categories or "까페" in categories or "커피" in categories or "cafee" in categories):
+        if("카페" in categories or "까페" in categories or "커피" in categories or "cafe" in categories or "coffee" in categories):
             stores.append(
                 [
                     d["id"],
@@ -155,10 +155,10 @@ def main():
 if __name__ == "__main__":
     main()
 
-#%%
-data = load_dataframes()
-df_cafe = data["stores"]
-print(df_cafe[df_cafe["store_name"].str.contains("누오보")])
-df2 = df_cafe[df_cafe["store_name"].str.contains("스타벅스")]
-df_rv = data["reviews"]
-print()
+
+# data = load_dataframes()
+# df_cafe = data["stores"]
+# print(df_cafe[df_cafe["store_name"].str.contains("누오보")])
+# df2 = df_cafe[df_cafe["store_name"].str.contains("스타벅스")]
+# df_rv = data["reviews"]
+# print()

@@ -4,115 +4,328 @@ import pandas as pd
 import shutil
 import time
 import urllib
-from urllib import parse
 from selenium.webdriver.common.keys import Keys
 import re
+from dateutil.relativedelta import relativedelta
+import json
+import pandas as pd
+import os
+import shutil
+from datetime import datetime
+#DATA 경로
+DATA_DIR = "../data"
+#카페, 리뷰 피클
+CAFE_FILE = os.path.join(DATA_DIR, "cafe.pkl")
+REVIEW_FILE = os.path.join(DATA_DIR, "review.pkl")
+DUMP_FILE = os.path.join(DATA_DIR, "dump.pkl")
+df = pd.read_pickle(CAFE_FILE)
+dfrv = pd.read_pickle(REVIEW_FILE)
+# dfrev = pd.read_pickle(DUMP_FILE)['reviews']
+# df = df.sort_values(by=['reviews','review_cnt'], axis=0, ascending=[True,False]).reset_index(drop=True)
+# df = df.sort_values(by=['review_cnt'], axis=0, ascending=[False]).reset_index(drop=True)
+# df = df.sort_values(by=['id'], axis=0, ascending=[True]).reset_index(drop=True)
+#%%
 options = webdriver.ChromeOptions()
-# options.add_argument("disable-gpu") 
-options.add_argument("disable-infobars")
-options.add_argument("--disable-extensions")       
-# 속도 향상을 위한 옵션 해제
-prefs = {'profile.default_content_setting_values': {'cookies' : 2, 'images': 2, 'plugins' : 2, 
-                                                    'popups': 2, 'geolocation': 2, 'notifications' : 2, 
-                                                    'auto_select_certificate': 2, 'fullscreen' : 2, 'mouselock' : 2,
-                                                    'mixed_script': 2, 'media_stream' : 2, 'media_stream_mic' : 2, 
-                                                    'media_stream_camera': 2, 'protocol_handlers' : 2, 'ppapi_broker' : 2, 
-                                                    'automatic_downloads': 2, 'midi_sysex' : 2, 'push_messaging' : 2, 
-                                                    'ssl_cert_decisions': 2, 'metro_switch_to_desktop' : 2, 
-                                                    'protected_media_identifier': 2, 'app_banner': 2, 'site_engagement' : 2,
-                                                    'durable_storage' : 2}}   
-options.add_experimental_option('prefs', prefs)
 browser = webdriver.Chrome('C:/Users/USER/chromedriver', options=options)
 browser.maximize_window()
 browser.implicitly_wait(2)
 
-
-data = load_dataframes()
-df = data["stores"]
-dfrv = data["reviews"]
-# df = df[df['store_name'].str.contains("스타벅스")]
-# df = df.sort_values('area')
-
-df['rating'] = float()
-df['reviews'] = str()
-
 #%%
-for i in range(0,len(df)):
+for i in range(255,330000):
     address = df.loc[i,'address']
-    search = address + ' ' + df.loc[i,'store_name'] + '카페'
+    search = address + ' ' + df.loc[i,'store_name']
     print("||==",i,"번째 카페 :"+" "+search,"==||")
     url = urllib.parse.quote(address)
+    # browser.get('https://www.juso.go.kr/support/AddressMainSearch.do?firstSort=none&ablYn=N&synnYn=Y&fillterHiddenValue=&searchKeyword={}'.format(url))
     browser.get('https://www.google.com/maps/search/{}'.format(url))
-    time.sleep(2)
+    time.sleep(1)
     browser.find_element_by_xpath('//*[@id="searchboxinput"]').clear()
     browser.find_element_by_xpath('//*[@id="searchboxinput"]').send_keys(search)
     browser.find_element_by_xpath('//*[@id="searchboxinput"]').send_keys(Keys.ENTER)    
-    time.sleep(2)
-    realcnt = 0
+    time.sleep(1)
     score = 0
     reviewcount = 0
     rvdata = ""
-    findclass=[]
+    cnts_list = []
+    append_list = []
+    date = datetime.now()
     try:
-        browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span[1]/span[2]/span[1]/button').click()    
+        # browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span[1]/span[2]/span[1]/button').click()    
+        browser.find_elements_by_class_name("aMPvhf-fI6EEc-KVuj8d")[0].click()
         time.sleep(1)
     except :
         try:            
             browser.find_element_by_xpath('//*[@id="pane"]/div/div/div/div/div/div/div/div/a').click()
             print("1트")
             time.sleep(1)
-            browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span/span[2]/span[1]/button').click()
-           
+            # browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span/span[2]/span[1]/button').click()
+            browser.find_elements_by_class_name("aMPvhf-fI6EEc-KVuj8d")[0].click()
         except : 
             try:
                 browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div/a').click()
                 print("2트")
                 time.sleep(1)
-                browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span/span[2]/span[1]/button').click()
+                # browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span/span[2]/span[1]/button').click()
+                browser.find_elements_by_class_name("aMPvhf-fI6EEc-KVuj8d")[0].click()
             except:
                 q="1"
             
-    time.sleep(2)
+    time.sleep(1)
+    #브라우저 2개이상일떄
+    while(len(browser.window_handles)>1):
+        print("탭이 2개 이상 입니다.")
+        browser.switch_to.window(browser.window_handles[1])
+        browser.close()
+        browser.switch_to.window(browser.window_handles[0])
     try:        
         score = float(browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[2]/div/div[2]/div[1]').text)
         reviewcount = int(re.sub(r'[^0-9]', '',browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[2]/div/div[2]/div[2]').text))
-        time.sleep(1)
-        browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
-        time.sleep(1)
-        browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
-        time.sleep(1)
-        findclass = browser.find_elements_by_class_name("ODSEW-ShBeI-text")        
-        for f in findclass:
-            realcnt = realcnt+1
-            rvdata = rvdata + f.text
 
+        time.sleep(0.5)
+        browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+        time.sleep(0.5)
+        browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+        time.sleep(0.5)
+        browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+        time.sleep(0.5)
+        browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+        time.sleep(0.5)
+        browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+        time.sleep(0.5)
+        cnts_list = browser.find_elements_by_class_name("ODSEW-ShBeI-content")
+        try:
+            for cnts in cnts_list:
+                bdate = cnts.find_elements_by_class_name("ODSEW-ShBeI-RgZmSc-date")[0].text
+                now = datetime.now()
+                num = int(re.sub(r'[^0-9]', '',bdate))
+                dan = re.sub(r'[0-9]', '',bdate)
+                if(dan.startswith('일')):
+                    date = now - relativedelta(days=num)    
+                elif(dan.startswith('주')):
+                    date = now - relativedelta(weeks=num)
+                elif(dan.startswith('달')):
+                    date = now - relativedelta(months=num)
+                elif(dan.startswith('년')):
+                    date = now - relativedelta(years=num)    
+                date = date.replace(microsecond=0)
+                star = int(re.sub(r'[^0-9]', '',cnts.find_elements_by_class_name("ODSEW-ShBeI-H1e3jb")[0].get_attribute('aria-label')))
+                rv = cnts.find_elements_by_class_name("ODSEW-ShBeI-text")[0].text
+                rvdata = rvdata + " | " + rv
+                new_rv = {'store_id':df.loc[i,'id'] , 'score':star, 'content':rv,'reg_time':date}
+                append_list.append(new_rv)
+                # dfrv = dfrv.append(new_rv, ignore_index=True)
+                print(star,date,bdate,rv)
+            if(len(append_list) > 0) :    
+                print("리뷰데이터 어펜드")
+                dfrv = dfrv.append(append_list, ignore_index=True)
+                append_list = []
+        except:
+            print("# 별점이 별이아닐때")
+            for cnts in cnts_list:
+                bdate = cnts.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[9]/div[1]/div/div[3]/div[3]/div[1]/span[3]/span[1]').text
+                now = datetime.now()
+                num = int(re.sub(r'[^0-9]', '',bdate))
+                dan = re.sub(r'[0-9]', '',bdate)
+                if(dan.startswith('일')):
+                    date = now - relativedelta(days=num)    
+                elif(dan.startswith('주')):
+                    date = now - relativedelta(weeks=num)
+                elif(dan.startswith('달')):
+                    date = now - relativedelta(months=num)
+                elif(dan.startswith('년')):
+                    date = now - relativedelta(years=num)    
+                date = date.replace(microsecond=0)
+                star = int(cnts.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[9]/div[1]/div/div[3]/div[3]/div[1]/span[1]').text[0])
+                rv = cnts.find_elements_by_class_name("ODSEW-ShBeI-text")[0].text
+                rvdata = rvdata + " | " + rv
+                new_rv = {'store_id':df.loc[i,'id'] , 'score':star, 'content':rv,'reg_time':date}
+                append_list.append(new_rv)
+                print(star,date,bdate,rv)
+                
+            if(len(append_list) > 0) :    
+                print("리뷰데이터 어펜드")
+                dfrv = dfrv.append(append_list, ignore_index=True)
+                append_list = []
+            
     except:
-        q=2
-
+        print("리뷰데이터 얻기 실패")
     
     df.loc[i,'rating'] = score
     df.loc[i,'review_cnt'] = reviewcount
     df.loc[i,'reviews'] = rvdata
     print(df.loc[i,'reviews'])
-    print(len(findclass)," ",score," , ",reviewcount)
+    print(len(cnts_list)," ",score," , ",reviewcount)
     print("||================================================================||")
-    # a = input("다음으로 가려면 엔터...")
-    # if(a == "q"): break
+    # if(i%50 == 0):
+    #     pd.to_pickle(df, CAFE_FILE)
+    #     pd.to_pickle(dfrv, REVIEW_FILE)
+    #     print("데이터저장완료")
+    a = input("다음으로 가려면 엔터...")
+    if(a == "q"): break
+#%%
 
+score = 0
+reviewcount = 0
+rvdata = ""
+cnts_list = []
+append_list = []
+date = datetime.now()
+try:
+    # browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span[1]/span[2]/span[1]/button').click()    
+    browser.find_elements_by_class_name("aMPvhf-fI6EEc-KVuj8d")[0].click()
+    time.sleep(1)
+except :
+    try:            
+        browser.find_element_by_xpath('//*[@id="pane"]/div/div/div/div/div/div/div/div/a').click()
+        print("1트")
+        time.sleep(1)
+        # browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span/span[2]/span[1]/button').click()
+        browser.find_elements_by_class_name("aMPvhf-fI6EEc-KVuj8d")[0].click()
+    except : 
+        try:
+            browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div/a').click()
+            print("2트")
+            time.sleep(1)
+            # browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span/span[2]/span[1]/button').click()
+            browser.find_elements_by_class_name("aMPvhf-fI6EEc-KVuj8d")[0].click()
+        except:
+            q="1"
+        
+time.sleep(1)
+#브라우저 2개이상일떄
+while(len(browser.window_handles)>1):
+    print("탭이 2개 이상 입니다.")
+    browser.switch_to.window(browser.window_handles[1])
+    browser.close()
+    browser.switch_to.window(browser.window_handles[0])
+try:        
+    score = float(browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[2]/div/div[2]/div[1]').text)
+    reviewcount = int(re.sub(r'[^0-9]', '',browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[2]/div/div[2]/div[2]').text))
+
+    time.sleep(0.5)
+    browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+    time.sleep(0.5)
+    browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+    time.sleep(0.5)
+    browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+    time.sleep(0.5)
+    browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+    time.sleep(0.5)
+    browser.execute_script("document.getElementsByClassName('section-scrollbox')[0].scrollTo(0,99999999999999)")
+    time.sleep(0.5)
+    cnts_list = browser.find_elements_by_class_name("ODSEW-ShBeI-content")
+    try:
+        for cnts in cnts_list:
+            bdate = cnts.find_elements_by_class_name("ODSEW-ShBeI-RgZmSc-date")[0].text
+            now = datetime.now()
+            num = int(re.sub(r'[^0-9]', '',bdate))
+            dan = re.sub(r'[0-9]', '',bdate)
+            if(dan.startswith('일')):
+                date = now - relativedelta(days=num)    
+            elif(dan.startswith('주')):
+                date = now - relativedelta(weeks=num)
+            elif(dan.startswith('달')):
+                date = now - relativedelta(months=num)
+            elif(dan.startswith('년')):
+                date = now - relativedelta(years=num)    
+            date = date.replace(microsecond=0)
+            star = int(re.sub(r'[^0-9]', '',cnts.find_elements_by_class_name("ODSEW-ShBeI-H1e3jb")[0].get_attribute('aria-label')))
+            rv = cnts.find_elements_by_class_name("ODSEW-ShBeI-text")[0].text
+            rvdata = rvdata + " | " + rv
+            new_rv = {'store_id':df.loc[i,'id'] , 'score':star, 'content':rv,'reg_time':date}
+            append_list.append(new_rv)
+            # dfrv = dfrv.append(new_rv, ignore_index=True)
+            print(star,date,bdate,rv)
+        if(len(append_list) > 0) :    
+            print("리뷰데이터 어펜드")
+            dfrv = dfrv.append(append_list, ignore_index=True)
+            append_list = []
+    except:
+        print("# 별점이 별이아닐때")
+        for cnts in cnts_list:
+            bdate = cnts.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[9]/div[1]/div/div[3]/div[3]/div[1]/span[3]/span[1]').text
+            now = datetime.now()
+            num = int(re.sub(r'[^0-9]', '',bdate))
+            dan = re.sub(r'[0-9]', '',bdate)
+            if(dan.startswith('일')):
+                date = now - relativedelta(days=num)    
+            elif(dan.startswith('주')):
+                date = now - relativedelta(weeks=num)
+            elif(dan.startswith('달')):
+                date = now - relativedelta(months=num)
+            elif(dan.startswith('년')):
+                date = now - relativedelta(years=num)    
+            date = date.replace(microsecond=0)
+            star = int(cnts.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[9]/div[1]/div/div[3]/div[3]/div[1]/span[1]').text[0])
+            rv = cnts.find_elements_by_class_name("ODSEW-ShBeI-text")[0].text
+            rvdata = rvdata + " | " + rv
+            new_rv = {'store_id':df.loc[i,'id'] , 'score':star, 'content':rv,'reg_time':date}
+            append_list.append(new_rv)
+            print(star,date,bdate,rv)
+            
+        if(len(append_list) > 0) :    
+            print("리뷰데이터 어펜드")
+            dfrv = dfrv.append(append_list, ignore_index=True)
+            append_list = []
+        
+except:
+    print("리뷰데이터 얻기 실패")
+
+df.loc[i,'rating'] = score
+df.loc[i,'review_cnt'] = reviewcount
+df.loc[i,'reviews'] = rvdata
+print(df.loc[i,'reviews'])
+print(len(cnts_list)," ",score," , ",reviewcount)
+print("||================================================================||")
+
+#%%
+# i=681
+#조건행제거
+df.loc[i,'review_cnt'] = 0
+df.loc[i,'rating'] = 0
+df.loc[i,'reviews'] = ''
+df2 = dfrv[dfrv.store_id != df.loc[i,'id'] ]
+dfrv = df2
+#%%
+for i in range(i+1,330000):
+    address = df.loc[i,'address']
+    search = address + ' ' + df.loc[i,'store_name']
+    print("||==",i,"번째 카페 :"+" "+search,"==||")
+    url = urllib.parse.quote(address)
+    # browser.get('https://www.juso.go.kr/support/AddressMainSearch.do?firstSort=none&ablYn=N&synnYn=Y&fillterHiddenValue=&searchKeyword={}'.format(url))
+    browser.get('https://www.google.com/maps/search/{}'.format(url))
+    time.sleep(1)
+    browser.find_element_by_xpath('//*[@id="searchboxinput"]').clear()
+    browser.find_element_by_xpath('//*[@id="searchboxinput"]').send_keys(search)
+    browser.find_element_by_xpath('//*[@id="searchboxinput"]').send_keys(Keys.ENTER)    
+    time.sleep(2)
+    score = 0
+    reviewcount = 0
+    rvdata = ""
+    cnts_list = []
+    append_list = []
+    date = datetime.now()
+    try:
+        # browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/span[1]/span/span[1]/span[2]/span[1]/button').click()    
+        browser.find_elements_by_class_name("aMPvhf-fI6EEc-KVuj8d")[0].click()
+        time.sleep(2)
+    except :
+        try:            
+            browser.find_element_by_xpath('//*[@id="pane"]/div/div/div/div/div/div/div/div/a').click()
+
+        except : 
+            try:
+                browser.find_element_by_xpath('//*[@id="pane"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div/a').click()
+
+            except:
+                q="1"
+    a = input("다음으로 가려면 엔터...")
+    if(a == "q"): break
+    
+#%% 데이터 저장
+pd.to_pickle(df, CAFE_FILE)
+pd.to_pickle(dfrv, REVIEW_FILE)
 #%%
 browser.quit()
-
 #%%
-#데이터저장
-
-import json
-import pandas as pd
-import os
-import shutil
-import datetime
-DATA_DIR = "../data"
-DATA_FILE = os.path.join(DATA_DIR, "data.json")
-DUMP_FILE = os.path.join(DATA_DIR, "dump.pkl")
-
-pd.to_pickle(df, DUMP_FILE)
-
+df_sorted_by_index = dfrv.sort_index(ascending=False)
