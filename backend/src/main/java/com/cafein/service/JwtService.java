@@ -1,6 +1,6 @@
 package com.cafein.service;
 
-import com.cafein.entity.UserDB;
+import com.cafein.entity.User;
 
 import org.springframework.security.core.Authentication;
 
@@ -11,8 +11,8 @@ public interface JwtService {
     <T> String createAccessToken(int userId);
     String getAccessToken();
     int getUserId();
-    UserDB getUserDB();
-    UserDB getChatUserDB(String accessToken);
+    User getUser();
+    User getChatUserDB(String accessToken);
     Authentication getAuthentication(String token);
     boolean validateToken(String jwtToken);
     Jws<Claims> getClaims(String jwtToken);

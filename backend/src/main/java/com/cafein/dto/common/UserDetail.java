@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import com.cafein.entity.UserDB;
+import com.cafein.entity.User;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserDetail implements UserDetails {
     private int id;
-    private UserDB user;
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 group = 'com.cafein'
@@ -21,37 +22,43 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
 dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.3.0.RELEASE'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
-    compile group: 'org.json', name: 'json', version: '20190722'
-    compile group: 'org.apache.clerezza.ext', name: 'org.json.simple', version: '0.4'
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
+    implementation group: 'org.json', name: 'json', version: '20190722'
+    implementation group: 'org.apache.clerezza.ext', name: 'org.json.simple', version: '0.4'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.0.RELEASE') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
     }
 
     // Web
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     // DB
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.0.RELEASE'
-    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.0'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
-    compile group: 'com.zaxxer', name: 'HikariCP', version: '3.4.5'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.0'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '3.4.5'
 
     // Authentication
-    compile "org.springframework.boot:spring-boot-starter-security"
-    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation 'org.springframework.security:spring-security-test'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 
     // Firebase (FCM)
-    compile group: 'com.google.firebase', name: 'firebase-admin', version: '6.14.0'
+    implementation group: 'com.google.firebase', name: 'firebase-admin', version: '6.14.0'
 
-    compile group : 'com.squareup.okhttp3', name : 'mockwebserver', version: '4.7.2'
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
+    implementation group : 'com.squareup.okhttp3', name : 'mockwebserver', version: '4.7.2'
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.14'
 
     // Querydsl
     implementation group: 'com.querydsl', name: 'querydsl-jpa', version: querydslVersion
@@ -65,10 +72,41 @@ dependencies {
 
     // Mail
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // Spring rest docs
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
 test {
     useJUnitPlatform()
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'src/main/resources/static/docs'
+    }
+}
+
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
 }
 
 clean {

@@ -1,5 +1,6 @@
 package com.cafein.configuration.security;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,12 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지
                 // 않습니다.
                 .and().authorizeRequests() // 요청에 대한 사용권한 체크
-                .antMatchers("/users/**").permitAll()
-                .antMatchers("/chat/**").permitAll()
-                .antMatchers("/chat-messages").permitAll()
-                .antMatchers("/areas").permitAll()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/ws-stomp/**").permitAll()
+                .antMatchers("/api/users/signin").permitAll()
+                .antMatchers("/api/users/signup").permitAll()
+                .antMatchers("/api/users/email").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/reviews").permitAll()
+                .antMatchers("/api/cafes/{id}").permitAll()
+                .antMatchers("/api/cafes").permitAll()
+                .antMatchers("/docs/**").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()).and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class);

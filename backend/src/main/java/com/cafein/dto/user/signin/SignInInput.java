@@ -1,11 +1,11 @@
 package com.cafein.dto.user.signin;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @ToString
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 public class SignInInput {
     private String email;
