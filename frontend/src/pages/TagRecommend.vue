@@ -24,7 +24,7 @@
       <q-btn
         v-for="tag in coffeeTags" :key="tag"
         rounded
-        style="background: #FAF8E2"
+        style="background: #FAF8E2; min-width: 62px;"
         text-color="primary"
         size="sm"
       >
@@ -36,7 +36,7 @@
       <q-btn
         v-for="tag in studyTags" :key="tag"
         rounded
-        style="background: #FAF8E2"
+        style="background: #FAF8E2; min-width: 62px;"
         text-color="primary"
         size="sm"
         >
@@ -48,7 +48,7 @@
       <q-btn
         v-for="tag in dateTags" :key="tag"
         rounded
-        style="background: #FAF8E2"
+        style="background: #FAF8E2; min-width: 62px;"
         text-color="primary"
         size="sm"
         >
@@ -60,7 +60,7 @@
       <q-btn
         v-for="tag in photoTags" :key="tag"
         rounded
-        style="background: #FAF8E2"
+        style="background: #FAF8E2; min-width: 62px;"
         text-color="primary"
         size="sm"
         >
@@ -71,7 +71,7 @@
   </div>
   <div style="textAlign: center; marginTop: 0.7rem">
     <q-btn
-      style="background: #FAF8E2"
+      style="background: #FAF8E2; min-width: 62px;"
       text-color="primary"
       size="1.4rem"
       label="추천받기"
