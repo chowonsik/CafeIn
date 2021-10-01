@@ -12,4 +12,5 @@ public interface ReviewService {
     ResponseEntity<Response<Object>> createReview(CreateReviewInput createReviewInput);
     ResponseEntity<PageResponse<SelectReviewOutput>> selectReview(SelectReviewInput selectReviewInput);
     ResponseEntity<Response<Object>> updateReview(UpdateReviewInput updateReviewInput, int reviewId);
+    ResponseEntity<Response<Object>> deleteReview(int reviewId);
 }

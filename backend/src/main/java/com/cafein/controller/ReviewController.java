@@ -56,4 +56,16 @@ public class ReviewController {
         return reviewService.updateReview(updateReviewInput, reviewId);
     }
 
+    /**
+     * 리뷰 삭제 API [DELETE] /api/reviews/{id}
+     *
+     * @return ResponseEntity<Response<Object>>
+     */
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response<Object>> deleteReview(@PathVariable("id") int reviewId) {
+        log.info("[DELETE] /api/reviews");
+        return reviewService.deleteReview(reviewId);
+    }
+
 }

@@ -151,4 +151,29 @@ public class ReviewServiceImpl implements ReviewService {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new Response<>(null, SUCCESS_UPDATE_REVIEW));
     }
+
+    @Override
+    @Transactional
+    public ResponseEntity<Response<Object>> deleteReview(int reviewId) {
+        try {
+            // 1. 리뷰 조회
+            Review review = reviewRepository.findById(reviewId).orElse(null);
+
+            // 2. 리뷰 삭제
+            if (review == null)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(BAD_ID_VALUE));
+
+            reviewRepository.delete(review);
+
+        } catch (Exception e) {
+            log.error("[reviews/delete] database error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
+        }
+
+        // 3. 결과 return
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(null, SUCCESS_DELETE_REVIEW));
+    }
 }

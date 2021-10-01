@@ -256,6 +256,8 @@ Request Header
 
 include::{snippets}/reviews/update/successful/request-headers.adoc[]
 
+include::{snippets}/reviews/update/successful/path-parameters.adoc[]
+
 include::{snippets}/reviews/update/successful/request-fields.adoc[]
 
 include::{snippets}/reviews/update/successful/response-fields.adoc[]
@@ -269,3 +271,25 @@ include::{snippets}/reviews/update/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/reviews/update/successful/http-response.adoc[]
+
+=== 3-4. 리뷰 삭제
+
+==== 리뷰 삭제
+
+Request Header
+
+include::{snippets}/reviews/delete/successful/request-headers.adoc[]
+
+include::{snippets}/reviews/delete/successful/path-parameters.adoc[]
+
+include::{snippets}/reviews/delete/successful/response-fields.adoc[]
+
+==== 리뷰 삭제 성공
+
+Request Example
+
+include::{snippets}/reviews/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/delete/successful/http-response.adoc[]

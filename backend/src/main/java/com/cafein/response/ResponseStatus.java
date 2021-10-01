@@ -36,6 +36,7 @@ public enum ResponseStatus {
     NO_CONTENT(204, 200, "요청에 성공하였습니다."),
     SUCCESS_UPDATE_PROFILE(204, 204, "프로필 수정에 성공하였습니다."),
     SUCCESS_UPDATE_REVIEW(204, 204, "리뷰 수정에 성공하였습니다."),
+    SUCCESS_DELETE_REVIEW(204, 204, "리뷰 삭제에 성공하였습니다."),
     SUCCESS_DELETE_USER(204, 444, "회원탈퇴에 성공하였습니다"),
 
     /*
