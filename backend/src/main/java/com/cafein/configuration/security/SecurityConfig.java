@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/users/signup").permitAll()
                 .antMatchers("/api/users/email").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/reviews").permitAll()
+                .antMatchers("/api/cafes/{id}").permitAll()
+                .antMatchers("/api/cafes").permitAll()
                 .antMatchers("/docs/**").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()).and()
