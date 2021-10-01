@@ -21,7 +21,7 @@ const routes = [
     path: "/",
     component: () => import("layouts/EmptyLayout.vue"),
     children: [
-      { path: "myreview", component: () => import('pages/MyReviewPage') }
+      { path: "myreview", component: () => import("pages/MyReviewPage") },
     ],
   },
   {
@@ -31,10 +31,10 @@ const routes = [
       { path: "profile", component: () => import("pages/user/ProfilePage.vue") },
       { path: "profile/edit", component: () => import("pages/user/EditUserPage.vue") },
       { path: "tag", component: () => import("pages/TagRecommend.vue") },
-      { path: "nearcafe", component: () => import("pages/NearCafe.vue") }
+      { path: "nearcafe", component: () => import("pages/NearCafe.vue") },
+      { path: "curation", component: () => import("pages/CafeCuration.vue") }
     ],
   },
-
   // Always leave this as last one,
   // but you can also remove it
   {
