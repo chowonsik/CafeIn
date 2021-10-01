@@ -33,7 +33,7 @@ public enum ResponseStatus {
     CREATED_COMMENT(201, 209, "한줄평 등록에 성공하였습니다."),
     CREATED_LIKE_COMMENT(201, 208, "관심 한줄평 등록에 성공하였습니다."),
     CREATED_DEAL(201, 203, "거래글 등록에 성공하였습니다."),
-    CREATED_LIKE_BOOK(201, 219, "관심 책 등록에 성공하였습니다."),
+    CREATED_BOOKMARK(201, 219, "찜 등록에 성공하였습니다."),
 
     // 202 Accepted - 클라이언트의 요청은 정상적이나, 서버가 아직 요청을 완료하지 못했다. 비동기
     ACCEPTED(202, 200, "요청에 성공하였습니다."),

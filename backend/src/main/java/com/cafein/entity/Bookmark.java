@@ -13,7 +13,7 @@ import static javax.persistence.GenerationType.*;
 @Builder
 @Getter @Setter
 @Entity
-@Table(name = "menu")
+@Table(name = "bookmark")
 public class Bookmark {
     @Id
     @Column(name = "id", nullable = false, updatable = false)
@@ -21,13 +21,11 @@ public class Bookmark {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name="cafe_id", nullable=false)    
     private Cafe cafe;
-    
-    @Column(name = "name", length = 126)
-    private String name;
-
-    @Column(name = "price")
-    private int price;
 
 }
