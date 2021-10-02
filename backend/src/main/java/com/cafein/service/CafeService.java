@@ -11,5 +11,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface CafeService {
     ResponseEntity<Response<SelectCafeDetailOutput>> selectCafe(int id);
-    ResponseEntity<PageResponse<CafeSearchOutput>> selectCafeListByWord(CafeSearchInput cafeSearchInput, Pageable pageable);
+    ResponseEntity<PageResponse<CafeSearchOutput>> selectCafeListByWord(CafeSearchInput cafeSearchInput);
 }

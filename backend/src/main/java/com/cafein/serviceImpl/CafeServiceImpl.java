@@ -12,7 +12,9 @@ import com.cafein.service.CafeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -44,7 +46,7 @@ public class CafeServiceImpl implements CafeService {
     }
 
     @Override
-    public ResponseEntity<PageResponse<CafeSearchOutput>> selectCafeListByWord(CafeSearchInput cafeSearchInput, Pageable pageable) {
+    public ResponseEntity<PageResponse<CafeSearchOutput>> selectCafeListByWord(CafeSearchInput cafeSearchInput) {
 
         // 값 형식 체크
         if(cafeSearchInput == null)
@@ -52,6 +54,9 @@ public class CafeServiceImpl implements CafeService {
                     .body(new PageResponse<>(NO_VALUES));
 
         Page<CafeSearchOutput> cafeSearchOutput;
+        Pageable pageable = PageRequest.of(cafeSearchInput.getPage(), cafeSearchInput.getSize(), Sort.Direction.ASC,
+                "cafeDistance");
+
         try {
             cafeSearchOutput = cafeRepository.findByWordCustom(cafeSearchInput, pageable);
         } catch (Exception e) {
