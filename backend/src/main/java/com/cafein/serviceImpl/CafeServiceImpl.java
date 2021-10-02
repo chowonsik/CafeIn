@@ -33,7 +33,7 @@ public class CafeServiceImpl implements CafeService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new Response<>(NO_VALUES));
 
-        SelectCafeDetailOutput selectCafeDetailOutput = cafeRepository.findById(id);
+        SelectCafeDetailOutput selectCafeDetailOutput = cafeRepository.findByIdCustom(id);
         if(selectCafeDetailOutput==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new Response<>(BAD_ID_VALUE));
@@ -53,7 +53,7 @@ public class CafeServiceImpl implements CafeService {
 
         Page<CafeSearchOutput> cafeSearchOutput;
         try {
-            cafeSearchOutput = cafeRepository.findByWord(cafeSearchInput, pageable);
+            cafeSearchOutput = cafeRepository.findByWordCustom(cafeSearchInput, pageable);
         } catch (Exception e) {
             log.error("[GET]/cafe database error", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

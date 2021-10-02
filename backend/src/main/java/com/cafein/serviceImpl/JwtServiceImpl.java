@@ -67,7 +67,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public User getUserDB() {
+    public User getUser() {
         String accessToken = getAccessToken();
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(ACCESS_TOKEN_SECRET_KEY).parseClaimsJws(accessToken);
@@ -112,7 +112,7 @@ public class JwtServiceImpl implements JwtService {
     @Override
     // 인증 성공시 SecurityContextHolder에 저장할 Authentication 객체 생성
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(this.getUserDB().getEmail());
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(this.getUser().getEmail());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
