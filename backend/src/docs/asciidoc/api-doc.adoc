@@ -173,3 +173,123 @@ include::{snippets}/users/update/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/users/update/successful/http-response.adoc[]
+
+== 3. Review API
+
+=== 3-1. 리뷰 작성
+
+==== 리뷰 작성
+
+Request Header
+
+include::{snippets}/reviews/create/successful/request-headers.adoc[]
+
+include::{snippets}/reviews/create/successful/request-fields.adoc[]
+
+include::{snippets}/reviews/create/successful/response-fields.adoc[]
+
+==== 리뷰 작성 성공
+
+Request Example
+
+include::{snippets}/reviews/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/create/successful/http-response.adoc[]
+
+=== 3-2. 리뷰 조회
+
+==== 카페 리뷰 조회
+
+include::{snippets}/reviews/select/cafe/successful/request-parameters.adoc[]
+
+include::{snippets}/reviews/select/cafe/successful/response-fields.adoc[]
+
+==== 카페 리뷰 조회 성공
+
+Request Example
+
+include::{snippets}/reviews/select/cafe/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/select/cafe/successful/http-response.adoc[]
+
+==== 유저 리뷰 조회
+
+include::{snippets}/reviews/select/user/successful/request-parameters.adoc[]
+
+include::{snippets}/reviews/select/user/successful/response-fields.adoc[]
+
+==== 유저 리뷰 조회 성공
+
+Request Example
+
+include::{snippets}/reviews/select/user/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/select/user/successful/http-response.adoc[]
+
+==== 워드클라우드 리뷰 조회
+
+include::{snippets}/reviews/select/search/successful/request-parameters.adoc[]
+
+include::{snippets}/reviews/select/search/successful/response-fields.adoc[]
+
+==== 워드클라우드 리뷰 조회 성공
+
+Request Example
+
+include::{snippets}/reviews/select/search/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/select/search/successful/http-response.adoc[]
+
+=== 3-3. 리뷰 수정
+
+==== 리뷰 수정
+
+Request Header
+
+include::{snippets}/reviews/update/successful/request-headers.adoc[]
+
+include::{snippets}/reviews/update/successful/path-parameters.adoc[]
+
+include::{snippets}/reviews/update/successful/request-fields.adoc[]
+
+include::{snippets}/reviews/update/successful/response-fields.adoc[]
+
+==== 리뷰 수정 성공
+
+Request Example
+
+include::{snippets}/reviews/update/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/update/successful/http-response.adoc[]
+
+=== 3-4. 리뷰 삭제
+
+==== 리뷰 삭제
+
+Request Header
+
+include::{snippets}/reviews/delete/successful/request-headers.adoc[]
+
+include::{snippets}/reviews/delete/successful/path-parameters.adoc[]
+
+include::{snippets}/reviews/delete/successful/response-fields.adoc[]
+
+==== 리뷰 삭제 성공
+
+Request Example
+
+include::{snippets}/reviews/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/delete/successful/http-response.adoc[]

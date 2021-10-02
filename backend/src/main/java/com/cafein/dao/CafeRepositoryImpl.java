@@ -35,7 +35,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 	QBhour qBhour = QBhour.bhour;
 
 	@Override
-	public SelectCafeDetailOutput findById(int id) {
+	public SelectCafeDetailOutput findByIdCustom(int id) {
 		SelectCafeDetailOutput queryResult = queryFactory
 				.select(new QSelectCafeDetailOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel,
 						qCafe.address, qCafe.latitude, qCafe.longitude,
@@ -52,7 +52,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 	}
 
 	@Override
-	public Page<CafeSearchOutput> findByWord(CafeSearchInput cafeSearchInput, Pageable pageable) {
+	public Page<CafeSearchOutput> findByWordCustom(CafeSearchInput cafeSearchInput, Pageable pageable) {
 		double userLatitude = Double.parseDouble(cafeSearchInput.getLatitude());
 		double userLongitude = Double.parseDouble(cafeSearchInput.getLongitude());
 
