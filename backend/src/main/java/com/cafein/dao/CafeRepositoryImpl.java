@@ -10,6 +10,7 @@ import com.cafein.dto.cafe.selectCafeDetail.QSelectCafeDetailOutput;
 import com.cafein.dto.cafe.selectCafeDetail.SelectCafeDetailOutput;
 import com.cafein.entity.QBhour;
 import com.cafein.entity.QCafe;
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Path;
@@ -38,7 +39,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 	public SelectCafeDetailOutput findByIdCustom(int id) {
 		SelectCafeDetailOutput queryResult = queryFactory
 				.select(new QSelectCafeDetailOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel,
-						qCafe.address, qCafe.latitude, qCafe.longitude,
+						qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
 						qBhour.type, qBhour.week_type, qBhour.mon, qBhour.tue, qBhour.wed, qBhour.thu, qBhour.fri,
 						qBhour.sat, qBhour.sun, qBhour.startTime, qBhour.endTime, qBhour.etc
 				))
@@ -56,7 +57,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 		double userLatitude = Double.parseDouble(cafeSearchInput.getLatitude());
 		double userLongitude = Double.parseDouble(cafeSearchInput.getLongitude());
 
-		List<CafeSearchOutput> queryResult = queryFactory
+		QueryResults<CafeSearchOutput> queryResult = queryFactory
 				.select(new QCafeSearchOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel, qCafe.address,
 						qCafe.latitude, qCafe.longitude,
 						//거리 구하기
@@ -66,6 +67,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 										.multiply(cos(radians(qCafe.longitude.castToNum(Double.class)).subtract(radians(Expressions.constant(userLongitude)))))
 										.add((sin(radians(Expressions.constant(userLatitude))).multiply(sin(radians(qCafe.latitude.castToNum(Double.class))))))
 						).multiply(Expressions.constant(6371)).stringValue(),"distance"),
+						qCafe.imgUrl,
 						qBhour.type, qBhour.week_type, qBhour.mon, qBhour.tue, qBhour.wed, qBhour.thu, qBhour.fri,
 						qBhour.sat, qBhour.sun, qBhour.startTime, qBhour.endTime, qBhour.etc
 				))
@@ -75,9 +77,9 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 				.where(qCafe.name.contains(cafeSearchInput.getSearch()))
 				.orderBy(Expressions.stringPath("distance").asc())
 				.offset(pageable.getOffset()).limit(pageable.getPageSize())
-				.fetch();
-		long totalCount = queryResult.size();
-		List<CafeSearchOutput> content = queryResult;
+				.fetchResults();
+		long totalCount = queryResult.getTotal();
+		List<CafeSearchOutput> content = queryResult.getResults();
 
 		return new PageImpl<>(content, pageable, totalCount);
 	}

@@ -24,7 +24,7 @@ public class CafeController {
     private final CafeService cafeService;
 
     /**
-     * 카페 상세 정보 조회 API [GET] /cafes/{id}
+     * 카페 상세 정보 조회 API [GET] /api/cafes/{id}
      * @param id 검색하고 싶은 카페의 id
      * @return ResponseEntity<Response<SelectCafeDetailOutput>>
      */
@@ -36,7 +36,7 @@ public class CafeController {
     }
 
     /**
-     * 카페 단어로 검색 API [GET] /cafes
+     * 카페 단어로 검색 API [GET] /api/cafes
      *
      * @return ResponseEntity<PageResponse<CafeSearchOutput>>
      */
@@ -44,9 +44,7 @@ public class CafeController {
     @GetMapping
     public ResponseEntity<PageResponse<CafeSearchOutput>> searchCafeByWord(CafeSearchInput cafeSearchInput) {
         log.info("[GET] /cafes");
-        Pageable pageable = PageRequest.of(cafeSearchInput.getPage(), cafeSearchInput.getSize(), Sort.Direction.ASC,
-                "cafeDistance");
-        return cafeService.selectCafeListByWord(cafeSearchInput, pageable);
+        return cafeService.selectCafeListByWord(cafeSearchInput);
     }
 
 }
