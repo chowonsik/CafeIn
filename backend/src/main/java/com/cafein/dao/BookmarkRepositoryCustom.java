@@ -9,5 +9,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface BookmarkRepositoryCustom {
-    Page<SelectBookmarkOutput> findByUserIdCustum(SelectBookmarkInput selectBookmarkInput, Pageable pageable);
+    Page<SelectBookmarkOutput> findByUserIdCustum(int userId, Pageable pageable);
 }

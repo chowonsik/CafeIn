@@ -5,7 +5,6 @@ import com.cafein.dao.BookmarkRepository;
 import com.cafein.dao.CafeRepository;
 import com.cafein.dao.UserRepository;
 import com.cafein.dto.bookmark.createBookmark.CreateBookmarkInput;
-import com.cafein.dto.bookmark.seleteBookmark.SelectBookmarkInput;
 import com.cafein.dto.bookmark.seleteBookmark.SelectBookmarkOutput;
 import com.cafein.entity.Bookmark;
 import com.cafein.entity.Cafe;
@@ -17,12 +16,11 @@ import com.cafein.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.awt.print.Book;
 
 import static com.cafein.response.ResponseStatus.*;
 
@@ -38,7 +36,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     public ResponseEntity<Response<Object>> createBookmark(CreateBookmarkInput createBookmarkInput) {
-        // 1. 값 형식 체크
+        // 값 형식 체크
         if(createBookmarkInput == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new Response<>(NO_VALUES));
@@ -56,12 +54,16 @@ public class BookmarkServiceImpl implements BookmarkService {
             if (cafe == null)
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(BAD_ID_VALUE));
+            // 중복 체크
+            if(bookmarkRepository.findByUserAndCafe(user,cafe).orElse(null)!=null)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(EXISTS_BOOKMARK));
 
             bookmark = Bookmark.builder().user(user).cafe(cafe).build();
             bookmarkRepository.save(bookmark);
 
         } catch (Exception e) {
-            log.error("[GET]/bookmarks NOT FOUND LOGIN USER error");
+            log.error("[GET]/bookmarks database error", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response<>(DATABASE_ERROR));
         }
@@ -71,28 +73,27 @@ public class BookmarkServiceImpl implements BookmarkService {
     }
 
     @Override
-    public ResponseEntity<PageResponse<SelectBookmarkOutput>> selectCafeListByWord(SelectBookmarkInput selectBookmarkInput, Pageable pageable) {
+    public ResponseEntity<PageResponse<SelectBookmarkOutput>> selectBookmarkListByUserId(int page, int size) {
         // 1. 값 형식 체크
-        if(selectBookmarkInput == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new PageResponse<>(NO_VALUES));
-
-        if (!ValidationCheck.isValidPage(selectBookmarkInput.getPage())
-                || !ValidationCheck.isValidId(selectBookmarkInput.getSize()))
+        if (!ValidationCheck.isValidPage(page)
+                || !ValidationCheck.isValidId(size))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new PageResponse<>(BAD_REQUEST));
+
         // 2. 일치하는 찜 목록 정보 가져오기
         Page<SelectBookmarkOutput> selectBookmarkOutput;
+        Pageable pageable = PageRequest.of(page-1, size);
+
         try {
-            // userId 검증
+            // userId
             User loginUser = jwtService.getUserDB();
-            if (loginUser == null || loginUser.getId()!=selectBookmarkInput.getUserId())  {
+            if (loginUser == null)  {
                 log.error("[GET]/bookmarks NOT FOUND LOGIN USER error");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new PageResponse<>(NOT_FOUND_USER));
             }
             
-            selectBookmarkOutput = bookmarkRepository.findByUserIdCustum(selectBookmarkInput, pageable);
+            selectBookmarkOutput = bookmarkRepository.findByUserIdCustum(loginUser.getId(), pageable);
         } catch (Exception e) {
             log.error("[GET]/bookmarks database error", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

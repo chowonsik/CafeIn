@@ -13,5 +13,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface BookmarkService {
     ResponseEntity<Response<Object>> createBookmark(CreateBookmarkInput createBookmarkInput);
-    ResponseEntity<PageResponse<SelectBookmarkOutput>> selectCafeListByWord(SelectBookmarkInput selectBookmarkInput, Pageable pageable);
+    ResponseEntity<PageResponse<SelectBookmarkOutput>> selectBookmarkListByUserId(int page, int size);
 }

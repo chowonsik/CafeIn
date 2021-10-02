@@ -46,9 +46,9 @@ public class BookmarkController {
      */
     // Params
     @GetMapping
-    public ResponseEntity<Response<SelectBookmarkOutput>> getBookmarkList(SelectBookmarkInput selectBookmarkInput){
+    public ResponseEntity<PageResponse<SelectBookmarkOutput>> getBookmarkList(@RequestParam(required = true) int page, @RequestParam(required = true) int size){
         log.info("[GET] /api/bookmarks");
-        return null;
+        return bookmarkService.selectBookmarkListByUserId(page,size);
     }
 
 }

@@ -13,6 +13,7 @@ import com.cafein.entity.QBookmark;
 import com.cafein.entity.QCafe;
 import com.cafein.entity.QUser;
 import com.querydsl.core.Query;
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -29,28 +30,26 @@ public class BookmarkRepositoryImpl implements BookmarkRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
 	QBookmark qBookmark = QBookmark.bookmark;
-    QUser qUser = QUser.user;
     QCafe qCafe = QCafe.cafe;
     QBhour qBhour = QBhour.bhour;
 
     @Override
-    public Page<SelectBookmarkOutput> findByUserIdCustum(SelectBookmarkInput selectBookmarkInput, Pageable pageable) {
-        List<SelectBookmarkOutput> queryResult = queryFactory
-                .select(new QSelectBookmarkOutput(qUser.id, qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel, qCafe.address,
+    public Page<SelectBookmarkOutput> findByUserIdCustum(int userId, Pageable pageable) {
+        QueryResults<SelectBookmarkOutput> queryResult = queryFactory
+                .select(new QSelectBookmarkOutput(Expressions.constant(userId), qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel, qCafe.address,
                         qCafe.latitude, qCafe.longitude,
                         qBhour.type, qBhour.week_type, qBhour.mon, qBhour.tue, qBhour.wed, qBhour.thu, qBhour.fri,
                         qBhour.sat, qBhour.sun, qBhour.startTime, qBhour.endTime, qBhour.etc
                 ))
                 .from(qBookmark)
-                .leftJoin(qCafe)
+                .join(qCafe)
                 .on(qBookmark.cafe.id.eq(qCafe.id))
                 .leftJoin(qBhour)
                 .on(qCafe.id.eq(qBhour.cafe.id))
-                .where(qUser.id.eq(selectBookmarkInput.getUserId()))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())
-                .fetch();
-        long totalCount = queryResult.size();
-        List<SelectBookmarkOutput> content = queryResult;
+                .fetchResults();
+        long totalCount = queryResult.getTotal();
+        List<SelectBookmarkOutput> content = queryResult.getResults();
 
         return new PageImpl<>(content, pageable, totalCount);
     }

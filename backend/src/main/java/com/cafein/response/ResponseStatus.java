@@ -65,6 +65,7 @@ public enum ResponseStatus {
     EXISTS_INFO(400, 420, "이미 존재하는 정보입니다."),
     NEED_SIGNUP(400, 422, "회원가입이 필요합니다."),
     FAILED_TO_SEND_EMAIL(400, 444, "인증 메일을 발송하는데 실패하였습니다."),
+    EXISTS_BOOKMARK(400, 420, "이미 존재하는 찜 정보입니다."),
 
     // 401 Unauthorized - 클라이언트가 권한이 없기 때문에 작업을 진행할 수 없는 경우
     UNAUTHORIZED(401, 400, "권한이 없습니다."),
