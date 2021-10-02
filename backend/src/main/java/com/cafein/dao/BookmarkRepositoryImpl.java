@@ -26,8 +26,8 @@ public class BookmarkRepositoryImpl implements BookmarkRepositoryCustom {
     @Override
     public Page<SelectBookmarkOutput> findByUserIdCustum(int userId, Pageable pageable) {
         QueryResults<SelectBookmarkOutput> queryResult = queryFactory
-                .select(new QSelectBookmarkOutput(qBookmark.id, Expressions.constant(userId), qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel, qCafe.address,
-                        qCafe.latitude, qCafe.longitude,
+                .select(new QSelectBookmarkOutput(qBookmark.id, Expressions.constant(userId), qCafe.id, qCafe.name,
+                        qCafe.branch, qCafe.area, qCafe.tel, qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
                         qBhour.type, qBhour.week_type, qBhour.mon, qBhour.tue, qBhour.wed, qBhour.thu, qBhour.fri,
                         qBhour.sat, qBhour.sun, qBhour.startTime, qBhour.endTime, qBhour.etc
                 ))
