@@ -41,4 +41,7 @@ public class Cafe {
     @Column(name = "longitude", length = 30)
     private String longitude;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
 }
