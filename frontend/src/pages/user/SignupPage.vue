@@ -59,7 +59,7 @@
           </div>
           <div>
             <span>비밀번호 확인</span>
-            <q-input class="no-margin no-padding" outlined v-model="v$.passwordConfirm.$model" :error="v$.passwordConfirm.$invalid" placeholder="비밀번호 확인(영문, 숫자 조합)" clearable autocapitalize="off" />
+            <q-input class="no-margin no-padding" type="password" outlined v-model="v$.passwordConfirm.$model" :error="v$.passwordConfirm.$invalid" placeholder="비밀번호 확인(영문, 숫자 조합)" clearable autocapitalize="off" />
             <span
               v-for="error of v$.passwordConfirm.$errors"
               :key="error.$uid"

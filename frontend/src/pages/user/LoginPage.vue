@@ -42,7 +42,7 @@
       <p>홈</p>
     </div>
     <div class="row justify-center" style="margin-top: 100px">
-      <q-card flat bordered style="width: 90%">
+      <q-card @click="goSignup()" flat bordered style="width: 90%">
         <q-card-section class="flex justify-around items-center">
           <div class="text-h6">아직 회원이 아니세요?</div>
           <div class="text-h6">회원가입</div>
@@ -89,6 +89,9 @@ export default {
   methods: {
     goBack() {
       window.history.back()
+    },
+    goSignup() {
+      this.$router.push({path:'/users/signup'}).catch(()=>{})
     },
     async checkForm () {
       const isFormCorrect = await this.v$.$validate()
