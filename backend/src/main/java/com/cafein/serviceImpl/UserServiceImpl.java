@@ -167,7 +167,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<Response<Object>> changeDeleteStatus() {
         // 1. 로그인한 유저 정보 가져오기
         try {
-            User loginUserDB = jwtService.getUser();
+            User loginUserDB = jwtService.getUserDB();
             if(loginUserDB == null) {
                 log.error("[users/patch] NOT FOUND LOGIN USER error");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)

@@ -1,15 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-import sqlalchemy
 import mysql.connector
-import pandas as pd
-import os
 
 db = {
-    'user': 'admin',	        # 1)
-    'password': 'ssafy204',		# 2)
-    'host': 'cafein.cckcnhsswc6w.ap-northeast-2.rds.amazonaws.com',    # 3)
+    'user': 'root',	        # 1)
+    'password': 'root',		# 2)
+    'host': 'localhost',    # 3)
     'port': 3306,			# 4)
     'database': 'cafein'		# 5)
 }
@@ -46,60 +43,3 @@ def init_db():  # 테이블을 생성해주는 함수
 
 def clear_db():  # 모든 테이블을 삭제하는 함수
     Base.metadata.drop_all()
-
-def insult_cafe(): #카페데이터 db에 저장    
-    #DATA 경로
-    DATA_DIR = "../datas"
-    #카페, 리뷰 피클
-    CAFE_FILE = os.path.join(DATA_DIR, "cafe.pkl")
-    REVIEW_FILE = os.path.join(DATA_DIR, "review.pkl")
-    df = pd.read_pickle(CAFE_FILE)
-    dfrv = pd.read_pickle(REVIEW_FILE)
-    #  len(df)
-    for i in range(0,len(df)):
-        try:
-            engine.execute("INSERT INTO cafe VALUE({},\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",\"{}\")".format(df.loc[i,'id'],df.loc[i,'address'],df.loc[i,'area'],df.loc[i,'branch'],df.loc[i,'latitude'],df.loc[i,'longitude'],df.loc[i,'store_name'],df.loc[i,'tel']))
-        except:
-            continue
-        
-def insult_cafe2(): #카페데이터 db에 저장    
-    #DATA 경로
-    DATA_DIR = "../datas"
-    #카페, 리뷰 피클
-    CAFE_FILE = os.path.join(DATA_DIR, "cafe.pkl")
-    df = pd.read_pickle(CAFE_FILE)
-    values_list = []
-    metadata = sqlalchemy.MetaData()
-    table = sqlalchemy.Table('cafe', metadata, autoload=True, autoload_with=engine)
-    query = sqlalchemy.insert(table)
-    for i in df.index:
-        values_list.append({'id':int(df.loc[i,'id']), 'address':df.loc[i,'address'], 'area':df.loc[i,'area'], 'branch':df.loc[i,'branch'], 'latitude':df.loc[i,'latitude'], 'longitude':df.loc[i,'longitude'], 'name':df.loc[i,'store_name'], 'tel':df.loc[i,'tel']})
-      
-    engine.execute(query,values_list)     
-
-def insult_review(): #리뷰데이터 db에 저장    
-    #DATA 경로
-    DATA_DIR = "../datas"
-    #카페, 리뷰 피클
-    REVIEW_FILE = os.path.join(DATA_DIR, "review.pkl")
-    df = pd.read_pickle(REVIEW_FILE)
-    values_list = []
-    metadata = sqlalchemy.MetaData()
-    table = sqlalchemy.Table('review', metadata, autoload=True, autoload_with=engine)
-    query = sqlalchemy.insert(table)
-    #  len(df)
-    for i in df.index:
-        values_list.append({'content':df.loc[i,'content'].replace('\"',''), 'created_at':df.loc[i,'reg_time'], 'total_score':df.loc[i,'score'], 'cafe_id':df.loc[i,'store_id'], 'user_id':1})
-        if(i>1 and i%100000 == 0): 
-            engine.execute(query,values_list)
-            values_list = []        
-
-    engine.execute(query,values_list)
-
-        
-insult_cafe2()
-insult_review()
-
-
-#%%
-

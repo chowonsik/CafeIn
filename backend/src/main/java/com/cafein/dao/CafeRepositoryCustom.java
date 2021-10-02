@@ -8,6 +8,6 @@ import org.springframework.data.domain.Pageable;
 import com.cafein.dto.cafe.search.CafeSearchInput;
 
 public interface CafeRepositoryCustom {
-    SelectCafeDetailOutput findByIdCustom(int id);
-    Page<CafeSearchOutput> findByWordCustom(CafeSearchInput cafeSearchInput, Pageable pageable);
+    SelectCafeDetailOutput findById(int id);
+    Page<CafeSearchOutput> findByWord(CafeSearchInput cafeSearchInput, Pageable pageable);
 }
