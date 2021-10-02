@@ -11,7 +11,7 @@
         <div class="q-gutter-y-md column" style="width: 80%">
           <div>
             <span>이메일</span>
-            <q-input class="no-margin" type="email" outlined v-model="v$.email.$model" :error="v$.email.$invalid" placeholder="이메일 입력" />
+            <q-input class="no-margin no-padding" type="email" outlined v-model="v$.email.$model" :error="v$.email.$invalid" placeholder="이메일 입력" />
             <span
               v-for="error of v$.email.$errors"
               :key="error.$uid"
@@ -22,7 +22,7 @@
           </div>
           <div>
             <span>비밀번호</span>
-            <q-input class="no-margin" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="비밀번호 입력(영문, 숫자 조합)" />
+            <q-input class="no-margin no-padding" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="비밀번호 입력(영문, 숫자 조합)" />
             <span
               v-for="error of v$.password.$errors"
               :key="error.$uid"
@@ -73,12 +73,12 @@ export default {
   validations() {
     return {
       email: {
-        required: helpers.withMessage('이메일은 필수 입력입니다.', required), 
+        required: helpers.withMessage('이메일은 필수 항목입니다.', required), 
         email: helpers.withMessage('이메일 양식이 아닙니다.', email),
         $autoDirty: true, $lazy: true
       },
       password: {
-        required: helpers.withMessage('비밀번호는 필수 입력입니다.', required), 
+        required: helpers.withMessage('비밀번호는 필수 항목입니다.', required), 
         // alphaNum,
         minLength: helpers.withMessage('비밀번호는 3~20사이 입니다.', minLength(3)),
         maxLength: helpers.withMessage('비밀번호는 3~20사이 입니다.', maxLength(20)),
