@@ -103,4 +103,39 @@ public class BookmarkServiceImpl implements BookmarkService {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new PageResponse<>(selectBookmarkOutput, SUCCESS_SELECT_CAFE));
     }
+
+    @Override
+    public ResponseEntity<Response<Object>> deleteBookmark(int id) {
+        // 값 형식 체크
+        if (!ValidationCheck.isValidId(id))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new Response<>(BAD_ID_VALUE));
+
+        // 찜 관계 삭제
+        try {
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId < 0) {
+                log.error("[DELETE]/bookmarks NOT FOUND USER exception");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(NOT_FOUND_USER));
+            }
+
+            Bookmark existBookmark = bookmarkRepository.findById(id).orElse(null);
+            if (existBookmark == null)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(NOT_FOUND_BOOKMARK));
+            if (existBookmark.getUser().getId() != loginUserId)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(FORBIDDEN_BOOKMARK_ID));
+
+            bookmarkRepository.deleteById(id);
+
+        } catch (Exception e) {
+            log.error("[DELETE]/bookmarks database error", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(DATABASE_ERROR));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(SUCCESS_DELETE_BOOKMARK));
+    }
 }

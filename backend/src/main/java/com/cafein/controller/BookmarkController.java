@@ -51,4 +51,16 @@ public class BookmarkController {
         return bookmarkService.selectBookmarkListByUserId(page,size);
     }
 
+    /**
+     * 카페 찜 삭제 API
+     * [DELETE] /api/bookmarks/{id}
+     * @return Response<Object>
+     */
+    // Path-Variable
+    @DeleteMapping("{id}")
+    public ResponseEntity<Response<Object>> deleteBookmark(@PathVariable("id") int id) {
+        log.info("[DELETE] /bookmarks/" + id);
+        return bookmarkService.deleteBookmark(id);
+    }
+
 }

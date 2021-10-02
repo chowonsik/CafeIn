@@ -11,6 +11,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class SelectBookmarkOutput {
+    //찜 id
+    private int bookmarkId;
     //유저 정보
     private int userId;
     //카페 정보
@@ -37,7 +39,8 @@ public class SelectBookmarkOutput {
     private String bhourEtc;
 
     @QueryProjection
-    public SelectBookmarkOutput(int userId, int cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, Integer bhourType, Integer bhourWeekType, Integer bhourMon, Integer bhourTue, Integer bhourWed, Integer bhourThu, Integer bhourFri, Integer bhourSat, Integer bhourSun, Date bhourStartTime, Date bhourEndTime, String bhourEtc) {
+    public SelectBookmarkOutput(int bookmarkId, int userId, int cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, Integer bhourType, Integer bhourWeekType, Integer bhourMon, Integer bhourTue, Integer bhourWed, Integer bhourThu, Integer bhourFri, Integer bhourSat, Integer bhourSun, Date bhourStartTime, Date bhourEndTime, String bhourEtc) {
+        this.bookmarkId = bookmarkId;
         this.userId = userId;
         this.cafeId = cafeId;
         this.cafeName = cafeName;

@@ -14,4 +14,5 @@ import org.springframework.http.ResponseEntity;
 public interface BookmarkService {
     ResponseEntity<Response<Object>> createBookmark(CreateBookmarkInput createBookmarkInput);
     ResponseEntity<PageResponse<SelectBookmarkOutput>> selectBookmarkListByUserId(int page, int size);
+    ResponseEntity<Response<Object>> deleteBookmark(int id);
 }
