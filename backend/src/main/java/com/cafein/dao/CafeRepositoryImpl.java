@@ -39,7 +39,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 	public SelectCafeDetailOutput findByIdCustom(int id) {
 		SelectCafeDetailOutput queryResult = queryFactory
 				.select(new QSelectCafeDetailOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel,
-						qCafe.address, qCafe.latitude, qCafe.longitude,
+						qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
 						qBhour.type, qBhour.week_type, qBhour.mon, qBhour.tue, qBhour.wed, qBhour.thu, qBhour.fri,
 						qBhour.sat, qBhour.sun, qBhour.startTime, qBhour.endTime, qBhour.etc
 				))
@@ -67,6 +67,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 										.multiply(cos(radians(qCafe.longitude.castToNum(Double.class)).subtract(radians(Expressions.constant(userLongitude)))))
 										.add((sin(radians(Expressions.constant(userLatitude))).multiply(sin(radians(qCafe.latitude.castToNum(Double.class))))))
 						).multiply(Expressions.constant(6371)).stringValue(),"distance"),
+						qCafe.imgUrl,
 						qBhour.type, qBhour.week_type, qBhour.mon, qBhour.tue, qBhour.wed, qBhour.thu, qBhour.fri,
 						qBhour.sat, qBhour.sun, qBhour.startTime, qBhour.endTime, qBhour.etc
 				))
