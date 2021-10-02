@@ -11,7 +11,7 @@
         <div class="q-gutter-y-md column" style="width: 80%">
           <div>
             <span>이메일</span>
-            <q-input class="no-margin no-padding" type="email" outlined v-model="v$.email.$model" :error="v$.email.$invalid" placeholder="이메일 입력" />
+            <q-input class="no-margin no-padding" type="email" outlined v-model="v$.email.$model" :error="v$.email.$invalid" placeholder="이메일 입력" clearable autocapitalize="off" />
             <span
               v-for="error of v$.email.$errors"
               :key="error.$uid"
@@ -22,7 +22,7 @@
           </div>
           <div>
             <span>비밀번호</span>
-            <q-input class="no-margin no-padding" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="비밀번호 입력(영문, 숫자 조합)" />
+            <q-input class="no-margin no-padding" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="비밀번호 입력(영문, 숫자 조합)" clearable autocapitalize="off" />
             <span
               v-for="error of v$.password.$errors"
               :key="error.$uid"
