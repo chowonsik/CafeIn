@@ -10,6 +10,7 @@ import com.cafein.dto.cafe.selectCafeDetail.QSelectCafeDetailOutput;
 import com.cafein.dto.cafe.selectCafeDetail.SelectCafeDetailOutput;
 import com.cafein.entity.QBhour;
 import com.cafein.entity.QCafe;
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Path;
@@ -56,7 +57,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 		double userLatitude = Double.parseDouble(cafeSearchInput.getLatitude());
 		double userLongitude = Double.parseDouble(cafeSearchInput.getLongitude());
 
-		List<CafeSearchOutput> queryResult = queryFactory
+		QueryResults<CafeSearchOutput> queryResult = queryFactory
 				.select(new QCafeSearchOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel, qCafe.address,
 						qCafe.latitude, qCafe.longitude,
 						//거리 구하기
@@ -75,9 +76,9 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 				.where(qCafe.name.contains(cafeSearchInput.getSearch()))
 				.orderBy(Expressions.stringPath("distance").asc())
 				.offset(pageable.getOffset()).limit(pageable.getPageSize())
-				.fetch();
-		long totalCount = queryResult.size();
-		List<CafeSearchOutput> content = queryResult;
+				.fetchResults();
+		long totalCount = queryResult.getTotal();
+		List<CafeSearchOutput> content = queryResult.getResults();
 
 		return new PageImpl<>(content, pageable, totalCount);
 	}

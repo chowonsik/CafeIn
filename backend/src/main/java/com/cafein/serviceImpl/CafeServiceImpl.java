@@ -52,9 +52,12 @@ public class CafeServiceImpl implements CafeService {
         if(cafeSearchInput == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new PageResponse<>(NO_VALUES));
+        if(cafeSearchInput.getSearch() == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new PageResponse<>(NO_VALUES));
 
         Page<CafeSearchOutput> cafeSearchOutput;
-        Pageable pageable = PageRequest.of(cafeSearchInput.getPage(), cafeSearchInput.getSize(), Sort.Direction.ASC,
+        Pageable pageable = PageRequest.of(cafeSearchInput.getPage()-1, cafeSearchInput.getSize(), Sort.Direction.ASC,
                 "cafeDistance");
 
         try {
