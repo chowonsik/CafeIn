@@ -11,13 +11,27 @@
         <div class="q-gutter-y-md column" style="width: 80%">
           <div>
             <span>이메일</span>
-            <q-input class="no-margin" ref="emailRef" type="email" outlined v-model="email" lazy-rules :rules="emailRules" placeholder="이메일 입력" :dense="dense" />
+            <q-input class="no-margin" type="email" outlined v-model="v$.email.$model" :error="v$.email.$invalid" placeholder="이메일 입력" />
+            <span
+              v-for="error of v$.email.$errors"
+              :key="error.$uid"
+              class="text-red"
+            >
+            {{ error.$message }}
+            </span>
           </div>
           <div>
             <span>비밀번호</span>
-            <q-input class="no-margin" ref="passwordRef" type="password" outlined v-model="password" lazy-rules :rules="passwordRules" placeholder="비밀번호 입력(영문, 숫자 조합)" :dense="dense" />
+            <q-input class="no-margin" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="비밀번호 입력(영문, 숫자 조합)" />
+            <span
+              v-for="error of v$.password.$errors"
+              :key="error.$uid"
+              class="text-red"
+            >
+            {{ error.$message }}
+            </span>
           </div>
-          <q-btn color="primary" type="submit" class="full-width" size="lg" style="margin: 50px" label="로그인" />
+          <q-btn @click="loginForm()" color="primary" type="submit" class="full-width" size="lg" style="margin: 50px" label="로그인" />
         </div>
       </div>
     </q-form>
@@ -39,48 +53,36 @@
 </template>
 
 <script>
-import { useQuasar } from 'quasar'
-import { ref } from 'vue'
-import { defineComponent } from 'vue';
+import useVuelidate from '@vuelidate/core'
+import { required, email, helpers, minLength, maxLength } from '@vuelidate/validators'
+import { api } from '../../boot/axios'
 
-export default defineComponent ({
+export default {
   name: 'LoginPage',
   setup() {
-    const $q = useQuasar()
-    const email = ref(null)
-    const emailRef = ref(null)
-    const password = ref(null)
-    const passwordRef = ref(null)
-    const accept = ref(false)
-    const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/
-    const passwordPattern = /^[a-zA-Z0-9]{8,20}$/
-    
     return {
-      dense: false,
-      email,
-      emailRef,
-      password,
-      passwordRef,
-      emailRules: [
-        val => (val !== null && val !== '') || '이메일은 필수 항목입니다.',
-        val => (val && emailPattern.test(val)) || '이메일 형식이 옳지 않습니다.'
-      ],
-      passwordRules: [
-        val => (val !== null && val !== '') || '비밀번호는 필수 항목입니다.',
-        val => (val && passwordPattern.test(val)) || '비밀번호 형식이 옳지 않습니다.'
-      ],
-      accept,
-      checkForm () {
-        emailRef.value.validate()
-        passwordRef.value.validate()
-        if (emailRef.value.hasError || passwordRef.value.hasError) {
-        }
-        else if (accept.value !== true) {
-          console.error('미완료')
-        }
-        else {
-          console.log('완료')
-        }
+      v$: useVuelidate()
+    }
+  },
+  data() {
+    return {
+      email: '',
+      password: '',
+    }
+  },
+  validations() {
+    return {
+      email: {
+        required: helpers.withMessage('이메일은 필수 입력입니다.', required), 
+        email: helpers.withMessage('이메일 양식이 아닙니다.', email),
+        $autoDirty: true, $lazy: true
+      },
+      password: {
+        required: helpers.withMessage('비밀번호는 필수 입력입니다.', required), 
+        // alphaNum,
+        minLength: helpers.withMessage('비밀번호는 3~20사이 입니다.', minLength(3)),
+        maxLength: helpers.withMessage('비밀번호는 3~20사이 입니다.', maxLength(20)),
+        $autoDirty: true, $lazy: true
       }
     }
   },
@@ -88,8 +90,29 @@ export default defineComponent ({
     goBack() {
       window.history.back()
     },
+    async checkForm () {
+      const isFormCorrect = await this.v$.$validate()
+      // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
+      if (!isFormCorrect) return
+      // actually submit form
+    },
+    async loginForm () {
+      try {
+        const userData = {
+          email: this.email,
+          password: this.password,
+        }
+        const { data } = await api.post('/api/users/signin', userData)
+        console.log(data)
+        alert(data.message)
+      } catch (error) {
+        console.error(error)
+      }
+    }    
+
+
   }
-})
+}
 </script>
 
 <style>

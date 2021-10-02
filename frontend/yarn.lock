@@ -1387,6 +1387,11 @@
   resolved "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.0.0-beta.15.tgz"
   integrity sha512-quBx4Jjpexo6KDiNUGFr/zF/2A4srKM9S9v2uHgMXSU//hjgq1eGzqkIFql8T9gfX5ZaVOUzYBP3jIdIR3PKIA==
 
+"@vue/devtools-api@^6.0.0-beta.15":
+  version "6.0.0-beta.18"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.18.tgz#84c0aff9289a57294cb97490811f69e8a0a67f8a"
+  integrity sha512-56vRhO7nXWWFYTx520BQSDlQH5VYpwy62hFDEqi2yHHEBpEqseOP5WYQusq7BEW3DXSY9E9cfPVR5CFtJbKuMg==
+
 "@vue/reactivity@3.2.4":
   version "3.2.4"
   resolved "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.2.4.tgz"
@@ -6012,10 +6017,12 @@ vary@~1.1.2:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vee-validate@^4.4.11:
-  version "4.4.11"
-  resolved "https://registry.npmjs.org/vee-validate/-/vee-validate-4.4.11.tgz"
-  integrity sha512-wZR3YbL6tzOhr/JwBskGdBxTEqwcVWQNuyD5rpZSw+uNKqkTlLI11hUcAyjOo4wk+CJOjKvab+1SAfY4xClmsA==
+vee-validate@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.5.2.tgz#5da2fdef14ee272271001eab91078d0fbe7ea25d"
+  integrity sha512-QbIbasQyl+YhKPJUrLetDfpfQ9Y1SNIkvly/RS/jlZENtfiVd7pt5szYQu/DLkczBclsO6Dn3ejNqfGY9G+UBg==
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.15"
 
 vendors@^1.0.3:
   version "1.0.4"

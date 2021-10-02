@@ -16,7 +16,7 @@
     "core-js": "^3.6.5",
     "quasar": "^2.0.0",
     "swiper": "^7.0.7",
-    "vee-validate": "^4.4.11",
+    "vee-validate": "^4.5.2",
     "vuelidate": "^0.7.6",
     "vuex": "^4.0.1"
   },
