@@ -25,6 +25,7 @@ public class CafeSearchOutput {
     private String cafeLongitude;
     private String cafeDistance;
     private String imgUrl;
+    private Integer isBookMark;
     //카페 영업시간 관련
     private Integer bhourType;
     private Integer bhourWeekType;
@@ -40,7 +41,7 @@ public class CafeSearchOutput {
     private String bhourEtc;
 
     @QueryProjection
-    public CafeSearchOutput(Integer cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, String cafeDistance, String imgUrl, Integer bhourType, Integer bhourWeekType, Integer bhourMon, Integer bhourTue, Integer bhourWed, Integer bhourThu, Integer bhourFri, Integer bhourSat, Integer bhourSun, Date bhourStartTime, Date bhourEndTime, String bhourEtc) {
+    public CafeSearchOutput(Integer cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, String cafeDistance, String imgUrl, Integer isBookMark, Integer bhourType, Integer bhourWeekType, Integer bhourMon, Integer bhourTue, Integer bhourWed, Integer bhourThu, Integer bhourFri, Integer bhourSat, Integer bhourSun, Date bhourStartTime, Date bhourEndTime, String bhourEtc) {
         this.cafeId = cafeId;
         this.cafeName = cafeName;
         this.cafeBranch = cafeBranch;
@@ -51,6 +52,7 @@ public class CafeSearchOutput {
         this.cafeLongitude = cafeLongitude;
         this.cafeDistance = cafeDistance;
         this.imgUrl = imgUrl;
+        this.isBookMark = isBookMark;
         this.bhourType = bhourType;
         this.bhourWeekType = bhourWeekType;
         this.bhourMon = bhourMon;
