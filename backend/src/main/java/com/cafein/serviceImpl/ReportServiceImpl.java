@@ -3,14 +3,22 @@ package com.cafein.serviceImpl;
 import com.cafein.configuration.ValidationCheck;
 import com.cafein.dao.ReportRepository;
 import com.cafein.dao.ReviewRepository;
-import com.cafein.dto.report.CreateReport.CreateReportInput;
+import com.cafein.dto.report.createreport.CreateReportInput;
+import com.cafein.dto.report.selectreport.SelectReportInput;
+import com.cafein.dto.report.selectreport.SelectReportOutput;
+import com.cafein.dto.review.selectreview.SelectReviewInput;
+import com.cafein.dto.review.selectreview.SelectReviewOutput;
 import com.cafein.entity.Report;
 import com.cafein.entity.Review;
+import com.cafein.response.PageResponse;
 import com.cafein.response.Response;
 import com.cafein.service.JwtService;
 import com.cafein.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -62,5 +70,29 @@ public class ReportServiceImpl implements ReportService {
         // 3. 결과 return
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new Response<>(null, CREATED_REPORT));
+    }
+
+    @Override
+    public ResponseEntity<PageResponse<SelectReportOutput>> selectReport(SelectReportInput selectReportInput) {
+        // 1. 값 형식 체크
+        if (selectReportInput == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new PageResponse<>(NO_VALUES));
+
+        // 2. 리뷰 신고 조회
+        Pageable pageable = PageRequest.of(selectReportInput.getPage() - 1, selectReportInput.getSize());
+        Page<SelectReportOutput> selectReportOutput;
+        try {
+            selectReportOutput = reportRepository.findReportList(pageable);
+
+        } catch (Exception e) {
+            log.error("[reports/get] database error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new PageResponse<>(DATABASE_ERROR));
+        }
+
+        // 3. 결과 return
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new PageResponse<>(selectReportOutput, SUCCESS_SELECT_REVIEW));
     }
 }

@@ -1,4 +1,4 @@
-package com.cafein.dto.report.CreateReport;
+package com.cafein.dto.report.createreport;
 
 import lombok.*;
 

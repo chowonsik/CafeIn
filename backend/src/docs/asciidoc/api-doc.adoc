@@ -317,3 +317,25 @@ include::{snippets}/reports/create/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/reports/create/successful/http-response.adoc[]
+
+=== 4-2. 리뷰 신고 조회
+
+==== 리뷰 신고 조회
+
+Request Header
+
+include::{snippets}/reports/select/successful/request-headers.adoc[]
+
+include::{snippets}/reports/select/successful/request-parameters.adoc[]
+
+include::{snippets}/reports/select/successful/response-fields.adoc[]
+
+==== 리뷰 신고 조회 성공
+
+Request Example
+
+include::{snippets}/reports/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reports/select/successful/http-response.adoc[]
