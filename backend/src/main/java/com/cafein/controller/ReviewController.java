@@ -35,7 +35,7 @@ public class ReviewController {
     /**
      * 리뷰 조회 API [GET] /api/reviews
      *
-     * @return ResponseEntity<Response<Object>>
+     * @return ResponseEntity<PageResponse<SelectReviewOutput>>
      */
 
     @GetMapping
