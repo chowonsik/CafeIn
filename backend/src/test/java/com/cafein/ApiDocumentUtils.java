@@ -12,7 +12,7 @@ public interface ApiDocumentUtils {
     static OperationRequestPreprocessor getDocumentRequest() {
         return preprocessRequest(
                 modifyUris()
-                        .scheme("http")
+                        .scheme("https")
                         .host("j5b204.ssafy.io")
                         .removePort(),
                 prettyPrint());

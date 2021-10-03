@@ -93,6 +93,31 @@ public class ReportServiceImpl implements ReportService {
 
         // 3. 결과 return
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new PageResponse<>(selectReportOutput, SUCCESS_SELECT_REVIEW));
+                .body(new PageResponse<>(selectReportOutput, SUCCESS_SELECT_REPORT));
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<Response<Object>> deleteReport(int reportId) {
+        try {
+            // 1. 리뷰 신고 조회
+            Report report = reportRepository.findById(reportId).orElse(null);
+
+            // 2. 리뷰 삭제
+            if (report == null)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Response<>(BAD_ID_VALUE));
+
+            reportRepository.delete(report);
+
+        } catch (Exception e) {
+            log.error("[reports/delete] database error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
+        }
+
+        // 3. 결과 return
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(null, SUCCESS_DELETE_REPORT));
     }
 }

@@ -6,7 +6,7 @@ endif::[]
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
-:toclevels: 3
+:toclevels: 4
 :sectlinks:
 :docinfo: shared-head
 
@@ -26,7 +26,7 @@ API에 관계없이 아래 사항을 지켜주셔야 합니다.
 | 환경 | Domain
 
 | 개발서버
-| `http://j5b204.p.ssafy.io`
+| `https://j5b204.p.ssafy.io`
 
 |===
 
@@ -339,3 +339,25 @@ include::{snippets}/reports/select/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/reports/select/successful/http-response.adoc[]
+
+=== 4-3. 리뷰 신고 삭제
+
+==== 리뷰 신고 삭제
+
+Request Header
+
+include::{snippets}/reports/delete/successful/request-headers.adoc[]
+
+include::{snippets}/reports/delete/successful/path-parameters.adoc[]
+
+include::{snippets}/reports/delete/successful/response-fields.adoc[]
+
+==== 리뷰 신고 삭제 성공
+
+Request Example
+
+include::{snippets}/reports/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reports/delete/successful/http-response.adoc[]

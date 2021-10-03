@@ -10,4 +10,5 @@ import org.springframework.http.ResponseEntity;
 public interface ReportService {
     ResponseEntity<Response<Object>> createReport(CreateReportInput createReportInput);
     ResponseEntity<PageResponse<SelectReportOutput>> selectReport(SelectReportInput selectReportInput);
+    ResponseEntity<Response<Object>> deleteReport(int reportId);
 }

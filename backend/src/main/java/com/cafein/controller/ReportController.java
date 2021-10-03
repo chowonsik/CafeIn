@@ -45,4 +45,16 @@ public class ReportController {
         return reportService.selectReport(selectReportInput);
     }
 
+    /**
+     * 리뷰 신고 삭제 API [DELETE] /api/reports/{id}
+     *
+     * @return ResponseEntity<Response<Object>>
+     */
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response<Object>> deleteReport(@PathVariable("id") int reportId) {
+        log.info("[DELETE] /api/reports");
+        return reportService.deleteReport(reportId);
+    }
+
 }
