@@ -293,3 +293,27 @@ include::{snippets}/reviews/delete/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/reviews/delete/successful/http-response.adoc[]
+
+== 4. Report API
+
+=== 4-1. 리뷰 신고 등록
+
+==== 리뷰 신고 등록
+
+Request Header
+
+include::{snippets}/reports/create/successful/request-headers.adoc[]
+
+include::{snippets}/reports/create/successful/request-fields.adoc[]
+
+include::{snippets}/reports/create/successful/response-fields.adoc[]
+
+==== 리뷰 신고 등록 성공
+
+Request Example
+
+include::{snippets}/reports/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reports/create/successful/http-response.adoc[]
