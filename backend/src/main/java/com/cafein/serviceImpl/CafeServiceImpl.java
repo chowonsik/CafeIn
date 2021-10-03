@@ -9,6 +9,7 @@ import com.cafein.entity.Cafe;
 import com.cafein.response.PageResponse;
 import com.cafein.response.Response;
 import com.cafein.service.CafeService;
+import com.cafein.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,7 @@ import static com.cafein.response.ResponseStatus.*;
 public class CafeServiceImpl implements CafeService {
 
     private final CafeRepository cafeRepository;
+    private final JwtService jwtService;
 
     @Override
     public ResponseEntity<Response<SelectCafeDetailOutput>> selectCafe(int id) {
@@ -35,7 +37,7 @@ public class CafeServiceImpl implements CafeService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new Response<>(NO_VALUES));
 
-        SelectCafeDetailOutput selectCafeDetailOutput = cafeRepository.findByIdCustom(id);
+        SelectCafeDetailOutput selectCafeDetailOutput = cafeRepository.findByIdCustom(id, jwtService.getUserId());
         if(selectCafeDetailOutput==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new Response<>(BAD_ID_VALUE));
@@ -61,7 +63,7 @@ public class CafeServiceImpl implements CafeService {
                 "cafeDistance");
 
         try {
-            cafeSearchOutput = cafeRepository.findByWordCustom(cafeSearchInput, pageable);
+            cafeSearchOutput = cafeRepository.findByWordCustom(cafeSearchInput, jwtService.getUserId(), pageable);
         } catch (Exception e) {
             log.error("[GET]/cafe database error", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

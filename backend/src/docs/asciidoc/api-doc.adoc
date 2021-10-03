@@ -361,3 +361,49 @@ include::{snippets}/reports/delete/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/reports/delete/successful/http-response.adoc[]
+
+== 5. Cafe API
+
+=== 5-1. 카페 조회
+
+==== 카페 조회
+
+Request Header
+
+include::{snippets}/cafes/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafes/select/successful/request-parameters.adoc[]
+
+include::{snippets}/cafes/select/successful/response-fields.adoc[]
+
+==== 카페 조회 성공
+
+Request Example
+
+include::{snippets}/cafes/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafes/select/successful/http-response.adoc[]
+
+=== 5-2. 카페 상세 조회
+
+==== 카페 상세 조회
+
+Request Header
+
+include::{snippets}/cafe_detail/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafe_detail/select/successful/path-parameters.adoc[]
+
+include::{snippets}/cafe_detail/select/successful/response-fields.adoc[]
+
+==== 카페 상세 조회 성공
+
+Request Example
+
+include::{snippets}/cafe_detail/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafe_detail/select/successful/http-response.adoc[]
