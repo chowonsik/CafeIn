@@ -55,7 +55,8 @@
 <script>
 import useVuelidate from '@vuelidate/core'
 import { required, email, helpers, minLength, maxLength } from '@vuelidate/validators'
-import { api } from '../../boot/axios'
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers("auth")
 
 export default {
   name: 'LoginPage',
@@ -87,6 +88,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['LOGIN']),
     goBack() {
       window.history.back()
     },
@@ -105,9 +107,8 @@ export default {
           email: this.email,
           password: this.password,
         }
-        const { data } = await api.post('/api/users/signin', userData)
-        console.log(data)
-        alert(data.message)
+        await this.LOGIN(userData)
+        this.$router.push('/')
       } catch (error) {
         console.error(error)
       }
