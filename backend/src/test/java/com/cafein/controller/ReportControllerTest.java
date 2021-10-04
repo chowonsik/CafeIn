@@ -140,7 +140,7 @@ public class ReportControllerTest extends ApiDocumentationTest {
         String JWT = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQ5LCJpYXQiOjE2MzI4MDgyMDF9.ImwkfxLW84OCWp2hBqYiJzGnZqUO6Ni-GskrZZyoTgM";
 
         //when
-        ResultActions result = mockMvc.perform(delete("/api/reports/{id}", 8)
+        ResultActions result = mockMvc.perform(delete("/api/reports/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-ACCESS-TOKEN", JWT)
                         .accept(MediaType.APPLICATION_JSON))
