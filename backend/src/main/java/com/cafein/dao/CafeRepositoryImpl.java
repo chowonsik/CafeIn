@@ -11,6 +11,7 @@ import com.cafein.dto.cafe.selectCafeDetail.SelectCafeDetailOutput;
 import com.cafein.entity.QBhour;
 import com.cafein.entity.QBookmark;
 import com.cafein.entity.QCafe;
+import com.cafein.entity.QReview;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -36,20 +37,24 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
     QCafe qCafe = QCafe.cafe;
 	QBhour qBhour = QBhour.bhour;
 	QBookmark qBookmark = QBookmark.bookmark;
+	QReview qReview = QReview.review;
 
 	@Override
 	public SelectCafeDetailOutput findByIdCustom(int id, int userId) {
 		SelectCafeDetailOutput queryResult = queryFactory
 				.select(new QSelectCafeDetailOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel,
 						qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
+						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
 								.where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))),
-						qBhour.type, qBhour.week_type, qBhour.mon, qBhour.tue, qBhour.wed, qBhour.thu, qBhour.fri,
-						qBhour.sat, qBhour.sun, qBhour.startTime, qBhour.endTime, qBhour.etc
+						// bookmarkCnt
+						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
+								.where(qBookmark.cafe.id.eq(qCafe.id)),
+						// reviewCnt
+						JPAExpressions.select(qReview.count().castToNum(Integer.class)).from(qReview)
+								.where(qReview.cafe.id.eq(qCafe.id))
 				))
 				.from(qCafe)
-				.leftJoin(qBhour)
-				.on(qCafe.id.eq(qBhour.cafe.id))
 				.where(qCafe.id.eq(id))
 				.fetchOne();
 		System.out.println(queryResult);
@@ -72,14 +77,17 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 										.add((sin(radians(Expressions.constant(userLatitude))).multiply(sin(radians(qCafe.latitude.castToNum(Double.class))))))
 						).multiply(Expressions.constant(6371)).stringValue(),"distance"),
 						qCafe.imgUrl,
+						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
 								.where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))),
-						qBhour.type, qBhour.week_type, qBhour.mon, qBhour.tue, qBhour.wed, qBhour.thu, qBhour.fri,
-						qBhour.sat, qBhour.sun, qBhour.startTime, qBhour.endTime, qBhour.etc
+						// bookmarkCnt
+						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
+								.where(qBookmark.cafe.id.eq(qCafe.id)),
+						// reviewCnt
+						JPAExpressions.select(qReview.count().castToNum(Integer.class)).from(qReview)
+								.where(qReview.cafe.id.eq(qCafe.id))
 				))
 				.from(qCafe)
-				.leftJoin(qBhour)
-				.on(qCafe.id.eq(qBhour.cafe.id))
 				.where(qCafe.name.contains(cafeSearchInput.getSearch()))
 				.orderBy(Expressions.stringPath("distance").asc())
 				.offset(pageable.getOffset()).limit(pageable.getPageSize())

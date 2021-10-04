@@ -1,6 +1,7 @@
 package com.cafein.dto.cafe.search;
 
 import com.cafein.entity.Bhour;
+import com.cafein.entity.Menu;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -23,25 +25,14 @@ public class CafeSearchOutput {
     private String cafeAddress;
     private String cafeLatitude;
     private String cafeLongitude;
-    private String cafeDistance;
-    private String imgUrl;
-    private Integer isBookMark;
-    //카페 영업시간 관련
-    private Integer bhourType;
-    private Integer bhourWeekType;
-    private Integer bhourMon;
-    private Integer bhourTue;
-    private Integer bhourWed;
-    private Integer bhourThu;
-    private Integer bhourFri;
-    private Integer bhourSat;
-    private Integer bhourSun;
-    private String bhourStartTime;
-    private String bhourEndTime;
-    private String bhourEtc;
+    private String cafeDistance; //유저 현재 위치에서 거리
+    private String cafeImgUrl;
+    private Integer isBookMark; //북마크 한 상태인지 아닌지
+    private Integer bookmarkCnt; //찜 되어진 수
+    private Integer reviewCnt; //리뷰 수
 
     @QueryProjection
-    public CafeSearchOutput(Integer cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, String cafeDistance, String imgUrl, Integer isBookMark, Integer bhourType, Integer bhourWeekType, Integer bhourMon, Integer bhourTue, Integer bhourWed, Integer bhourThu, Integer bhourFri, Integer bhourSat, Integer bhourSun, String bhourStartTime, String bhourEndTime, String bhourEtc) {
+    public CafeSearchOutput(Integer cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, String cafeDistance, String cafeImgUrl, Integer isBookMark, Integer bookmarkCnt, Integer reviewCnt) {
         this.cafeId = cafeId;
         this.cafeName = cafeName;
         this.cafeBranch = cafeBranch;
@@ -51,19 +42,9 @@ public class CafeSearchOutput {
         this.cafeLatitude = cafeLatitude;
         this.cafeLongitude = cafeLongitude;
         this.cafeDistance = cafeDistance;
-        this.imgUrl = imgUrl;
+        this.cafeImgUrl = cafeImgUrl;
         this.isBookMark = isBookMark;
-        this.bhourType = bhourType;
-        this.bhourWeekType = bhourWeekType;
-        this.bhourMon = bhourMon;
-        this.bhourTue = bhourTue;
-        this.bhourWed = bhourWed;
-        this.bhourThu = bhourThu;
-        this.bhourFri = bhourFri;
-        this.bhourSat = bhourSat;
-        this.bhourSun = bhourSun;
-        this.bhourStartTime = bhourStartTime;
-        this.bhourEndTime = bhourEndTime;
-        this.bhourEtc = bhourEtc;
+        this.bookmarkCnt = bookmarkCnt;
+        this.reviewCnt = reviewCnt;
     }
 }
