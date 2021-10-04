@@ -12,8 +12,8 @@
           <div>
             <span>이메일</span>
             <div class="row">
-              <q-input class="no-margin no-padding col-10" outlined v-model="v$.email.$model" :error="v$.email.$invalid" placeholder="이메일 입력" clearable autocapitalize="off" />
-              <q-btn class="col-2" @click="sendEmail()" color="primary" size="sm" label="인증" />
+              <q-input class="no-margin no-padding col-10" outlined v-model="v$.email.$model" :error="v$.email.$invalid" placeholder="이메일 입력" clearable autocapitalize="off" :readonly="authConfirm"/>
+              <q-btn class="col-2" @click="sendEmail()" color="primary" size="sm" label="인증" :disable="authConfirm" />
             </div>
             <span
               v-for="error of v$.email.$errors"
@@ -84,7 +84,7 @@
             >
             {{ error.$message }}
             </span>
-          <q-btn type="submit" @click="signupForm()" color="primary" class="full-width" size="lg" label="동의하고 가입" />
+          <q-btn type="submit" :disabled="v$.$invalid" color="primary" class="full-width" size="lg" label="동의하고 가입" />
         </div>
         <div class="q-my-md text-weight-bold">
           가입 필수 정보 및 약관을 모두 확인해주세요.
@@ -98,7 +98,7 @@
 import useVuelidate from '@vuelidate/core'
 import { required, email, helpers, minLength, maxLength, sameAs } from '@vuelidate/validators'
 import SignupDialog from '../../components/user/SignupDialog.vue'
-import { api } from '../../boot/axios'
+import { registerUser, emailUser } from '../../api/auth'
 export default {
   name: 'SignupPage',
   components: {
@@ -158,8 +158,11 @@ export default {
       },
       checkbox: {
         required: helpers.withMessage('약관에 동의 해주세요.', required),
-        checked: helpers.withMessage('약관에 동의 해주세요..', sameAs(this.result)),
+        checked: helpers.withMessage('약관에 동의 해주세요.', sameAs(this.result)),
         $autoDirty: true, $lazy: true
+      },
+      authConfirm: {
+        checked: helpers.withMessage('인증번호를 확인해주세요.', sameAs(this.result)),
       }
     }
   },
@@ -169,9 +172,16 @@ export default {
     },
     async sendEmail() {
       try {
-        const { data } = await api.post('/api/users/email', {"email": this.email})
-        this.authGet = data.result.auth
-        alert(data.message)
+        const userData = {
+          email: this.email,
+        }
+        const { data } = await emailUser(userData)
+        if (data.isSuccess == true) {
+          this.authGet = data.result.auth
+          alert(data.message)
+        } else if (data.isSuccess == false) {
+          alert("이메일 인증번호 전송에 실패했습니다.")
+        }
       } catch (error) {
         console.error(error)
       }
@@ -189,6 +199,7 @@ export default {
       // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
       if (!isFormCorrect) return
       // actually submit form
+      this.signupForm()
     },
     async signupForm () {
       try {
@@ -197,10 +208,14 @@ export default {
           nickname: this.nickname,
           password: this.password,
         }
-        const { data } = await api.post('/api/users/signup', userData)
-        alert(data.message)
+        const { data } = await registerUser(userData)
+        if (data.isSuccess == true) {
+          alert(data.message)
+          this.$router.push('/users/login')
+        }
       } catch (error) {
         console.error(error)
+        alert("회원가입에 실패했습니다.")
       }
     } 
   }
