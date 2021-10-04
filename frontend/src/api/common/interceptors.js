@@ -4,7 +4,7 @@ export function setInterceptors(api) {
   // 요청 인터셉터 추가
   api.interceptors.request.use(
     async function (config) {
-      config.headers.Authorization = store.state.token
+      config.headers.Authorization = store.state.accessToken
       return await config;
     },
     function (error) {

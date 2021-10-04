@@ -28,7 +28,7 @@ const routes = [
     path: "/",
     component: () => import("layouts/SubLayout.vue"),
     children: [
-      { path: "profile", component: () => import("pages/user/ProfilePage.vue") },
+      { path: "profile", component: () => import("pages/user/ProfilePage.vue"), meta: { auth: true }},
       { path: "profile/edit", component: () => import("pages/user/EditUserPage.vue") },
       { path: "tag", component: () => import("pages/TagRecommend.vue") },
       { path: "nearcafe", component: () => import("pages/NearCafe.vue") },
