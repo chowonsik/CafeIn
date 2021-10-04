@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div id="map" style="width: 100%;height:350px; z-index: 1"></div>
+  <div style="position: relative;">
+    <div id="map" style="width: 100%; height:350px; z-index: 1"></div>
     <q-btn round color="primary" icon="my_location" 
-      @click="myLocation" style="position: absolute; bottom: 920px; right: 10px; z-index: 2"
+      @click="myLocation" style="position: absolute; bottom: 0.5rem; right: 0.5rem; z-index: 2"
     />
   </div>
 </template>
