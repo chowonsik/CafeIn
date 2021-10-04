@@ -20,4 +20,9 @@ function profileUser(userData) {
   return api.get("/api/users/me", userData);
 }
 
-export { registerUser, loginUser, emailUser, profileUser };
+// 회원탈퇴 API
+function deleteUser(userData) {
+  return api.patch("/api/users/deactivate", userData)
+}
+
+export { registerUser, loginUser, emailUser, profileUser, deleteUser };
