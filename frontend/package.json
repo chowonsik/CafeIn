@@ -17,6 +17,7 @@
     "quasar": "^2.0.0",
     "swiper": "^7.0.7",
     "vee-validate": "^4.4.11",
+    "vue-geolocation-api": "^0.1.21",
     "vuelidate": "^0.7.6",
     "vuex": "^4.0.1"
   },

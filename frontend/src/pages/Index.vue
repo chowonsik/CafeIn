@@ -59,11 +59,22 @@
 <script>
 import { defineComponent } from 'vue';
 import MainCarousel from '../components/mainpage/MainCarousel.vue'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers("kakaomap")
 
 export default defineComponent({
   name: 'PageIndex',
   components: {
     MainCarousel
+  },
+  computed: {
+    ...mapState(['latitude', 'longitude'])
+  },
+  mounted() {
+    this.geoFind()
+  },
+  methods: {
+    ...mapActions(['geoFind'])
   }
 })
 </script>

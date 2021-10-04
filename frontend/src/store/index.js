@@ -1,5 +1,6 @@
-import { store } from 'quasar/wrappers'
-import { createStore } from 'vuex'
+import { store } from "quasar/wrappers";
+import { createStore } from "vuex";
+import kakaomap from "./kakaomap";
 
 // import example from './module-example'
 
@@ -15,13 +16,13 @@ import { createStore } from 'vuex'
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
-      // example
+      kakaomap: kakaomap,
     },
 
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
-    strict: process.env.DEBUGGING
-  })
+    strict: true,
+  });
 
-  return Store
-})
+  return Store;
+});
