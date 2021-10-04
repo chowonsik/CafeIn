@@ -41,7 +41,7 @@ public class Cafe {
     @Column(name = "longitude", length = 30)
     private String longitude;
 
-    @Column(name = "img_url")
+    @Column(name = "img_url", nullable = false, columnDefinition = "TEXT")
     private String imgUrl;
 
 }
