@@ -3,8 +3,6 @@ package com.cafein.controller;
 import com.cafein.dto.report.createreport.CreateReportInput;
 import com.cafein.dto.report.selectreport.SelectReportInput;
 import com.cafein.dto.report.selectreport.SelectReportOutput;
-import com.cafein.dto.review.selectreview.SelectReviewInput;
-import com.cafein.dto.review.selectreview.SelectReviewOutput;
 import com.cafein.response.PageResponse;
 import com.cafein.response.Response;
 import com.cafein.service.ReportService;

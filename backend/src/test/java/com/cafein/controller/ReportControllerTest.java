@@ -117,6 +117,8 @@ public class ReportControllerTest extends ApiDocumentationTest {
                                                 .description("전체 페이지 수"),
                                         fieldWithPath("page.totalElements").type(JsonFieldType.NUMBER)
                                                 .description("전체 요소 수"),
+                                        fieldWithPath("result").type(JsonFieldType.ARRAY)
+                                                .description("리뷰 신고 목록 리스트").optional(),
                                         fieldWithPath("result.[].reportId").type(JsonFieldType.NUMBER)
                                                 .description("리뷰 신고 번호"),
                                         fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
