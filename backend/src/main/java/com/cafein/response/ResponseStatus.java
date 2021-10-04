@@ -22,6 +22,7 @@ public enum ResponseStatus {
     SUCCESS_SELECT_REVIEW(200, 212, "리뷰 조회에 성공하였습니다."),
     SUCCESS_SELECT_REPORT(200, 213, "리뷰 신고 내역 조회에 성공하였습니다."),
     SUCCESS_SELECT_MENU(200, 214, "메뉴 조회에 성공하였습니다."),
+    SUCCESS_SELECT_BHOUR(200, 215, "영업시간 조회에 성공하였습니다."),
 
     // 201 Created - 클라이언트의 요청을 서버가 정상적으로 처리했고 새로운 리소스가 생겼다.,
     CREATED_USERDEAL(201, 203, "유저 거래 내력 등록에 성공하였습니다."),
