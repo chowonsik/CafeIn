@@ -36,12 +36,12 @@ public class SelectCafeDetailOutput {
     private Integer bhourFri;
     private Integer bhourSat;
     private Integer bhourSun;
-    private Date bhourStartTime;
-    private Date bhourEndTime;
+    private String bhourStartTime;
+    private String bhourEndTime;
     private String bhourEtc;
 
     @QueryProjection
-    public SelectCafeDetailOutput(Integer cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, String imgUrl, Integer isBookMark, Integer bhourType, Integer bhourWeekType, Integer bhourMon, Integer bhourTue, Integer bhourWed, Integer bhourThu, Integer bhourFri, Integer bhourSat, Integer bhourSun, Date bhourStartTime, Date bhourEndTime, String bhourEtc) {
+    public SelectCafeDetailOutput(Integer cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, String imgUrl, Integer isBookMark, Integer bhourType, Integer bhourWeekType, Integer bhourMon, Integer bhourTue, Integer bhourWed, Integer bhourThu, Integer bhourFri, Integer bhourSat, Integer bhourSun, String bhourStartTime, String bhourEndTime, String bhourEtc) {
         this.cafeId = cafeId;
         this.cafeName = cafeName;
         this.cafeBranch = cafeBranch;
