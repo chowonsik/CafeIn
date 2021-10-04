@@ -407,3 +407,23 @@ include::{snippets}/cafe_detail/select/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/cafe_detail/select/successful/http-response.adoc[]
+
+== 6. Menu API
+
+=== 6-1. 카페 메뉴 조회
+
+==== 카페 메뉴 조회
+
+include::{snippets}/menus/select/successful/request-parameters.adoc[]
+
+include::{snippets}/menus/select/successful/response-fields.adoc[]
+
+==== 카페 메뉴 조회 성공
+
+Request Example
+
+include::{snippets}/menus/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/menus/select/successful/http-response.adoc[]
