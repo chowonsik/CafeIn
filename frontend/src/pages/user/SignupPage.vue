@@ -13,7 +13,7 @@
             <span>이메일</span>
             <div class="row">
               <q-input class="no-margin no-padding col-10" outlined v-model="v$.email.$model" :error="v$.email.$invalid" placeholder="이메일 입력" clearable autocapitalize="off" />
-              <q-btn class="col-2" color="primary" size="sm" label="인증" />
+              <q-btn class="col-2" @click="sendEmail()" color="primary" size="sm" label="인증" />
             </div>
             <span
               v-for="error of v$.email.$errors"
@@ -25,7 +25,10 @@
           </div>
           <div>
             <span>인증번호</span>
-            <q-input class="no-margin no-padding" outlined v-model="v$.auth.$model" :error="v$.auth.$invalid" placeholder="인증번호 입력" clearable autocapitalize="off" />
+            <div class="row">
+              <q-input class="no-margin no-padding col-10" outlined v-model="v$.auth.$model" :error="v$.auth.$invalid" placeholder="인증번호 입력" clearable autocapitalize="off" :readonly="authConfirm" />
+              <q-btn class="col-2" @click="checkAuth()" color="primary" size="sm" label="확인" :disable="authConfirm" />
+            </div>
             <span
               v-for="error of v$.auth.$errors"
               :key="error.$uid"
@@ -72,16 +75,16 @@
             <q-card-section class="flex justify-around items-center">
               <q-checkbox v-model="v$.checkbox.$model" :error="v$.checkbox.$invalid" />
               <SignupDialog />
-              <span
-                v-for="error of v$.checkbox.$errors"
-                :key="error.$uid"
-                class="text-red"
-              >
-              {{ error.$message }}
-              </span>
             </q-card-section>
           </q-card>
-          <q-btn type="submit" color="primary" class="full-width" size="lg" label="동의하고 가입" />
+            <span
+              v-for="error of v$.checkbox.$errors"
+              :key="error.$uid"
+              class="text-red"
+            >
+            {{ error.$message }}
+            </span>
+          <q-btn type="submit" @click="signupForm()" color="primary" class="full-width" size="lg" label="동의하고 가입" />
         </div>
         <div class="q-my-md text-weight-bold">
           가입 필수 정보 및 약관을 모두 확인해주세요.
@@ -95,6 +98,7 @@
 import useVuelidate from '@vuelidate/core'
 import { required, email, helpers, minLength, maxLength, sameAs } from '@vuelidate/validators'
 import SignupDialog from '../../components/user/SignupDialog.vue'
+import { api } from '../../boot/axios'
 export default {
   name: 'SignupPage',
   components: {
@@ -109,10 +113,18 @@ export default {
     return {
       email: "",
       auth: "",
+      authGet: "",
+      authConfirm: false,
       nickname: "",
       password: "",
       passwordConfirm: "",
       checkbox: false,
+      result: true,
+    }
+  },
+  computed: {
+    isChecked: function() {
+      return this.checkbox
     }
   },
   validations() {
@@ -146,6 +158,7 @@ export default {
       },
       checkbox: {
         required: helpers.withMessage('약관에 동의 해주세요.', required),
+        checked: helpers.withMessage('약관에 동의 해주세요..', sameAs(this.result)),
         $autoDirty: true, $lazy: true
       }
     }
@@ -154,12 +167,42 @@ export default {
     goBack() {
       window.history.back()
     },
+    async sendEmail() {
+      try {
+        const { data } = await api.post('/api/users/email', {"email": this.email})
+        this.authGet = data.result.auth
+        alert(data.message)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    checkAuth() {
+      if (this.auth === this.authGet) {
+        this.authConfirm = true
+        alert("인증에 성공했습니다.")
+      } else {
+        alert("인증에 실패했습니다.")
+      }
+    },
     async checkForm () {
       const isFormCorrect = await this.v$.$validate()
       // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
       if (!isFormCorrect) return
       // actually submit form
     },
+    async signupForm () {
+      try {
+        const userData = {
+          email: this.email,
+          nickname: this.nickname,
+          password: this.password,
+        }
+        const { data } = await api.post('/api/users/signup', userData)
+        alert(data.message)
+      } catch (error) {
+        console.error(error)
+      }
+    } 
   }
 }
 </script>
