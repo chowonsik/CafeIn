@@ -29,6 +29,11 @@
       <q-icon size="sm" color="black" name="arrow_forward_ios" />
     </q-toolbar>
     <q-separator class="q-my-sm" color="grey-4" size="5px" />
+    <q-toolbar @click="logoutUser()">
+      <q-toolbar-title class="text-black text-weight-bold no-padding">로그아웃</q-toolbar-title>
+      <q-icon size="sm" color="black" name="arrow_forward_ios" />
+    </q-toolbar>
+    <q-separator class="q-my-sm" color="grey-4" size="5px" />
     <q-toolbar @click="icon = true">
       <q-toolbar-title class="text-black text-weight-bold no-padding">가입 약관</q-toolbar-title>
       <q-icon size="sm" color="black" name="arrow_forward_ios" />
@@ -50,6 +55,9 @@ import { ref } from 'vue'
 import TermCard from '../../components/user/TermCard.vue'
 import RecentlyCafeItem from '../../components/cafe/RecentlyCafeItem.vue'
 import EditUserButton from '../../components/user/EditUserButton.vue'
+import { deleteCookie } from "../../utils/cookies"
+import { createNamespacedHelpers } from 'vuex'
+const { mapMutations } = createNamespacedHelpers("auth")
 export default {
   name: 'ProfilePage',
   components: {
@@ -69,6 +77,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['clearToken', 'clearUserId']),
     goBack() {
       window.history.back()
     },
@@ -80,6 +89,13 @@ export default {
     },
     goEditUser() {
       this.$router.push({path:'/profile/edit'}).catch(()=>{})
+    },
+    logoutUser() {
+      this.clearToken
+      this.clearUserId
+      deleteCookie('til_auth')
+      deleteCookie('til_user')
+      this.$router.push({path:'/users/login'}).catch(()=>{})
     }
   }
 }
