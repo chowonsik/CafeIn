@@ -111,10 +111,9 @@ export default {
         this.$router.push('/')
       } catch (error) {
         console.error(error)
+        alert("로그인에 실패하였습니다.")
       }
     }    
-
-
   }
 }
 </script>

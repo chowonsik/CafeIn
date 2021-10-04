@@ -3,12 +3,12 @@
     <q-toolbar>
       <q-toolbar-title class="row justify-around font-center items-center">
         <div class="col-gutter-none">
-          <div class="text-center">
+          <div class="text-center" @click="goHome()">
             <q-avatar text-color="grey" size="xl" icon="home" />
           </div>
           <p class="no-margin text-center" style="font-size: 12px">홈</p>
         </div>
-        <div class="col-gutter-none">
+        <div class="col-gutter-none" @click="goNear()">
           <div class="text-center">
             <q-avatar text-color="grey" size="xl" icon="explore" />
           </div>
@@ -23,7 +23,7 @@
           </div>
           <p class="no-margin text-center" style="font-size: 12px">찜</p>
         </div>
-        <div class="col-gutter-none">
+        <div class="col-gutter-none" @click="goProfile()">
           <div class="text-center">
             <q-avatar text-color="grey" size="xl" icon="person" />
           </div>
@@ -37,6 +37,17 @@
 <script>
 export default {
   name: 'Footer',
+  methods: {
+    goHome() {
+      this.$router.push({path:'/'}).catch(()=>{})
+    },
+    goNear() {
+      this.$router.push({path:'/nearcafe'}).catch(()=>{})
+    },
+    goProfile() {
+      this.$router.push({path:'/profile'}).catch(()=>{})
+    }
+  }
 }
 </script>
 
