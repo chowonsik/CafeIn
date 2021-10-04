@@ -26,7 +26,7 @@ public class MenuControllerTest extends ApiDocumentationTest {
 
         //when
         ResultActions result = mockMvc.perform(get("/api/menus")
-                        .queryParam("cafeId", "91")
+                        .queryParam("cafeId", "40")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print());
@@ -52,9 +52,9 @@ public class MenuControllerTest extends ApiDocumentationTest {
                                                 .description("응답 메시지"),
                                         fieldWithPath("result").type(JsonFieldType.ARRAY)
                                                 .description("메뉴 조회 결과 리스트").optional(),
-                                        fieldWithPath("result.[].menuName").type(JsonFieldType.NUMBER)
+                                        fieldWithPath("result.[].menuName").type(JsonFieldType.STRING)
                                                 .description("메뉴 이름").optional(),
-                                        fieldWithPath("result.[].menuPrice").type(JsonFieldType.STRING)
+                                        fieldWithPath("result.[].menuPrice").type(JsonFieldType.NUMBER)
                                                 .description("메뉴 가격").optional(),
                                         fieldWithPath("timestamp").type(JsonFieldType.STRING)
                                                 .description("api 호출 일시")
