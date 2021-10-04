@@ -29,7 +29,7 @@ public class Bhour {
     private int type;
 
     @Column(name = "week_type")
-    private int week_type;
+    private int weekType;
     
     @Column(name = "mon")
     private int mon;

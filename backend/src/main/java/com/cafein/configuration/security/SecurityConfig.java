@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/cafes/{id}").permitAll()
                 .antMatchers("/api/cafes").permitAll()
                 .antMatchers("/api/menus").permitAll()
+                .antMatchers("/api/bhours").permitAll()
                 .antMatchers("/docs/**").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()).and()

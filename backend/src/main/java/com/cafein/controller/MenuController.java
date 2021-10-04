@@ -26,7 +26,7 @@ public class MenuController {
      */
 
     @GetMapping
-    public ResponseEntity<Response<List<SelectMenuOutput>>> selectReview(SelectMenuInput selectMenuInput) {
+    public ResponseEntity<Response<List<SelectMenuOutput>>> selectMenu(SelectMenuInput selectMenuInput) {
         log.info("[GET] /api/menus");
         return menuService.selectMenu(selectMenuInput);
     }
