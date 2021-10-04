@@ -299,7 +299,7 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                 .build();
 
         //when
-        ResultActions result = mockMvc.perform(patch("/api/reviews/{id}", 615595)
+        ResultActions result = mockMvc.perform(patch("/api/reviews/{id}", 615589)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-ACCESS-TOKEN", JWT)
                         .content(objectMapper.writeValueAsString(updateReviewInput)).accept(MediaType.APPLICATION_JSON))
@@ -350,7 +350,7 @@ public class ReviewControllerTest extends ApiDocumentationTest {
         String JWT = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQ5LCJpYXQiOjE2MzI4MDgyMDF9.ImwkfxLW84OCWp2hBqYiJzGnZqUO6Ni-GskrZZyoTgM";
 
         //when
-        ResultActions result = mockMvc.perform(delete("/api/reviews/{id}", 615595)
+        ResultActions result = mockMvc.perform(delete("/api/reviews/{id}", 615589)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-ACCESS-TOKEN", JWT)
                         .accept(MediaType.APPLICATION_JSON))
