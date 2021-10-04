@@ -31,7 +31,7 @@
             {{ error.$message }}
             </span>
           </div>
-          <q-btn @click="loginForm()" color="primary" type="submit" class="full-width" size="lg" style="margin: 50px" label="로그인" />
+          <q-btn :disabled="v$.$invalid" color="primary" type="submit" class="full-width" size="lg" style="margin: 50px" label="로그인" />
         </div>
       </div>
     </q-form>
@@ -99,7 +99,7 @@ export default {
       const isFormCorrect = await this.v$.$validate()
       // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
       if (!isFormCorrect) return
-      // actually submit form
+      this.loginForm()
     },
     async loginForm () {
       try {
