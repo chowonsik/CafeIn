@@ -44,14 +44,17 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 		SelectCafeDetailOutput queryResult = queryFactory
 				.select(new QSelectCafeDetailOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel,
 						qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
+						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
 								.where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))),
-						qBhour.type, qBhour.week_type, qBhour.mon, qBhour.tue, qBhour.wed, qBhour.thu, qBhour.fri,
-						qBhour.sat, qBhour.sun, qBhour.startTime, qBhour.endTime, qBhour.etc
+						// bookmarkCnt
+						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
+								.where(qBookmark.cafe.id.eq(qCafe.id)),
+						// reviewCnt
+						JPAExpressions.select(qReview.count().castToNum(Integer.class)).from(qReview)
+								.where(qReview.cafe.id.eq(qCafe.id))
 				))
 				.from(qCafe)
-				.leftJoin(qBhour)
-				.on(qCafe.id.eq(qBhour.cafe.id))
 				.where(qCafe.id.eq(id))
 				.fetchOne();
 		System.out.println(queryResult);
@@ -85,8 +88,6 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 								.where(qReview.cafe.id.eq(qCafe.id))
 				))
 				.from(qCafe)
-				.leftJoin(qBhour)
-				.on(qCafe.id.eq(qBhour.cafe.id))
 				.where(qCafe.name.contains(cafeSearchInput.getSearch()))
 				.orderBy(Expressions.stringPath("distance").asc())
 				.offset(pageable.getOffset()).limit(pageable.getPageSize())
