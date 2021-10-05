@@ -13,17 +13,38 @@
             <div class="column" style="width: 80%">
               <div class="q-mt-lg">
                 <span>닉네임</span>
-                <q-input type="nickname" outlined v-model="nickname" />
+                <q-input class="no-margin no-padding" outlined v-model="v$.nickname.$model" :error="v$.nickname.$invalid" placeholder="닉네임 입력" clearable autocapitalize="off" />
+                <span
+                  v-for="error of v$.nickname.$errors"
+                  :key="error.$uid"
+                  class="text-red"
+                >
+                {{ error.$message }}
+                </span>
               </div>
               <div class="q-mt-lg">
                 <span>변경할 비밀번호</span>
-                <q-input type="password" outlined v-model="password" />
+                <q-input class="no-margin no-padding" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="변경할 비밀번호 입력(영문, 숫자 조합)" clearable autocapitalize="off" />
+                <span
+                  v-for="error of v$.password.$errors"
+                  :key="error.$uid"
+                  class="text-red"
+                >
+                {{ error.$message }}
+                </span>
               </div>
               <div class="q-mt-lg">
                 <span>변경할 비밀번호 확인</span>
-                <q-input type="password" outlined v-model="passwordConfirm" />
+                <q-input class="no-margin no-padding" type="password" outlined v-model="v$.passwordConfirm.$model" :error="v$.passwordConfirm.$invalid" placeholder="변경할 비밀번호 확인(영문, 숫자 조합)" clearable autocapitalize="off" />
+                <span
+                  v-for="error of v$.passwordConfirm.$errors"
+                  :key="error.$uid"
+                  class="text-red"
+                >
+                {{ error.$message }}
+                </span>
               </div>
-              <q-btn @click="editMyInfo()" color="primary" type="submit" class="full-width q-ma-lg" size="lg" label="프로필 수정" />
+              <q-btn :disabled="v$.$invalid" color="primary" type="submit" class="full-width q-ma-lg" size="lg" label="프로필 수정" />
             </div>
           </div>
         </q-form>
@@ -36,9 +57,14 @@
 <script>
 import { profileUser, editUser } from '../../api/auth'
 import useVuelidate from '@vuelidate/core'
-import { required, minLength, maxLength, sameAs } from '@vuelidate/validators'
+import { required, minLength, maxLength, sameAs, helpers } from '@vuelidate/validators'
 export default {
   name: "EditUserPage",
+  setup() {
+    return {
+      v$: useVuelidate()
+    }
+  },
   data() {
     return {
       nickname: '',
@@ -46,12 +72,36 @@ export default {
       passwordConfirm: '',
     }
   },
+  validations() {
+    return {
+      nickname: {
+        required: helpers.withMessage('닉네임은 필수 항목입니다.', required),
+        minLength: helpers.withMessage('닉네임은 2~10사이 입니다.', minLength(2)),
+        maxLength: helpers.withMessage('닉네임은 2~10사이 입니다.', maxLength(10)),
+        $autoDirty: true, $lazy: true
+      },
+      password: {
+        // alphaNum,
+        minLength: helpers.withMessage('비밀번호는 3~20사이 입니다.', minLength(3)),
+        maxLength: helpers.withMessage('비밀번호는 3~20사이 입니다.', maxLength(20)),
+        $autoDirty: true, $lazy: true
+      },
+      passwordConfirm: {
+        sameAsPassword: helpers.withMessage('비밀번호와 비밀번호 확인이 다릅니다.', sameAs(this.password)),
+        $autoDirty: true, $lazy: true
+      },
+    }
+  },
   created() {
     this.getMyInfo()
   },
   methods: {
-    checkForm() {
-
+    async checkForm () {
+      const isFormCorrect = await this.v$.$validate()
+      // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
+      if (!isFormCorrect) return
+      // actually submit form
+      this.editMyInfo()
     },
     goBack() {
       window.history.back()
