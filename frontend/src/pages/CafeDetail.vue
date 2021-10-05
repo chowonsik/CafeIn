@@ -9,7 +9,7 @@
 
     <div>
       <q-img
-        :src="cafeInfo.img"
+        :src="cafeInfo.cafeImgUrl" 
         :ratio="4/3"
         style="max-height: 300px;"
       />
@@ -20,23 +20,23 @@
         <q-card-section>
           <div class="row justify-between">
             <div class="text-h5 text-bold">{{ cafeInfo.cafeName }}</div>
-            <cafe-menu-dialog />
+            <CafeMenuDialog />
           </div>
-          <div class="text-subtitle2">{{ cafeInfo.address }}</div>
+          <div class="text-subtitle2">{{ cafeInfo.cafeAddress }}</div>
         </q-card-section>
         <q-card-section style="paddingTop: 0">
-          <q-icon name="favorite" class="text-negative" /><span style="marginRight: 0.5rem">{{ cafeInfo.liked }}</span>
-          <q-icon name="star" class="text-yellow"/><span style="marginRight: 0.5rem">{{ cafeInfo.rating }}</span>
-          <q-icon name="edit_note" class="text-primary" /><span style="marginRight: 0.5rem">{{ cafeInfo.reviewCount }}</span>
+          <q-icon name="favorite" class="text-negative" /><span style="marginRight: 0.5rem">{{ cafeInfo.bookmarkCnt }}</span>
+          <q-icon name="star" class="text-yellow"/><span style="marginRight: 0.5rem">{{ cafeInfo.bookmarkCnt }}</span>
+          <q-icon name="edit_note" class="text-primary" /><span style="marginRight: 0.5rem">{{ cafeInfo.reviewCnt }}</span>
         </q-card-section>
 
         <q-separator />
 
         <q-card-section>
           <div class="text-h6 text-bold">매장소개</div>
-          <q-item-label caption>전화번호 : {{ cafeInfo.phoneNumber }}</q-item-label>
+          <q-item-label caption>전화번호 : {{ cafeInfo.cafeTel }}</q-item-label>
           <div class="text-h6 text-bold" style="marginTop: 1rem">영업시간</div>
-          <q-item-label caption>{{ cafeInfo.openingHours }}</q-item-label>
+          <q-item-label caption>오전 {{ bhourInfo.bhourStartTime }} ~ 오후 {{ bhourInfo.bhourEndTime }}</q-item-label>
         </q-card-section>
 
         <q-separator />
@@ -48,26 +48,25 @@
     <div class="q-pa-md">
       <q-card class="my-card" flat >
         <q-card-section>
-          <div class="text-h6 text-bold">리뷰 ({{ cafeInfo.reviewCount }})</div>
+          <div class="text-h6 text-bold">리뷰 ({{ cafeInfo.reviewCnt }})</div>
         </q-card-section>
-
-        <q-item v-for="review in cafeInfo.reviews" :key="review.created_at">
+        
+        <q-item v-for="review in reviews" :key="review.id">
           <q-item-section>
-            <q-item-label>{{ review.content }}</q-item-label>
+            <q-item-label>{{ review.reviewContent}}</q-item-label>
           </q-item-section>
 
           <q-item-section side top>
-            <q-item-label caption>{{ review.created_at }}</q-item-label>
+            <q-item-label caption>{{ dateTime(review.reviewCreatedAt) }}</q-item-label>
               <q-rating
-                v-model="review.rating"
+                v-model="review.reviewScore"
                 size="1em"
-                color="primary"
+                color="yellow"
                 icon="star_border"
                 icon-selected="star"
                 readonly
               />
           </q-item-section>
-          <q-separator />
         </q-item>
       </q-card>
     </div>
@@ -75,8 +74,8 @@
     <q-footer reveal bordered class="bg-white text-grey-8">
       <q-toolbar>
         <q-toolbar-title class="row justify-between items-center">
-          <q-btn style="marginLeft: 1rem" flat @click="bookmark()">
-            <span v-if="bookmarked" class="material-icons" style="font-size: 2rem; color: #FF6666">favorite</span>
+          <q-btn style="marginLeft: 1rem" flat>
+            <span v-if="cafeInfo.isBookMark" class="material-icons" style="font-size: 2rem; color: #FF6666">favorite</span>
             <span v-else class="material-icons" style="font-size: 2rem;">favorite_border</span>
           </q-btn>
           <div style="marginRight: 1rem">
@@ -89,11 +88,13 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import moment from 'moment'
 import ReviewDialog from '../components/cafe/ReviewDialog.vue'
 import CafeMenuDialog from '../components/cafe/CafeMenuDialog.vue'
+import { cafeDetail, cafeBhour } from '../api/cafe'
+import { getCafeReview } from '../api/review'
 
-export default defineComponent({
+export default {
   name: 'CafeDetail',
   components: {
     ReviewDialog,
@@ -102,43 +103,9 @@ export default defineComponent({
   data() {
     return {
       bookmarked: 0,
-      cafeInfo: {
-        cafeName: "녹턴 커피 로스터스",
-        img: "https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fmyplace-phinf.pstatic.net%2F20210905_216%2F1630806743080jydIp_JPEG%2Fupload_a8d1132fa3378eb5d6ee572d7d829d74.jpeg",
-        address: "인천 부평구 부평문화로71번길 19 1층",
-        phoneNumber: "010-5124-3004",
-        openingHours: "매일 12:00 - 22:00",
-        liked: 35,
-        rating: 4.3,
-        reviewCount: 5,
-        reviews: [
-          {
-            content: "라떼가 진짜 맛있음",
-            rating: 4,
-            created_at: "2021-09-20",
-          },
-          {
-            content: "카페 너무 예뻐요. 데이트하기 좋음.",
-            rating: 5,
-            created_at: "2021-09-01",
-          },
-          {
-            content: "커피 너무 맛있어요",
-            rating: 4,
-            created_at: "2021-08-02",
-          },
-          {
-            content: "자리가 별로 없습니다.",
-            rating: 3,
-            created_at: "2021-07-25",
-          },
-          {
-            content: "사람이 너무 많아서 별로였어요.",
-            rating: 3,
-            created_at: "2021-07-15",
-          },
-        ]
-      }
+      cafeInfo: [],
+      bhourInfo: [],
+      reviews: [],
     }
   },
   methods: {
@@ -148,12 +115,47 @@ export default defineComponent({
     bookmark() {
       this.bookmarked = !this.bookmarked
       console.log(this.bookmarked)
+    },
+    dateTime(value) {
+      return moment(value).format('YYYY-MM-DD')
+    },
+    async cafeItem() {
+      try {
+        const cafeId = this.$route.params.id
+        const { data } = await cafeDetail(cafeId)
+        console.log(data)
+        this.cafeInfo = data.result
+      } catch(error) {
+        console.error(error)
+      }
+    },
+    async bhourItem() {
+      try {
+        const cafeId = this.$route.params.id
+        const { data } = await cafeBhour(cafeId)
+        console.log(data)
+        this.bhourInfo = data.result[0]
+      } catch(error) {
+        console.error(error)
+      } 
+    },
+    async reviewItem() {
+      try {
+        const cafeId = this.$route.params.id
+        const { data } = await getCafeReview(cafeId)
+        console.log(data)
+        this.reviews = data.result
+      } catch(error) {
+        console.error(error)
+      }
     }
   },
-
-  
-
-})
+  created() {
+    this.cafeItem()
+    this.bhourItem()
+    this.reviewItem()
+  }
+}
 </script>
 
 <style>
