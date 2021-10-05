@@ -20,7 +20,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 @AutoConfigureRestDocs
 @SpringBootTest(
         properties = "spring.config.location ="+
-                "classpath:/application.yml"
+                "classpath:/application_test.yml"
 )
 @AutoConfigureMockMvc
 @ExtendWith(RestDocumentationExtension.class)

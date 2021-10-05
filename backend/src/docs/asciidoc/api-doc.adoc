@@ -6,7 +6,7 @@ endif::[]
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
-:toclevels: 3
+:toclevels: 4
 :sectlinks:
 :docinfo: shared-head
 
@@ -26,7 +26,7 @@ API에 관계없이 아래 사항을 지켜주셔야 합니다.
 | 환경 | Domain
 
 | 개발서버
-| `http://j5b204.p.ssafy.io`
+| `https://j5b204.p.ssafy.io`
 
 |===
 
@@ -293,3 +293,267 @@ include::{snippets}/reviews/delete/successful/http-request.adoc[]
 Response Example
 
 include::{snippets}/reviews/delete/successful/http-response.adoc[]
+
+== 4. Report API
+
+=== 4-1. 리뷰 신고 등록
+
+==== 리뷰 신고 등록
+
+Request Header
+
+include::{snippets}/reports/create/successful/request-headers.adoc[]
+
+include::{snippets}/reports/create/successful/request-fields.adoc[]
+
+include::{snippets}/reports/create/successful/response-fields.adoc[]
+
+==== 리뷰 신고 등록 성공
+
+Request Example
+
+include::{snippets}/reports/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reports/create/successful/http-response.adoc[]
+
+=== 4-2. 리뷰 신고 조회
+
+==== 리뷰 신고 조회
+
+Request Header
+
+include::{snippets}/reports/select/successful/request-headers.adoc[]
+
+include::{snippets}/reports/select/successful/request-parameters.adoc[]
+
+include::{snippets}/reports/select/successful/response-fields.adoc[]
+
+==== 리뷰 신고 조회 성공
+
+Request Example
+
+include::{snippets}/reports/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reports/select/successful/http-response.adoc[]
+
+=== 4-3. 리뷰 신고 삭제
+
+==== 리뷰 신고 삭제
+
+Request Header
+
+include::{snippets}/reports/delete/successful/request-headers.adoc[]
+
+include::{snippets}/reports/delete/successful/path-parameters.adoc[]
+
+include::{snippets}/reports/delete/successful/response-fields.adoc[]
+
+==== 리뷰 신고 삭제 성공
+
+Request Example
+
+include::{snippets}/reports/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reports/delete/successful/http-response.adoc[]
+
+== 5. Cafe API
+
+=== 5-1. 카페 조회
+
+==== 카페 조회
+
+Request Header
+
+include::{snippets}/cafes/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafes/select/successful/request-parameters.adoc[]
+
+include::{snippets}/cafes/select/successful/response-fields.adoc[]
+
+==== 카페 조회 성공
+
+Request Example
+
+include::{snippets}/cafes/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafes/select/successful/http-response.adoc[]
+
+=== 5-2. 카페 상세 조회
+
+==== 카페 상세 조회
+
+Request Header
+
+include::{snippets}/cafe_detail/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafe_detail/select/successful/path-parameters.adoc[]
+
+include::{snippets}/cafe_detail/select/successful/response-fields.adoc[]
+
+==== 카페 상세 조회 성공
+
+Request Example
+
+include::{snippets}/cafe_detail/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafe_detail/select/successful/http-response.adoc[]
+
+=== 5-3. 카페 큐레이션
+
+==== 카페 큐레이션 카테고리 기반 조회
+
+Request Header
+
+include::{snippets}/cafe_curation_category/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafe_curation_category/select/successful/request-parameters.adoc[]
+
+include::{snippets}/cafe_curation_category/select/successful/response-fields.adoc[]
+
+==== 카페 큐레이션 카테고리 기반 조회 성공
+
+Request Example
+
+include::{snippets}/cafe_curation_category/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafe_curation_category/select/successful/http-response.adoc[]
+
+==== 카페 큐레이션 유저 찜 기반 조회
+
+Request Header
+
+include::{snippets}/cafe_curation_bookmark/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafe_curation_bookmark/select/successful/request-parameters.adoc[]
+
+include::{snippets}/cafe_curation_bookmark/select/successful/response-fields.adoc[]
+
+==== 카페 큐레이션 유저 찜 기반 조회 성공
+
+Request Example
+
+include::{snippets}/cafe_curation_bookmark/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafe_curation_bookmark/select/successful/http-response.adoc[]
+
+== 6. Menu API
+
+=== 6-1. 카페 메뉴 조회
+
+==== 카페 메뉴 조회
+
+include::{snippets}/menus/select/successful/request-parameters.adoc[]
+
+include::{snippets}/menus/select/successful/response-fields.adoc[]
+
+==== 카페 메뉴 조회 성공
+
+Request Example
+
+include::{snippets}/menus/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/menus/select/successful/http-response.adoc[]
+
+== 7. Bhour API
+
+=== 7-1. 카페 영업시간 조회
+
+==== 카페 영업시간 조회
+
+include::{snippets}/bhours/select/successful/request-parameters.adoc[]
+
+include::{snippets}/bhours/select/successful/response-fields.adoc[]
+
+==== 카페 영업시간 성공
+
+Request Example
+
+include::{snippets}/bhours/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/bhours/select/successful/http-response.adoc[]
+
+== 8. Bookmark API
+
+=== 8-1. 카페 찜 등록
+
+==== 카페 찜 등록
+
+Request Header
+
+include::{snippets}/bookmarks/create/successful/request-headers.adoc[]
+
+include::{snippets}/bookmarks/create/successful/request-fields.adoc[]
+
+include::{snippets}/bookmarks/create/successful/response-fields.adoc[]
+
+==== 카페 찜 등록 성공
+
+Request Example
+
+include::{snippets}/bookmarks/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/bookmarks/create/successful/http-response.adoc[]
+
+=== 8-2. 카페 찜 조회
+
+==== 카페 찜 조회
+
+Request Header
+
+include::{snippets}/bookmarks/select/successful/request-headers.adoc[]
+
+include::{snippets}/bookmarks/select/successful/request-parameters.adoc[]
+
+include::{snippets}/bookmarks/select/successful/response-fields.adoc[]
+
+==== 카페 찜 조회 성공
+
+Request Example
+
+include::{snippets}/bookmarks/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/bookmarks/select/successful/http-response.adoc[]
+
+=== 8-3. 카페 찜 삭제
+
+==== 카페 찜 삭제
+
+Request Header
+
+include::{snippets}/bookmarks/delete/successful/request-headers.adoc[]
+
+include::{snippets}/bookmarks/delete/successful/request-parameters.adoc[]
+
+include::{snippets}/bookmarks/delete/successful/response-fields.adoc[]
+
+==== 카페 찜 삭제 성공
+
+Request Example
+
+include::{snippets}/bookmarks/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/bookmarks/delete/successful/http-response.adoc[]

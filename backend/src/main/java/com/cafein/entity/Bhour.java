@@ -29,7 +29,7 @@ public class Bhour {
     private int type;
 
     @Column(name = "week_type")
-    private int week_type;
+    private int weekType;
     
     @Column(name = "mon")
     private int mon;
@@ -53,10 +53,10 @@ public class Bhour {
     private int sun;
     
     @Column(name = "start_time")
-    private Date startTime;
+    private String startTime;
 
     @Column(name = "end_time")
-    private Date endTime;
+    private String endTime;
 
     @Column(name = "etc")
     private String etc;

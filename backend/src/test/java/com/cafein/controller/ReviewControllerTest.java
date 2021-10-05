@@ -127,10 +127,14 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("전체 페이지 수"),
                                         fieldWithPath("page.totalElements").type(JsonFieldType.NUMBER)
                                                 .description("전체 요소 수"),
+                                        fieldWithPath("result").type(JsonFieldType.ARRAY)
+                                                .description("리뷰 조회 결과 리스트").optional(),
                                         fieldWithPath("result.[].cafeId").type(JsonFieldType.NUMBER)
                                                 .description("카페 번호"),
                                         fieldWithPath("result.[].cafeName").type(JsonFieldType.STRING)
                                                 .description("카페 이름"),
+                                        fieldWithPath("result.[].cafeImgUrl").type(JsonFieldType.STRING)
+                                                .description("카페 이미지"),
                                         fieldWithPath("result.[].reviewId").type(JsonFieldType.NUMBER)
                                                 .description("리뷰 번호"),
                                         fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
@@ -194,10 +198,14 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("전체 페이지 수"),
                                         fieldWithPath("page.totalElements").type(JsonFieldType.NUMBER)
                                                 .description("전체 요소 수"),
+                                        fieldWithPath("result").type(JsonFieldType.ARRAY)
+                                                .description("리뷰 조회 결과 리스트").optional(),
                                         fieldWithPath("result.[].cafeId").type(JsonFieldType.NUMBER)
                                                 .description("카페 번호"),
                                         fieldWithPath("result.[].cafeName").type(JsonFieldType.STRING)
                                                 .description("카페 이름"),
+                                        fieldWithPath("result.[].cafeImgUrl").type(JsonFieldType.STRING)
+                                                .description("카페 이미지"),
                                         fieldWithPath("result.[].reviewId").type(JsonFieldType.NUMBER)
                                                 .description("리뷰 번호"),
                                         fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
@@ -261,10 +269,14 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("전체 페이지 수"),
                                         fieldWithPath("page.totalElements").type(JsonFieldType.NUMBER)
                                                 .description("전체 요소 수"),
+                                        fieldWithPath("result").type(JsonFieldType.ARRAY)
+                                                .description("리뷰 조회 결과 리스트").optional(),
                                         fieldWithPath("result.[].cafeId").type(JsonFieldType.NUMBER)
                                                 .description("카페 번호"),
                                         fieldWithPath("result.[].cafeName").type(JsonFieldType.STRING)
                                                 .description("카페 이름"),
+                                        fieldWithPath("result.[].cafeImgUrl").type(JsonFieldType.STRING)
+                                                .description("카페 이미지"),
                                         fieldWithPath("result.[].reviewId").type(JsonFieldType.NUMBER)
                                                 .description("리뷰 번호"),
                                         fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
@@ -293,7 +305,7 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                 .build();
 
         //when
-        ResultActions result = mockMvc.perform(patch("/api/reviews/{id}", 615595)
+        ResultActions result = mockMvc.perform(patch("/api/reviews/{id}", 615589)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-ACCESS-TOKEN", JWT)
                         .content(objectMapper.writeValueAsString(updateReviewInput)).accept(MediaType.APPLICATION_JSON))
@@ -344,7 +356,7 @@ public class ReviewControllerTest extends ApiDocumentationTest {
         String JWT = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQ5LCJpYXQiOjE2MzI4MDgyMDF9.ImwkfxLW84OCWp2hBqYiJzGnZqUO6Ni-GskrZZyoTgM";
 
         //when
-        ResultActions result = mockMvc.perform(delete("/api/reviews/{id}", 615595)
+        ResultActions result = mockMvc.perform(delete("/api/reviews/{id}", 615589)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-ACCESS-TOKEN", JWT)
                         .accept(MediaType.APPLICATION_JSON))

@@ -19,7 +19,11 @@ public enum ResponseStatus {
     SUCCESS_SELECT_USER(200, 205, "유저 조회에 성공하였습니다."),
     SUCCESS_SEND_MAIL(200, 210, "메일 발송에 성공하였습니다."),
     SUCCESS_SELECT_CAFE(200, 211, "카페 조회에 성공하였습니다."),
+    SUCCESS_SUGGEST_CAFE(200, 216, "카페 추천에 성공하였습니다."),
     SUCCESS_SELECT_REVIEW(200, 212, "리뷰 조회에 성공하였습니다."),
+    SUCCESS_SELECT_REPORT(200, 213, "리뷰 신고 내역 조회에 성공하였습니다."),
+    SUCCESS_SELECT_MENU(200, 214, "메뉴 조회에 성공하였습니다."),
+    SUCCESS_SELECT_BHOUR(200, 215, "영업시간 조회에 성공하였습니다."),
 
     // 201 Created - 클라이언트의 요청을 서버가 정상적으로 처리했고 새로운 리소스가 생겼다.,
     CREATED_USERDEAL(201, 203, "유저 거래 내력 등록에 성공하였습니다."),
@@ -28,6 +32,7 @@ public enum ResponseStatus {
     CREATED_USER(201, 201, "회원가입에 성공하였습니다."),
     CREATED_REVIEW(201, 202, "리뷰 등록에 성공하였습니다."),
     CREATED_REPORT(201, 210, "신고 등록에 성공하였습니다."),
+    CREATED_BOOKMARK(201, 219, "찜 등록에 성공하였습니다."),
 
     // 202 Accepted - 클라이언트의 요청은 정상적이나, 서버가 아직 요청을 완료하지 못했다. 비동기
     ACCEPTED(202, 200, "요청에 성공하였습니다."),
@@ -38,6 +43,8 @@ public enum ResponseStatus {
     SUCCESS_UPDATE_REVIEW(204, 204, "리뷰 수정에 성공하였습니다."),
     SUCCESS_DELETE_REVIEW(204, 204, "리뷰 삭제에 성공하였습니다."),
     SUCCESS_DELETE_USER(204, 444, "회원탈퇴에 성공하였습니다"),
+    SUCCESS_DELETE_BOOKMARK(204, 205, "찜 삭제에 성공하였습니다"),
+    SUCCESS_DELETE_REPORT(204, 204, "신고 내역 삭제에 성공하였습니다."),
 
     /*
      * 4XX Client errors
@@ -64,6 +71,8 @@ public enum ResponseStatus {
     EXISTS_INFO(400, 420, "이미 존재하는 정보입니다."),
     NEED_SIGNUP(400, 422, "회원가입이 필요합니다."),
     FAILED_TO_SEND_EMAIL(400, 444, "인증 메일을 발송하는데 실패하였습니다."),
+    EXISTS_BOOKMARK(400, 421, "이미 존재하는 찜 정보입니다."),
+    BAD_CURATION_TYPE_VALUE(400, 427, "올바른 추천 타입을 입력해주세요."),
 
     // 401 Unauthorized - 클라이언트가 권한이 없기 때문에 작업을 진행할 수 없는 경우
     UNAUTHORIZED(401, 400, "권한이 없습니다."),
@@ -72,10 +81,12 @@ public enum ResponseStatus {
     // 403 Forbidden - 클라이언트가 권한이 없기 때문에 작업을 진행할 수 없는 경우
     FORBIDDEN(403, 400, "권한이 없습니다."),
     FORBIDDEN_USER_ID(403, 410, "해당 userId에 대한 권한이 없습니다."),
+    FORBIDDEN_BOOKMARK_ID(403, 411, "해당 bookmarkId에 대한 권한이 없습니다."),
 
     // 404 Not Found - 클라이언트가 요청한 자원이 존재하지 않다.
     NOT_FOUND(404, 400, "NOT FOUND"),
     NOT_FOUND_USER(404, 405, "사용자 정보가 존재하지 않습니다."),
+    NOT_FOUND_BOOKMARK(404, 406, "찜 정보가 존재하지 않습니다."),
 
     // 405 Method Not Allowed - 클라이언트의 요청이 허용되지 않는 메소드인 경우
     METHOD_NOT_ALLOWED(405, 400, "허용되지 않는 HTTP Method 입니다."),

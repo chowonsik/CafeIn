@@ -24,21 +24,14 @@ public class SelectCafeDetailOutput {
     private String cafeAddress;
     private String cafeLatitude;
     private String cafeLongitude;
-    //카페 영업시간 관련
-    private Integer bhourType;
-    private Integer bhourWeekType;
-    private Integer bhourMon;
-    private Integer bhourTue;
-    private Integer bhourWed;
-    private Integer bhourThu;
-    private Integer bhourFri;
-    private Integer bhourSat;
-    private Integer bhourSun;
-    private Date bhourStartTime;
-    private Date bhourEndTime;
-    private String bhourEtc;
+    private String cafeImgUrl;
+    private Double cafeAvgScore;    // 카페 평균 평점
+    private Integer isBookMark;     // 북마크 한 상태인지 아닌지
+    private Integer bookmarkCnt;    // 찜 되어진 수
+    private Integer reviewCnt;      // 리뷰 수
+
     @QueryProjection
-    public SelectCafeDetailOutput(Integer cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, Integer bhourType, Integer bhourWeekType, Integer bhourMon, Integer bhourTue, Integer bhourWed, Integer bhourThu, Integer bhourFri, Integer bhourSat, Integer bhourSun, Date bhourStartTime, Date bhourEndTime, String bhourEtc) {
+    public SelectCafeDetailOutput(Integer cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, String cafeImgUrl, Double cafeAvgScore, Integer isBookMark, Integer bookmarkCnt, Integer reviewCnt) {
         this.cafeId = cafeId;
         this.cafeName = cafeName;
         this.cafeBranch = cafeBranch;
@@ -47,17 +40,10 @@ public class SelectCafeDetailOutput {
         this.cafeAddress = cafeAddress;
         this.cafeLatitude = cafeLatitude;
         this.cafeLongitude = cafeLongitude;
-        this.bhourType = bhourType;
-        this.bhourWeekType = bhourWeekType;
-        this.bhourMon = bhourMon;
-        this.bhourTue = bhourTue;
-        this.bhourWed = bhourWed;
-        this.bhourThu = bhourThu;
-        this.bhourFri = bhourFri;
-        this.bhourSat = bhourSat;
-        this.bhourSun = bhourSun;
-        this.bhourStartTime = bhourStartTime;
-        this.bhourEndTime = bhourEndTime;
-        this.bhourEtc = bhourEtc;
+        this.cafeImgUrl = cafeImgUrl;
+        this.cafeAvgScore = cafeAvgScore;
+        this.isBookMark = isBookMark;
+        this.bookmarkCnt = bookmarkCnt;
+        this.reviewCnt = reviewCnt;
     }
 }
