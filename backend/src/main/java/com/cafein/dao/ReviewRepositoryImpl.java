@@ -30,6 +30,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 				.select(new QSelectReviewOutput(
 						qCafe.id,
 						qCafe.name,
+						qCafe.imgUrl,
 						qReview.id,
 						qReview.user.id,
 						qReview.content,
