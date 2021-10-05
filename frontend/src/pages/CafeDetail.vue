@@ -49,15 +49,15 @@
     <div class="q-pa-md">
       <q-card class="my-card" flat >
         <q-card-section>
-          <div class="text-h6 text-bold">리뷰 ({{ cafeInfo.reviewCnt }})</div>
+          <div class="text-h6 text-bold">리뷰</div>
         </q-card-section>
         
-        <q-item v-for="review in reviews" :key="review.id">
-          <q-item-section>
-            <q-item-label>{{ review.reviewContent}}</q-item-label>
-          </q-item-section>
-
-          <q-item-section side top>
+        <q-infinite-scroll @load="onLoad" :offset="250">
+          <q-item v-for="(review, index) in items" :key="index">
+            <q-item-section>
+              <q-item-label>{{ review.reviewContent }}</q-item-label>
+            </q-item-section>
+                      <q-item-section side top>
             <q-item-label caption>{{ dateTime(review.reviewCreatedAt) }}</q-item-label>
               <q-rating
                 v-model="review.reviewScore"
@@ -68,7 +68,13 @@
                 readonly
               />
           </q-item-section>
-        </q-item>
+          </q-item>
+          <template v-slot:loading>
+            <div class="row justify-center q-my-md">
+              <q-spinner-dots color="primary" size="40px" />
+            </div>
+          </template>
+        </q-infinite-scroll>
       </q-card>
     </div>
 
@@ -96,9 +102,13 @@ import ReviewDialog from '../components/cafe/ReviewDialog.vue'
 import CafeMenuDialog from '../components/cafe/CafeMenuDialog.vue'
 import { cafeDetail, cafeBhour, bookmark, cancelBookmark } from '../api/cafe'
 import { getCafeReview } from '../api/review'
+import { ref } from 'vue'
+import axios from 'axios'
+import { useRoute } from 'vue-router'
 
 export default {
   name: 'CafeDetail',
+
   components: {
     ReviewDialog,
     CafeMenuDialog
@@ -111,7 +121,39 @@ export default {
       bhourEtc: "",
       reviews: [],
       bookmarkCount: 0,
-      pageNum: 1,
+      page: 1,
+      list: [],
+    }
+  },
+  setup () {
+    const items = ref([])
+    const cafeId = useRoute().params.id
+
+    return {
+      items,
+      onLoad (index, done) {
+        setTimeout(() => {
+          axios.get(`https://j5b204.p.ssafy.io/api/reviews?cafeId=${cafeId}&search=&size=10&page=${index+1}`)
+          .then(({data}) => {
+            console.log(data)
+            for (let i = 0; i < data.result.length; i++) {
+              if (data.result[i].reviewContent !== "") {
+                items.value.push(data.result[i])
+              }
+            }
+            
+            return data.result
+          })
+          .then(response => {
+            if (response.length === 0 ) {
+              done(true)
+            } else {
+              done(false)
+            }
+          })
+          // done()
+        }, 2000)
+      }
     }
   },
   methods: {
@@ -129,7 +171,7 @@ export default {
         this.cafeInfo = data.result
         this.bookmarkCount = data.result.bookmarkCnt
         this.bookmarked = data.result.isBookMark
-        console.log(this.bookmarked)
+        // console.log(this.bookmarked)
       } catch(error) {
         console.error(error)
       }
@@ -138,28 +180,29 @@ export default {
       try {
         const cafeId = this.$route.params.id
         const { data } = await cafeBhour(cafeId)
-        console.log(data.result)
+        // console.log(data.result)
         if (data.result.length > 0) {
           this.bhourInfo = data.result[0]
         } else {
           this.bhourEtc = "영업 시간 준비중입니다."
         }
-        console.log("영업시간", this.bhourInfo)
-        console.log("영업시간", this.bhourEtc)
+        // console.log("영업시간", this.bhourInfo)
+        // console.log("영업시간", this.bhourEtc)
       } catch(error) {
         console.error(error)
       } 
     },
-    async reviewItem() {
-      try {
-        const cafeId = this.$route.params.id
-        const { data } = await getCafeReview(cafeId, this.pageNum)
-        // console.log(data)
-        this.reviews = data.result
-      } catch(error) {
-        console.error(error)
-      }
-    },
+    // async reviewItem() {
+    //   try {
+    //     const cafeId = this.$route.params.id
+    //     const { data } = await getCafeReview(cafeId, this.page)
+    //     console.log(data)
+    //     this.reviews = data.result
+    //     this.items = data.result
+    //   } catch(error) {
+    //     console.error(error)
+    //   }
+    // },
     async registerBookmark() {
       try {
         const cafeId = {
@@ -187,12 +230,12 @@ export default {
       } catch(error) {
         console.log(error)
       }
-    }
+    },
   },
   created() {
     this.cafeItem()
     this.bhourItem()
-    this.reviewItem()
+    // this.reviewItem()
   }
 }
 </script>
