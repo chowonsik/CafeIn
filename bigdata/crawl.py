@@ -10,20 +10,26 @@ from dateutil.relativedelta import relativedelta
 import json
 import pandas as pd
 import os
+
 import shutil
 from datetime import datetime
 #DATA 경로
-DATA_DIR = "../data"
+DATA_DIR = "../datas"
 #카페, 리뷰 피클
 CAFE_FILE = os.path.join(DATA_DIR, "cafe.pkl")
 REVIEW_FILE = os.path.join(DATA_DIR, "review.pkl")
+BHOUR_FILE= os.path.join(DATA_DIR, "bhour.pkl")
 DUMP_FILE = os.path.join(DATA_DIR, "dump.pkl")
+
 df = pd.read_pickle(CAFE_FILE)
 dfrv = pd.read_pickle(REVIEW_FILE)
+# df['img_url'] = str()
 # dfrev = pd.read_pickle(DUMP_FILE)['reviews']
 # df = df.sort_values(by=['reviews','review_cnt'], axis=0, ascending=[True,False]).reset_index(drop=True)
 # df = df.sort_values(by=['review_cnt'], axis=0, ascending=[False]).reset_index(drop=True)
 # df = df.sort_values(by=['id'], axis=0, ascending=[True]).reset_index(drop=True)
+
+
 #%%
 options = webdriver.ChromeOptions()
 browser = webdriver.Chrome('C:/Users/USER/chromedriver', options=options)
@@ -163,9 +169,32 @@ for i in range(0,len(df)):
     a = input("다음으로 가려면 엔터...")
     if(a == "q"): break
 
+#%% 이미지 url 스크래핑
+for i in range(0,len(df)):
+    address = df.loc[i,'address']
+    search = address + ' ' + df.loc[i,'store_name']
+    print("||==",i,"번째 카페 :"+" "+search,"==||")
+    url = urllib.parse.quote(search)
+    browser.get('https://www.google.com/search?q={}&source=lnms&tbm=isch'.format(url))
+    imgdiv = browser.find_elements_by_class_name('isv-r')[0]    
+    imgdiv.click()
+    time.sleep(3)
+    src = browser.find_element_by_xpath('//*[@id="Sva75c"]/div/div/div[3]/div[2]/c-wiz/div/div[1]/div[1]/div[2]/div/a/img').get_attribute('src')
+    print(src)
+    # browser.get(src)    
+    df.loc[i,'img_url'] = src
+    if(i%50 == 0):
+        pd.to_pickle(df, CAFE_FILE)
+        print("데이터저장완료")
+    # a = input("다음으로 가려면 엔터...")
+    # if(a == "q"): break
+#%%
+df2 = df['img_url']
+
 #%% 데이터 저장
 pd.to_pickle(df, CAFE_FILE)
 pd.to_pickle(dfrv, REVIEW_FILE)
+# pd.to_pickle(bhour_frame, BHOUR_FILE)
 #%%
 browser.quit()
 #%%

@@ -23,7 +23,6 @@ result = engine.execute(
     "SELECT 1 FROM Information_schema.SCHEMATA WHERE SCHEMA_NAME = '%s'" % db['database']).first()
 if result is None:  # 윈도우에선 not으로 했지만 리눅스에선 is None으로 해야 함
     engine.execute("CREATE DATABASE %s" % db['database'])
-
 # 엔진을 프로젝트의 db로 다시 연결해 준다.
 engine = create_engine(DB_URL, echo=True, convert_unicode=True)
 
@@ -47,22 +46,8 @@ def init_db():  # 테이블을 생성해주는 함수
 def clear_db():  # 모든 테이블을 삭제하는 함수
     Base.metadata.drop_all()
 
-def insult_cafe(): #카페데이터 db에 저장    
-    #DATA 경로
-    DATA_DIR = "../datas"
-    #카페, 리뷰 피클
-    CAFE_FILE = os.path.join(DATA_DIR, "cafe.pkl")
-    REVIEW_FILE = os.path.join(DATA_DIR, "review.pkl")
-    df = pd.read_pickle(CAFE_FILE)
-    dfrv = pd.read_pickle(REVIEW_FILE)
-    #  len(df)
-    for i in range(0,len(df)):
-        try:
-            engine.execute("INSERT INTO cafe VALUE({},\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",\"{}\")".format(df.loc[i,'id'],df.loc[i,'address'],df.loc[i,'area'],df.loc[i,'branch'],df.loc[i,'latitude'],df.loc[i,'longitude'],df.loc[i,'store_name'],df.loc[i,'tel']))
-        except:
-            continue
         
-def insult_cafe2(): #카페데이터 db에 저장    
+def insult_cafe(): #카페데이터 db에 저장    
     #DATA 경로
     DATA_DIR = "../datas"
     #카페, 리뷰 피클
@@ -73,7 +58,13 @@ def insult_cafe2(): #카페데이터 db에 저장
     table = sqlalchemy.Table('cafe', metadata, autoload=True, autoload_with=engine)
     query = sqlalchemy.insert(table)
     for i in df.index:
-        values_list.append({'id':int(df.loc[i,'id']), 'address':df.loc[i,'address'], 'area':df.loc[i,'area'], 'branch':df.loc[i,'branch'], 'latitude':df.loc[i,'latitude'], 'longitude':df.loc[i,'longitude'], 'name':df.loc[i,'store_name'], 'tel':df.loc[i,'tel']})
+        values_list.append({'id':int(df.loc[i,'id']), 'address':df.loc[i,'address'], 'area':df.loc[i,'area'], 
+                            'branch':df.loc[i,'branch'], 'latitude':df.loc[i,'latitude'], 'longitude':df.loc[i,'longitude'],
+                            'name':df.loc[i,'store_name'], 'tel':df.loc[i,'tel'],
+                            'img_url':df.loc[i,'img_url']})
+        if(i>1 and i%100 == 0): 
+            engine.execute(query,values_list)
+            values_list = []   
       
     engine.execute(query,values_list)     
 
@@ -89,17 +80,56 @@ def insult_review(): #리뷰데이터 db에 저장
     query = sqlalchemy.insert(table)
     #  len(df)
     for i in df.index:
-        values_list.append({'content':df.loc[i,'content'].replace('\"',''), 'created_at':df.loc[i,'reg_time'], 'total_score':df.loc[i,'score'], 'cafe_id':df.loc[i,'store_id'], 'user_id':1})
+        values_list.append({'content':df.loc[i,'content'].replace('\"',''), 'created_at':str(df.loc[i,'reg_time']), 'total_score':df.loc[i,'score'], 'cafe_id':df.loc[i,'store_id'], 'user_id':1})
         if(i>1 and i%100000 == 0): 
             engine.execute(query,values_list)
-            values_list = []        
+            values_list = []       
 
     engine.execute(query,values_list)
+    
+def insult_bhour(): 
+    #DATA 경로
+    DATA_DIR = "../datas"
+    BHOUR_FILE= os.path.join(DATA_DIR, "bhour.pkl")
+    df = pd.read_pickle(BHOUR_FILE)
+    values_list = []
+    metadata = sqlalchemy.MetaData()
+    table = sqlalchemy.Table('bhour', metadata,autoload=True,autoload_with=engine)
+    query = sqlalchemy.insert(table)
+    for i in df.index:
+        values_list.append({'cafe_id':int(df.loc[i,'cafe_id']), 'type':int(df.loc[i,'type']), 
+                            'week_type':int(df.loc[i,'week_type']), 'start_time':df.loc[i,'start_time'], 
+                            'end_time':df.loc[i,'end_time'], 'etc':df.loc[i,'etc'],
+                            'sun':int(df.loc[i,'sun'].astype(int)),
+                            'mon':int(df.loc[i,'mon'].astype(int)),
+                            'tue':int(df.loc[i,'tue'].astype(int)),
+                            'wed':int(df.loc[i,'wed'].astype(int)),
+                            'thu':int(df.loc[i,'thu'].astype(int)),
+                            'fri':int(df.loc[i,'fri'].astype(int)),
+                            'sat':int(df.loc[i,'sat'].astype(int))})    
+            
+    engine.execute(query,values_list)
 
-        
-insult_cafe2()
-insult_review()
 
+def insult_menu(): 
+    #DATA 경로
+    DATA_DIR = "../datas"
+    MENU_FILE= os.path.join(DATA_DIR, "menu.pkl")
+    df = pd.read_pickle(MENU_FILE)
+    values_list = []
+    metadata = sqlalchemy.MetaData()
+    table = sqlalchemy.Table('menu', metadata,autoload=True,autoload_with=engine)
+    query = sqlalchemy.insert(table)
+    for i in df.index:
+        values_list.append({'cafe_id':int(df.loc[i,'store']), 
+                            'name':df.loc[i,'menu_name'],
+                            'price':int(df.loc[i,'price'])})    
+        # if(i>1 and i%1000 == 0): 
+        #     engine.execute(query,values_list)
+        #     values_list = []      
+            
+    engine.execute(query,values_list)
 
-#%%
-
+def test(cafeID):
+    print("test!!")
+    return {'response': cafeID}
