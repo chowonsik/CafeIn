@@ -3,22 +3,22 @@
     <q-card class="my-card" flat >
       <q-card-section horizontal style="overflow: auto">
         <q-item v-for="cafe in recentCafeList" :key="cafe.cafeName">
-          <q-card style="max-width:180px">
-          <q-item-section>
-            <q-img
-              :src="cafe.cafeImgUrl"
-              :ratio="1"
-              spinner-color="primary"
-              position
-              style="height: 180px; width: 180px"
-            />
-          </q-item-section>
-          <q-item-section>
-            <div class="text-subtitle1 q-my-md text-weight-bold text-center">{{ cafe.cafeName }}</div>
-          </q-item-section>
-          <q-item-section>
-            <div class="text-subtitle2 q-mb-md">{{ cafe.cafeAddress }}</div>
-          </q-item-section>
+          <q-card style="max-width:180px" @click="$router.push({ path: `/cafes/${cafe.cafeId}`})">
+            <q-item-section>
+              <q-img
+                :src="cafe.cafeImgUrl"
+                :ratio="1"
+                spinner-color="primary"
+                position
+                style="height: 180px; width: 180px"
+              />
+            </q-item-section>
+            <q-item-section>
+              <div class="text-subtitle1 q-my-md text-weight-bold text-center">{{ cafe.cafeName }}</div>
+            </q-item-section>
+            <q-item-section>
+              <div class="text-subtitle2 q-mb-md">{{ cafe.cafeAddress }}</div>
+            </q-item-section>
           </q-card>
         </q-item>
       </q-card-section>
