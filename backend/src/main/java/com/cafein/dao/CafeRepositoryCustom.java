@@ -12,5 +12,5 @@ import com.cafein.dto.cafe.search.CafeSearchInput;
 public interface CafeRepositoryCustom {
     SelectCafeDetailOutput findByIdCustom(int id, int userId);
     Page<CafeSearchOutput> findByWordCustom(CafeSearchInput cafeSearchInput, int userId, Pageable pageable);
-    Page<CafeCurationOutput> curationCafeByCategory(CafeCurationInput suggestByCategoryInput, int userId, Pageable pageable);
+    Page<CafeCurationOutput> curationCafe(CafeCurationInput cafeCurationInput, int userId, Pageable pageable);
 }
