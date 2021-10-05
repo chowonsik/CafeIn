@@ -13,20 +13,15 @@ import com.cafein.entity.QBookmark;
 import com.cafein.entity.QCafe;
 import com.cafein.entity.QReview;
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.*;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import org.hibernate.criterion.Projections;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 
 import static com.querydsl.core.types.dsl.MathExpressions.*;
 
@@ -35,7 +30,6 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     QCafe qCafe = QCafe.cafe;
-	QBhour qBhour = QBhour.bhour;
 	QBookmark qBookmark = QBookmark.bookmark;
 	QReview qReview = QReview.review;
 
