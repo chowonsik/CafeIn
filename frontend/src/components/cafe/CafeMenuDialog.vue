@@ -13,8 +13,8 @@
         <q-card-section>
           <q-item v-for="menu in cafeMenu" :key="menu">
             <q-item-section >
-              <q-item-label>{{ menu.name }}</q-item-label>
-              <q-item-label>{{ menu.price }}원</q-item-label>
+              <q-item-label>{{ menu.menuName}}</q-item-label>
+              <q-item-label>{{ menu.menuPrice }}원</q-item-label>
               <q-separator />
             </q-item-section>
           </q-item>
@@ -26,24 +26,33 @@
 
 <script>
 import { ref } from 'vue'
+import { cafeMenu } from '../../api/cafe'
 
 export default {
   data() {
     return {
-      cafeMenu: [
-        {name: "아메리카노", price: 4500},
-        {name: "에스프레소", price: 3000},
-        {name: "녹턴프레소", price: 3500},
-        {name: "녹턴커피", price: 3500},
-        {name: "카페라떼",price: 5000},
-
-      ]
+      cafeMenu: [],
     }
   },
   setup () {
     return {
       icon: ref(false),
     }
+  },
+  methods: {
+    async menuItem() {
+      try {
+        const cafeId = this.$route.params.id
+        const { data } = await cafeMenu(cafeId)
+        // console.log(data)
+        this.cafeMenu = data.result
+      } catch(error) {
+        console.error(error)
+      }
+    }
+  },
+  created() {
+    this.menuItem()
   }
 }
 </script>
