@@ -12,4 +12,11 @@ function getCafeReview(cafeId) {
   );
 }
 
-export { createReview, getCafeReview };
+// 내 리뷰 조회 API
+function getMyReview(userId) {
+  return api.get(
+    `/api/reviews?cafeId=&userId=${userId}&search=&size=10&page=1&cafeId=`
+  );
+}
+
+export { createReview, getCafeReview, getMyReview };
