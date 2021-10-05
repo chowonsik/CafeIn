@@ -2,28 +2,37 @@ import os
 import os.path
 import time
 from flask import Flask
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api,request
 from flask_restful import reqparse
 import json
 import time
-from common.db import db
-
+from common.db import db,engine,db_session
+import wordcount
 app = Flask(__name__)
 api = Api(app)
-
+app.config['JSON_AS_ASCII'] = False
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
-    db.db_session.remove()
+    db_session.remove()
+    print("sutdown")
 
 
-@app.route('/')
-def index():
-    return "Flask 서버"
+@app.route('/word')
+def getwordcount():
+    cafeId = request.args.get('cafeid')
+    print('getword')
+    result = engine.execute('select content from %s.review where cafe_id = "%s";' % (db['database'], cafeId))
+    rows = result.fetchall()
+    dicList = []
+    for v in rows:
+        dicList.append(v[0])
+    String = " ".join(dicList)
+    count = wordcount.count(String)        
+    return json.dumps(count, ensure_ascii=False).encode('utf-8')
+
 
 # 예시 코드1 함수로 바로 url 등록
-
-
 @app.route('/users/<userEmail>/groups', methods=['GET'])
 def getAllGroups(userEmail):
     uid = (db.engine.execute('Select id From %s.user WHERE googleEmail = "%s";' %
@@ -38,9 +47,9 @@ def getAllGroups(userEmail):
         json.dumps(dicList)
     return json.dumps(dicList)
 
+
+
 # 예시코드2 클래스로 빼서 등록 (차후 모듈화에 더 편리)
-
-
 class SampleClass(Resource):
     def get(self, userEmail):
         return "test"
