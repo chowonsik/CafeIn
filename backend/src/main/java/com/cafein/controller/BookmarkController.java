@@ -1,6 +1,7 @@
 package com.cafein.controller;
 
 import com.cafein.dto.bookmark.createBookmark.CreateBookmarkInput;
+import com.cafein.dto.bookmark.deleteBookmark.DeleteBookmarkInput;
 import com.cafein.dto.bookmark.seleteBookmark.SelectBookmarkOutput;
 import com.cafein.response.PageResponse;
 import com.cafein.response.Response;
@@ -44,14 +45,14 @@ public class BookmarkController {
 
     /**
      * 카페 찜 삭제 API
-     * [DELETE] /api/bookmarks/{id}
+     * [DELETE] /api/bookmarks
      * @return Response<Object>
      */
     // Path-Variable
-    @DeleteMapping("{id}")
-    public ResponseEntity<Response<Object>> deleteBookmark(@PathVariable("id") int id) {
-        log.info("[DELETE] /bookmarks/" + id);
-        return bookmarkService.deleteBookmark(id);
+    @DeleteMapping()
+    public ResponseEntity<Response<Object>> deleteBookmark(DeleteBookmarkInput deleteBookmarkInput) {
+        log.info("[DELETE] /bookmarks/");
+        return bookmarkService.deleteBookmark(deleteBookmarkInput);
     }
 
 }
