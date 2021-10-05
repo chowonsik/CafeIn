@@ -25,11 +25,12 @@ public class SelectBookmarkOutput {
     private String cafeLatitude;
     private String cafeLongitude;
     private String cafeImgUrl;
+    private Integer isBookMark; //북마크 한 상태인지 아닌지
     private Integer bookmarkCnt; //찜 되어진 수
     private Integer reviewCnt; //리뷰 수
 
     @QueryProjection
-    public SelectBookmarkOutput(int bookmarkId, int userId, int cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, String cafeImgUrl, Integer bookmarkCnt, Integer reviewCnt) {
+    public SelectBookmarkOutput(int bookmarkId, int userId, int cafeId, String cafeName, String cafeBranch, String cafeArea, String cafeTel, String cafeAddress, String cafeLatitude, String cafeLongitude, String cafeImgUrl, Integer isBookMark, Integer bookmarkCnt, Integer reviewCnt) {
         this.bookmarkId = bookmarkId;
         this.userId = userId;
         this.cafeId = cafeId;
@@ -41,6 +42,7 @@ public class SelectBookmarkOutput {
         this.cafeLatitude = cafeLatitude;
         this.cafeLongitude = cafeLongitude;
         this.cafeImgUrl = cafeImgUrl;
+        this.isBookMark = isBookMark;
         this.bookmarkCnt = bookmarkCnt;
         this.reviewCnt = reviewCnt;
     }

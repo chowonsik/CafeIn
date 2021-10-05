@@ -68,7 +68,7 @@ public class BookmarkServiceImpl implements BookmarkService {
                     .body(new Response<>(DATABASE_ERROR));
         }
         bookmarkRepository.save(bookmark);
-        return ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new Response<>(CREATED_BOOKMARK));
     }
 

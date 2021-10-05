@@ -1,12 +1,10 @@
 package com.cafein.dto.bookmark.createBookmark;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
 public class CreateBookmarkInput {
