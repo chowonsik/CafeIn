@@ -98,7 +98,7 @@ public class CafeServiceImpl implements CafeService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new PageResponse<>(NO_VALUES));
 
-        if(!ValidationCheck.isValidId(jwtService.getUserId()))
+        if(cafeCurationInput.getType()==2 && !ValidationCheck.isValidId(jwtService.getUserId()))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new PageResponse<>(NOT_FOUND_USER));
 
