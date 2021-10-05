@@ -13,6 +13,7 @@ import java.util.Date;
 public class SelectReviewOutput {
     private Integer cafeId;
     private String cafeName;
+    private String cafeImgUrl;
     private Integer reviewId;
     private Integer userId;
     private String reviewContent;
@@ -20,9 +21,10 @@ public class SelectReviewOutput {
     private Date reviewCreatedAt;
 
     @QueryProjection
-    public SelectReviewOutput(Integer cafeId, String cafeName, Integer reviewId, Integer userId, String reviewContent, Integer reviewScore, Date reviewCreatedAt) {
+    public SelectReviewOutput(Integer cafeId, String cafeName, String cafeImgUrl, Integer reviewId, Integer userId, String reviewContent, Integer reviewScore, Date reviewCreatedAt) {
         this.cafeId = cafeId;
         this.cafeName = cafeName;
+        this.cafeImgUrl = cafeImgUrl;
         this.reviewId = reviewId;
         this.userId = userId;
         this.reviewContent = reviewContent;

@@ -133,6 +133,8 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("카페 번호"),
                                         fieldWithPath("result.[].cafeName").type(JsonFieldType.STRING)
                                                 .description("카페 이름"),
+                                        fieldWithPath("result.[].cafeImgUrl").type(JsonFieldType.STRING)
+                                                .description("카페 이미지"),
                                         fieldWithPath("result.[].reviewId").type(JsonFieldType.NUMBER)
                                                 .description("리뷰 번호"),
                                         fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
@@ -202,6 +204,8 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("카페 번호"),
                                         fieldWithPath("result.[].cafeName").type(JsonFieldType.STRING)
                                                 .description("카페 이름"),
+                                        fieldWithPath("result.[].cafeImgUrl").type(JsonFieldType.STRING)
+                                                .description("카페 이미지"),
                                         fieldWithPath("result.[].reviewId").type(JsonFieldType.NUMBER)
                                                 .description("리뷰 번호"),
                                         fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
@@ -271,6 +275,8 @@ public class ReviewControllerTest extends ApiDocumentationTest {
                                                 .description("카페 번호"),
                                         fieldWithPath("result.[].cafeName").type(JsonFieldType.STRING)
                                                 .description("카페 이름"),
+                                        fieldWithPath("result.[].cafeImgUrl").type(JsonFieldType.STRING)
+                                                .description("카페 이미지"),
                                         fieldWithPath("result.[].reviewId").type(JsonFieldType.NUMBER)
                                                 .description("리뷰 번호"),
                                         fieldWithPath("result.[].userId").type(JsonFieldType.NUMBER)
