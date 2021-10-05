@@ -1,8 +1,6 @@
 import { getAuthFromCookie, getUserFromCookie } from "../../utils/cookies";
 
-export default function () {
-  return {
-    accessToken: getAuthFromCookie() || "",
-    userId: getUserFromCookie() || "",
-  };
+export default {
+  accessToken: getAuthFromCookie() || "",
+  userId: getUserFromCookie() || "",
 }
