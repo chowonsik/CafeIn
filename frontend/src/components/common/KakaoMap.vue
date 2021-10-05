@@ -11,7 +11,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions, mapMutations } = createNamespacedHelpers("kakaomap")
-import { api } from "../../boot/axios";
+import { nearCafeSearch } from "../../api/cafe" 
 
 export default {
   name: "KakaoMap",
@@ -21,39 +21,15 @@ export default {
       markers: [],
       infowindow: null,
       marker: null,
-      markerPositions: [
-        {
-          name: '달빛카페',
-          latlng: [36.35791659289339, 127.30811267515648],
-        },
-        {
-          name: '카페보스턴',
-          latlng: [36.35821830290163, 127.3071174943377],
-        },
-        {
-          name: '카페드롭탑',
-          latlng: [36.360541204137036, 127.30362819202823]
-        },
-        {
-          name: '심쿵카페',
-          latlng: [36.35752425687611, 127.30817520935133]
-        },
-        {
-          name: '카페펜트리',
-          latlng: [36.36060013967501, 127.30770314054023]
-        }
-      ],
       nearCafes: []
     }
   },
   created() {
     this.geoFind()
+    this.getCafe()
   },
   computed: {
     ...mapState(['latitude', 'longitude']),
-  },
-  beforeMount() {
-    this.getCafe()
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -159,11 +135,13 @@ export default {
     },
     async getCafe() {
       try {
-        const response = await api.get(`/api/cafes?latitude=${this.latitude}&longitude=${this.longitude}&search=&size=10&page=1`)
-        this.nearCafes = response.data.result
-        console.log(response.data.result)
+        const latitude = this.latitude
+        const longitude = this.longitude
+        const { data } = await nearCafeSearch(latitude, longitude)
+        this.nearCafes = data.result
+        console.log(data.result)
         this.makeCafeMarker()
-        this.map.setCenter(new kakao.maps.LatLng(this.latitude, this.longitude))
+        this.map.setCenter(new kakao.maps.LatLng(latitude, longitude))
       } catch (error) {
         console.log(error)
       }
