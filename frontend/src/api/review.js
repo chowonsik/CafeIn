@@ -6,9 +6,9 @@ function createReview(ReviewData) {
 }
 
 // 카페 리뷰 조회 API
-function getCafeReview(cafeId) {
+function getCafeReview(cafeId, pageNum) {
   return api.get(
-    `/api/reviews?cafeId=${cafeId}&userId=&search=&size=10&page=1&userId=`
+    `/api/reviews?cafeId=${cafeId}&userId=&search=&size=10&page=${pageNum}&userId=`
   );
 }
 
