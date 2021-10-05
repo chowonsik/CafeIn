@@ -44,6 +44,9 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 		SelectCafeDetailOutput queryResult = queryFactory
 				.select(new QSelectCafeDetailOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel,
 						qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
+						// cafeAvgScore
+						JPAExpressions.select(qReview.totalScore.avg()).from(qReview)
+								.where(qReview.cafe.id.eq(qCafe.id)),
 						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
 								.where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))),
@@ -77,6 +80,9 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 										.add((sin(radians(Expressions.constant(userLatitude))).multiply(sin(radians(qCafe.latitude.castToNum(Double.class))))))
 						).multiply(Expressions.constant(6371)).stringValue(),"distance"),
 						qCafe.imgUrl,
+						// cafeAvgScore
+						JPAExpressions.select(qReview.totalScore.avg()).from(qReview)
+								.where(qReview.cafe.id.eq(qCafe.id)),
 						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
 								.where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))),
