@@ -8,14 +8,11 @@ import com.cafein.dto.cafe.search.CafeSearchInput;
 import com.cafein.dto.cafe.search.QCafeSearchOutput;
 import com.cafein.dto.cafe.selectCafeDetail.QSelectCafeDetailOutput;
 import com.cafein.dto.cafe.selectCafeDetail.SelectCafeDetailOutput;
-import com.cafein.dto.cafe.suggest.QCafeCurationOutput;
-import com.cafein.dto.cafe.suggest.QSuggestByCategoryOutput;
 import com.cafein.dto.cafe.suggest.CafeCurationInput;
 import com.cafein.dto.cafe.suggest.CafeCurationOutput;
+import com.cafein.dto.cafe.suggest.QCafeCurationOutput;
 import com.cafein.entity.*;
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.*;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -34,15 +31,18 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     QCafe qCafe = QCafe.cafe;
+	QTags qTags = QTags.tags;
 	QBookmark qBookmark = QBookmark.bookmark;
 	QReview qReview = QReview.review;
-	QTags qTags = QTags.tags;
 
 	@Override
 	public SelectCafeDetailOutput findByIdCustom(int id, int userId) {
 		SelectCafeDetailOutput queryResult = queryFactory
 				.select(new QSelectCafeDetailOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel,
 						qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
+						// cafeAvgScore
+						JPAExpressions.select(qReview.totalScore.avg()).from(qReview)
+								.where(qReview.cafe.id.eq(qCafe.id)),
 						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
 								.where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))),
@@ -76,6 +76,9 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 										.add((sin(radians(Expressions.constant(userLatitude))).multiply(sin(radians(qCafe.latitude.castToNum(Double.class))))))
 						).multiply(Expressions.constant(6371)).stringValue(),"distance"),
 						qCafe.imgUrl,
+						// cafeAvgScore
+						JPAExpressions.select(qReview.totalScore.avg()).from(qReview)
+								.where(qReview.cafe.id.eq(qCafe.id)),
 						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
 								.where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))),

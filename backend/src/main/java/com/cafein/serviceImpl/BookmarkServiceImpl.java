@@ -5,6 +5,7 @@ import com.cafein.dao.BookmarkRepository;
 import com.cafein.dao.CafeRepository;
 import com.cafein.dao.UserRepository;
 import com.cafein.dto.bookmark.createBookmark.CreateBookmarkInput;
+import com.cafein.dto.bookmark.deleteBookmark.DeleteBookmarkInput;
 import com.cafein.dto.bookmark.seleteBookmark.SelectBookmarkOutput;
 import com.cafein.entity.Bookmark;
 import com.cafein.entity.Cafe;
@@ -69,7 +70,7 @@ public class BookmarkServiceImpl implements BookmarkService {
         }
         bookmarkRepository.save(bookmark);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new Response<>(CREATED_BOOKMARK));
+                .body(new Response<>(null, CREATED_BOOKMARK));
     }
 
     @Override
@@ -105,9 +106,9 @@ public class BookmarkServiceImpl implements BookmarkService {
     }
 
     @Override
-    public ResponseEntity<Response<Object>> deleteBookmark(int id) {
+    public ResponseEntity<Response<Object>> deleteBookmark(DeleteBookmarkInput deleteBookmarkInput) {
         // 값 형식 체크
-        if (!ValidationCheck.isValidId(id))
+        if (!ValidationCheck.isValidId(deleteBookmarkInput.getCafeId()))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new Response<>(BAD_ID_VALUE));
 
@@ -120,7 +121,7 @@ public class BookmarkServiceImpl implements BookmarkService {
                         .body(new Response<>(NOT_FOUND_USER));
             }
 
-            Bookmark existBookmark = bookmarkRepository.findById(id).orElse(null);
+            Bookmark existBookmark = bookmarkRepository.findByUserIdAndCafeId(loginUserId, deleteBookmarkInput.getCafeId()).orElse(null);
             if (existBookmark == null)
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(NOT_FOUND_BOOKMARK));
@@ -128,7 +129,7 @@ public class BookmarkServiceImpl implements BookmarkService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(FORBIDDEN_BOOKMARK_ID));
 
-            bookmarkRepository.deleteById(id);
+            bookmarkRepository.deleteById(existBookmark.getId());
 
         } catch (Exception e) {
             log.error("[DELETE]/bookmarks database error", e);
@@ -136,6 +137,6 @@ public class BookmarkServiceImpl implements BookmarkService {
                     .body(new Response<>(DATABASE_ERROR));
         }
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new Response<>(SUCCESS_DELETE_BOOKMARK));
+                .body(new Response<>(null, SUCCESS_DELETE_BOOKMARK));
     }
 }

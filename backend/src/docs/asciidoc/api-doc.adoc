@@ -484,7 +484,7 @@ include::{snippets}/bookmarks/select/successful/request-parameters.adoc[]
 
 include::{snippets}/bookmarks/select/successful/response-fields.adoc[]
 
-==== 카페 찜 등록 성공
+==== 카페 찜 조회 성공
 
 Request Example
 
@@ -502,7 +502,7 @@ Request Header
 
 include::{snippets}/bookmarks/delete/successful/request-headers.adoc[]
 
-include::{snippets}/bookmarks/delete/successful/path-parameters.adoc[]
+include::{snippets}/bookmarks/delete/successful/request-parameters.adoc[]
 
 include::{snippets}/bookmarks/delete/successful/response-fields.adoc[]
 

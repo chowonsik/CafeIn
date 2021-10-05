@@ -156,7 +156,8 @@ public class BookmarkControllerTest extends ApiDocumentationTest {
         String JWT = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQ5LCJpYXQiOjE2MzI4MDgyMDF9.ImwkfxLW84OCWp2hBqYiJzGnZqUO6Ni-GskrZZyoTgM";
 
         //when
-        ResultActions result = mockMvc.perform(delete("/api/bookmarks/{id}", 1)
+        ResultActions result = mockMvc.perform(delete("/api/bookmarks")
+                        .queryParam("cafeId", "2")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-ACCESS-TOKEN", JWT)
                         .accept(MediaType.APPLICATION_JSON))
@@ -170,8 +171,8 @@ public class BookmarkControllerTest extends ApiDocumentationTest {
                                 getDocumentRequest(),
                                 getDocumentResponse(),
                                 requestHeaders(headerWithName("X-ACCESS-TOKEN").description("JWT Token")),
-                                pathParameters(
-                                        parameterWithName("id").description("삭제 요청할 찜 ID")
+                                requestParameters(
+                                        parameterWithName("cafeId").description("찜 삭제할 카페 번호")
                                 ),
                                 responseFields(
                                         fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN)
