@@ -4,8 +4,8 @@
     <q-btn round color="primary" icon="my_location" 
       @click="myLocation" style="position: absolute; bottom: 0.5rem; right: 0.5rem; z-index: 2"
     />
+    <q-btn @click="getCafe">버튼</q-btn>
   </div>
-  <q-btn @click="getCafe">버튼</q-btn>
 </template>
 
 <script>
@@ -48,10 +48,12 @@ export default {
   },
   created() {
     this.geoFind()
-    this.getCafe()
   },
   computed: {
     ...mapState(['latitude', 'longitude']),
+  },
+  beforeMount() {
+    this.getCafe()
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -74,7 +76,7 @@ export default {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(this.latitude, this.longitude),
-        level: 6,
+        level: 5,
       };
       this.map = new kakao.maps.Map(container, options);
 
