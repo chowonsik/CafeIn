@@ -21,18 +21,25 @@ const routes = [
     component: () => import("layouts/EmptyLayout.vue"),
     children: [
       { path: "myreview", component: () => import("pages/MyReviewPage") },
-      { path: "cafe/detail", component: () => import("pages/CafeDetail.vue") },
+      { path: "cafes/:id", component: () => import("pages/CafeDetail.vue") },
     ],
   },
   {
     path: "/",
     component: () => import("layouts/SubLayout.vue"),
     children: [
-      { path: "profile", component: () => import("pages/user/ProfilePage.vue") },
-      { path: "profile/edit", component: () => import("pages/user/EditUserPage.vue") },
+      {
+        path: "profile",
+        component: () => import("pages/user/ProfilePage.vue"),
+        meta: { auth: true },
+      },
+      {
+        path: "profile/edit",
+        component: () => import("pages/user/EditUserPage.vue"),
+      },
       { path: "tag", component: () => import("pages/TagRecommend.vue") },
       { path: "nearcafe", component: () => import("pages/NearCafe.vue") },
-      { path: "curation", component: () => import("pages/CafeCuration.vue") }
+      { path: "curation", component: () => import("pages/CafeCuration.vue") },
     ],
   },
   // Always leave this as last one,

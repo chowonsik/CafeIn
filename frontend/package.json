@@ -14,9 +14,11 @@
     "@vuelidate/validators": "^2.0.0-alpha.22",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "moment": "^2.29.1",
     "quasar": "^2.0.0",
     "swiper": "^7.0.7",
-    "vee-validate": "^4.4.11",
+    "vee-validate": "^4.5.2",
+    "vue-geolocation-api": "^0.1.21",
     "vuelidate": "^0.7.6",
     "vuex": "^4.0.1"
   },

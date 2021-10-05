@@ -28,7 +28,7 @@
 
         <q-card-actions align="right">
           <q-btn v-close-popup color="negative" rounded dense label="취소" />
-          <q-btn v-close-popup color="primary" rounded dense label="작성" />
+          <q-btn @click="writeReview()" v-close-popup color="primary" rounded dense label="작성" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -39,6 +39,7 @@
 
 <script>
 import { ref } from 'vue'
+import { createReview } from '../../api/review'
 
 export default {
   setup () {
@@ -46,7 +47,25 @@ export default {
       card: ref(false),
       stars: ref(0),
       text: ref('')
+    }
+  },
+  methods: {
+    async writeReview() {
+      try {
+        const cafeId = this.$route.params.id
+        const reviewData = {
+          cafeId : cafeId,
+          totalScore : this.stars,
+          content : this.text
+        }
+        const { data } = await createReview(reviewData)
+        // console.log(reviewData)
+        console.log(data)
+        location.reload()
 
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
