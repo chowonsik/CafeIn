@@ -15,4 +15,14 @@ function emailUser(userData) {
   return api.post("/api/users/email", userData);
 }
 
-export { registerUser, loginUser, emailUser };
+// 프로필 조회 API
+function profileUser(userData) {
+  return api.get("/api/users/me", userData);
+}
+
+// 회원탈퇴 API
+function deleteUser(userData) {
+  return api.patch("/api/users/deactivate", userData)
+}
+
+export { registerUser, loginUser, emailUser, profileUser, deleteUser };

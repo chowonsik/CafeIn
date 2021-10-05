@@ -55,6 +55,7 @@ import { ref } from 'vue'
 import TermCard from '../../components/user/TermCard.vue'
 import RecentlyCafeItem from '../../components/cafe/RecentlyCafeItem.vue'
 import EditUserButton from '../../components/user/EditUserButton.vue'
+import { profileUser } from '../../api/auth'
 import { deleteCookie } from "../../utils/cookies"
 import { createNamespacedHelpers } from 'vuex'
 const { mapMutations } = createNamespacedHelpers("auth")
@@ -73,7 +74,7 @@ export default {
   },
   data () {
     return {
-      nickname: '김싸피',
+      nickname: '',
     }
   },
   methods: {
@@ -96,7 +97,19 @@ export default {
       deleteCookie('til_auth')
       deleteCookie('til_user')
       this.$router.push({path:'/users/login'}).catch(()=>{})
+    },
+    async getProfile() {
+      try {
+        const { data } = await profileUser()
+        // console.log(data)
+        this.nickname = data.result.nickname
+      } catch(error) {
+        console.error(error)
+      }
     }
+  },
+  created() {
+    this.getProfile()
   }
 }
 </script>
