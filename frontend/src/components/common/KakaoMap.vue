@@ -5,11 +5,13 @@
       @click="myLocation" style="position: absolute; bottom: 0.5rem; right: 0.5rem; z-index: 2"
     />
   </div>
+  <q-btn @click="getCafe">버튼</q-btn>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions, mapMutations } = createNamespacedHelpers("kakaomap")
+import { api } from "../../boot/axios";
 
 export default {
   name: "KakaoMap",
@@ -41,10 +43,12 @@ export default {
           latlng: [36.36060013967501, 127.30770314054023]
         }
       ],
+      nearCafes: []
     }
   },
   created() {
     this.geoFind()
+    this.getCafe()
   },
   computed: {
     ...mapState(['latitude', 'longitude']),
@@ -70,7 +74,7 @@ export default {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(this.latitude, this.longitude),
-        level: 4,
+        level: 6,
       };
       this.map = new kakao.maps.Map(container, options);
 
@@ -94,7 +98,7 @@ export default {
       });
 
       this.infowindow.open(this.map, this.marker)
-      this.makeCafeMarker()
+      // this.makeCafeMarker()
     },
     myLocation() {
       this.geoFind()
@@ -130,9 +134,9 @@ export default {
     },
 
     makeCafeMarker() {
-      for (let i = 0; i < this.markerPositions.length; i++) {
-        var iwContent = `<div style="padding:5px;">${this.markerPositions[i].name}</div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-          iwPosition = new kakao.maps.LatLng(this.markerPositions[i].latlng[0], this.markerPositions[i].latlng[1]), //인포윈도우 표시 위치입니다
+      for (let i = 0; i < this.nearCafes.length; i++) {
+        var iwContent = `<div style="padding:5px;">${this.nearCafes[i].cafeName}</div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          iwPosition = new kakao.maps.LatLng(this.nearCafes[i].cafeLatitude, this.nearCafes[i].cafeLongitude), //인포윈도우 표시 위치입니다
           iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
         // 마커를 생성합니다
@@ -149,6 +153,17 @@ export default {
           content: iwContent,
           removable: iwRemoveable,
         });
+      }
+    },
+    async getCafe() {
+      try {
+        const response = await api.get(`/api/cafes?latitude=${this.latitude}&longitude=${this.longitude}&search=&size=10&page=1`)
+        this.nearCafes = response.data.result
+        console.log(response.data.result)
+        this.makeCafeMarker()
+        this.map.setCenter(new kakao.maps.LatLng(this.latitude, this.longitude))
+      } catch (error) {
+        console.log(error)
       }
     }
   },
