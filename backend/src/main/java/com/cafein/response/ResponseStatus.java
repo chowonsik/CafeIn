@@ -19,6 +19,7 @@ public enum ResponseStatus {
     SUCCESS_SELECT_USER(200, 205, "유저 조회에 성공하였습니다."),
     SUCCESS_SEND_MAIL(200, 210, "메일 발송에 성공하였습니다."),
     SUCCESS_SELECT_CAFE(200, 211, "카페 조회에 성공하였습니다."),
+    SUCCESS_SUGGEST_CAFE(200, 216, "카페 추천에 성공하였습니다."),
     SUCCESS_SELECT_REVIEW(200, 212, "리뷰 조회에 성공하였습니다."),
     SUCCESS_SELECT_REPORT(200, 213, "리뷰 신고 내역 조회에 성공하였습니다."),
     SUCCESS_SELECT_MENU(200, 214, "메뉴 조회에 성공하였습니다."),
@@ -71,6 +72,7 @@ public enum ResponseStatus {
     NEED_SIGNUP(400, 422, "회원가입이 필요합니다."),
     FAILED_TO_SEND_EMAIL(400, 444, "인증 메일을 발송하는데 실패하였습니다."),
     EXISTS_BOOKMARK(400, 421, "이미 존재하는 찜 정보입니다."),
+    BAD_CURATION_TYPE_VALUE(400, 427, "올바른 추천 타입을 입력해주세요."),
 
     // 401 Unauthorized - 클라이언트가 권한이 없기 때문에 작업을 진행할 수 없는 경우
     UNAUTHORIZED(401, 400, "권한이 없습니다."),

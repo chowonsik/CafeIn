@@ -30,6 +30,9 @@ public class BookmarkRepositoryImpl implements BookmarkRepositoryCustom {
         QueryResults<SelectBookmarkOutput> queryResult = queryFactory
                 .select(new QSelectBookmarkOutput(qBookmark.id, Expressions.constant(userId), qCafe.id, qCafe.name,
                         qCafe.branch, qCafe.area, qCafe.tel, qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
+                        // cafeAvgScore
+                        JPAExpressions.select(qReview.totalScore.avg()).from(qReview)
+                                .where(qReview.cafe.id.eq(qCafe.id)),
                         // isBookmark
                         JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
                                 .where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))),
