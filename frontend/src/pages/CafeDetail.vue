@@ -74,10 +74,12 @@
     <q-footer reveal bordered class="bg-white text-grey-8">
       <q-toolbar>
         <q-toolbar-title class="row justify-between items-center">
-          <q-btn style="marginLeft: 1rem" flat>
-            <span v-if="cafeInfo.isBookMark" class="material-icons" style="font-size: 2rem; color: #FF6666">favorite</span>
-            <span v-else class="material-icons" style="font-size: 2rem;">favorite_border</span>
-          </q-btn>
+            <q-btn v-if="bookmarked" style="marginLeft: 1rem" flat registerBookmark @click="deleteBookmark()">
+              <span class="material-icons" style="font-size: 2rem; color: #FF6666">favorite</span>
+            </q-btn>
+            <q-btn v-else style="marginLeft: 1rem" flat @click="registerBookmark()">
+              <span class="material-icons" style="font-size: 2rem;">favorite_border</span>
+            </q-btn>
           <div style="marginRight: 1rem">
             <review-dialog />
           </div>
@@ -91,7 +93,7 @@
 import moment from 'moment'
 import ReviewDialog from '../components/cafe/ReviewDialog.vue'
 import CafeMenuDialog from '../components/cafe/CafeMenuDialog.vue'
-import { cafeDetail, cafeBhour } from '../api/cafe'
+import { cafeDetail, cafeBhour, bookmark, cancelBookmark } from '../api/cafe'
 import { getCafeReview } from '../api/review'
 
 export default {
@@ -102,7 +104,7 @@ export default {
   },
   data() {
     return {
-      bookmarked: 0,
+      bookmarked: null,
       cafeInfo: [],
       bhourInfo: [],
       reviews: [],
@@ -125,6 +127,8 @@ export default {
         const { data } = await cafeDetail(cafeId)
         console.log(data)
         this.cafeInfo = data.result
+        this.bookmarked = data.result.isBookMark
+        console.log(this.bookmarked)
       } catch(error) {
         console.error(error)
       }
@@ -147,6 +151,32 @@ export default {
         this.reviews = data.result
       } catch(error) {
         console.error(error)
+      }
+    },
+    async registerBookmark() {
+      try {
+        const cafeId = {
+          cafeId: this.$route.params.id
+        }
+        const { data } = await bookmark(cafeId)
+        if (data.isSuccess === true) {
+          this.bookmarked = 1
+        }
+        console.log(data)
+      } catch(error) {
+        console.log(error)
+      }
+    },
+    async deleteBookmark() {
+      try {
+        const cafeId = this.$route.params.id
+        const { data } = await cancelBookmark(cafeId)
+        if (data.isSuccess === true) {
+          this.bookmarked = 0
+        }
+        console.log(data)
+      } catch(error) {
+        console.log(error)
       }
     }
   },
