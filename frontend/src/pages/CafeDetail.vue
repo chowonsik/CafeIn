@@ -75,9 +75,10 @@
     <q-footer reveal bordered class="bg-white text-grey-8">
       <q-toolbar>
         <q-toolbar-title class="row justify-between items-center">
-          <div style="marginLeft: 1rem">
-            <q-btn text-color="negative" round color="primary" icon="favorite" />
-          </div>
+          <q-btn style="marginLeft: 1rem" flat @click="bookmark()">
+            <span v-if="bookmarked" class="material-icons" style="font-size: 2rem; color: #FF6666">favorite</span>
+            <span v-else class="material-icons" style="font-size: 2rem;">favorite_border</span>
+          </q-btn>
           <div style="marginRight: 1rem">
             <review-dialog />
           </div>
@@ -100,6 +101,7 @@ export default defineComponent({
   },
   data() {
     return {
+      bookmarked: 0,
       cafeInfo: {
         cafeName: "녹턴 커피 로스터스",
         img: "https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fmyplace-phinf.pstatic.net%2F20210905_216%2F1630806743080jydIp_JPEG%2Fupload_a8d1132fa3378eb5d6ee572d7d829d74.jpeg",
@@ -143,6 +145,10 @@ export default defineComponent({
     goBack() {
       window.history.back()
     },
+    bookmark() {
+      this.bookmarked = !this.bookmarked
+      console.log(this.bookmarked)
+    }
   },
 
   
