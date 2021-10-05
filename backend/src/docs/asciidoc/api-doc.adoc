@@ -408,6 +408,48 @@ Response Example
 
 include::{snippets}/cafe_detail/select/successful/http-response.adoc[]
 
+=== 5-3. 카페 큐레이션
+
+==== 카페 큐레이션 카테고리 기반 조회
+
+Request Header
+
+include::{snippets}/cafe_curation_category/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafe_curation_category/select/successful/request-parameters.adoc[]
+
+include::{snippets}/cafe_curation_category/select/successful/response-fields.adoc[]
+
+==== 카페 큐레이션 카테고리 기반 조회 성공
+
+Request Example
+
+include::{snippets}/cafe_curation_category/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafe_curation_category/select/successful/http-response.adoc[]
+
+==== 카페 큐레이션 유저 찜 기반 조회
+
+Request Header
+
+include::{snippets}/cafe_curation_bookmark/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafe_curation_bookmark/select/successful/request-parameters.adoc[]
+
+include::{snippets}/cafe_curation_bookmark/select/successful/response-fields.adoc[]
+
+==== 카페 큐레이션 유저 찜 기반 조회 성공
+
+Request Example
+
+include::{snippets}/cafe_curation_bookmark/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafe_curation_bookmark/select/successful/http-response.adoc[]
+
 == 6. Menu API
 
 === 6-1. 카페 메뉴 조회
