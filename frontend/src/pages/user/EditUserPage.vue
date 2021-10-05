@@ -16,14 +16,14 @@
                 <q-input type="nickname" outlined v-model="nickname" />
               </div>
               <div class="q-mt-lg">
-                <span>바꿀 비밀번호</span>
+                <span>변경할 비밀번호</span>
                 <q-input type="password" outlined v-model="password" />
               </div>
               <div class="q-mt-lg">
-                <span>바꿀 비밀번호 확인</span>
+                <span>변경할 비밀번호 확인</span>
                 <q-input type="password" outlined v-model="passwordConfirm" />
               </div>
-              <q-btn color="primary" type="submit" class="full-width q-ma-lg" size="lg" label="프로필 수정" />
+              <q-btn @click="editMyInfo()" color="primary" type="submit" class="full-width q-ma-lg" size="lg" label="프로필 수정" />
             </div>
           </div>
         </q-form>
@@ -34,6 +34,9 @@
 </template>
 
 <script>
+import { profileUser, editUser } from '../../api/auth'
+import useVuelidate from '@vuelidate/core'
+import { required, minLength, maxLength, sameAs } from '@vuelidate/validators'
 export default {
   name: "EditUserPage",
   data() {
@@ -43,6 +46,9 @@ export default {
       passwordConfirm: '',
     }
   },
+  created() {
+    this.getMyInfo()
+  },
   methods: {
     checkForm() {
 
@@ -50,6 +56,27 @@ export default {
     goBack() {
       window.history.back()
     },
+    async getMyInfo() {
+      try {
+        const { data } = await profileUser()
+        this.nickname = data.result.nickname
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async editMyInfo() {
+      try {
+        const userData = {
+          nickname: this.nickname,
+          password: this.password
+        }
+        const { data } = await editUser(userData)
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+      
+    }
   }
 }
 </script>

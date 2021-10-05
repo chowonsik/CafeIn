@@ -22,7 +22,19 @@ function profileUser(userData) {
 
 // 회원탈퇴 API
 function deleteUser(userData) {
-  return api.patch("/api/users/deactivate", userData)
+  return api.patch("/api/users/deactivate", userData);
 }
 
-export { registerUser, loginUser, emailUser, profileUser, deleteUser };
+// 회원정보 수정 API
+function editUser(userData) {
+  return api.patch("/api/users", userData);
+}
+
+export {
+  registerUser,
+  loginUser,
+  emailUser,
+  profileUser,
+  deleteUser,
+  editUser,
+};
