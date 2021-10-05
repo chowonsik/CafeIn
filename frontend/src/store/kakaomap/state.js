@@ -1,6 +1,4 @@
-export default function () {
-  return {
-    latitude: "",
-    longitude: "",
-  };
+export default {
+  latitude: "",
+  longitude: "",
 }
