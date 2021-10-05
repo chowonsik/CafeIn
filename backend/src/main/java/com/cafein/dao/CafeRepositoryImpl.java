@@ -13,6 +13,7 @@ import com.cafein.dto.cafe.suggest.CafeCurationOutput;
 import com.cafein.dto.cafe.suggest.QCafeCurationOutput;
 import com.cafein.entity.*;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.*;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -41,7 +42,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 				.select(new QSelectCafeDetailOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel,
 						qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
 						// cafeAvgScore
-						JPAExpressions.select(qReview.totalScore.avg()).from(qReview)
+						JPAExpressions.select(qReview.totalScore.avg().coalesce(0.0)).from(qReview)
 								.where(qReview.cafe.id.eq(qCafe.id)),
 						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
@@ -77,7 +78,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 						).multiply(Expressions.constant(6371)).stringValue(),"distance"),
 						qCafe.imgUrl,
 						// cafeAvgScore
-						JPAExpressions.select(qReview.totalScore.avg()).from(qReview)
+						JPAExpressions.select(qReview.totalScore.avg().coalesce(0.0)).from(qReview)
 								.where(qReview.cafe.id.eq(qCafe.id)),
 						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
@@ -101,9 +102,9 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 	}
 
 	@Override
-	public Page<CafeCurationOutput> curationCafeByCategory(CafeCurationInput suggestByCategoryInput, int userId, Pageable pageable) {
-		double userLatitude = Double.parseDouble(suggestByCategoryInput.getLatitude());
-		double userLongitude = Double.parseDouble(suggestByCategoryInput.getLongitude());
+	public Page<CafeCurationOutput> curationCafe(CafeCurationInput cafeCurationInput, int userId, Pageable pageable) {
+		double userLatitude = Double.parseDouble(cafeCurationInput.getLatitude());
+		double userLongitude = Double.parseDouble(cafeCurationInput.getLongitude());
 
 		QueryResults<CafeCurationOutput> queryResult = queryFactory
 				.select(new QCafeCurationOutput(qCafe.id, qCafe.name, qCafe.branch, qCafe.area, qCafe.tel, qCafe.address,
@@ -116,6 +117,9 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 										.add((sin(radians(Expressions.constant(userLatitude))).multiply(sin(radians(qCafe.latitude.castToNum(Double.class))))))
 								).multiply(Expressions.constant(6371)).stringValue(),"distance"),
 						qCafe.imgUrl,
+						// cafeAvgScore
+						JPAExpressions.select(qReview.totalScore.avg().coalesce(0.0)).from(qReview)
+								.where(qReview.cafe.id.eq(qCafe.id)),
 						// isBookmark
 						JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
 								.where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))),
@@ -134,14 +138,24 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom {
 						.multiply(cos(radians(qCafe.latitude.castToNum(Double.class))))
 						.multiply(cos(radians(qCafe.longitude.castToNum(Double.class)).subtract(radians(Expressions.constant(userLongitude)))))
 						.add((sin(radians(Expressions.constant(userLatitude))).multiply(sin(radians(qCafe.latitude.castToNum(Double.class))))))
-				).multiply(Expressions.constant(6371)).stringValue().loe(suggestByCategoryInput.getDistance()))
-				.orderBy(Expressions.stringPath(suggestByCategoryInput.getCategory()).desc(), Expressions.stringPath("distance").asc())
+				).multiply(Expressions.constant(6371)).stringValue().loe(cafeCurationInput.getDistance()))
+				//찜하지 않은 카페만 추천
+				.where(JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
+						.where(qBookmark.user.id.eq(userId).and(qBookmark.cafe.id.eq(qCafe.id))).eq(0))
+				.orderBy(hasCategory(cafeCurationInput.getCategory()), Expressions.stringPath("distance").asc())
 				.offset(pageable.getOffset()).limit(pageable.getPageSize())
 				.fetchResults();
 		long totalCount = queryResult.getTotal();
 		List<CafeCurationOutput> content = queryResult.getResults();
 
 		return new PageImpl<>(content, pageable, totalCount);
+	}
+
+	private OrderSpecifier hasCategory(String category){
+		if(category==null){ // 카테고리가 없으면 토탈점수 값이 높은거 우선
+			return qTags.taste.add(qTags.view).add(qTags.wide).add(qTags.study).add(qTags.mood).add(qTags.nice).desc();
+		}
+		return Expressions.stringPath(category).desc();
 	}
 }
 

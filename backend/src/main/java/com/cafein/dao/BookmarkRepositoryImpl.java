@@ -2,6 +2,8 @@ package com.cafein.dao;
 
 import com.cafein.dto.bookmark.seleteBookmark.QSelectBookmarkOutput;
 import com.cafein.dto.bookmark.seleteBookmark.SelectBookmarkOutput;
+import com.cafein.dto.cafe.suggest.CafeCurationInput;
+import com.cafein.dto.cafe.suggest.CafeCurationOutput;
 import com.cafein.entity.QBhour;
 import com.cafein.entity.QBookmark;
 import com.cafein.entity.QCafe;
@@ -31,7 +33,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepositoryCustom {
                 .select(new QSelectBookmarkOutput(qBookmark.id, Expressions.constant(userId), qCafe.id, qCafe.name,
                         qCafe.branch, qCafe.area, qCafe.tel, qCafe.address, qCafe.latitude, qCafe.longitude, qCafe.imgUrl,
                         // cafeAvgScore
-                        JPAExpressions.select(qReview.totalScore.avg()).from(qReview)
+                        JPAExpressions.select(qReview.totalScore.avg().coalesce(0.0)).from(qReview)
                                 .where(qReview.cafe.id.eq(qCafe.id)),
                         // isBookmark
                         JPAExpressions.select(qBookmark.count().castToNum(Integer.class)).from(qBookmark)
@@ -55,5 +57,6 @@ public class BookmarkRepositoryImpl implements BookmarkRepositoryCustom {
 
         return new PageImpl<>(content, pageable, totalCount);
     }
+
 }
 
