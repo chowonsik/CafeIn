@@ -38,9 +38,9 @@ def getAllGroups(userEmail):
         json.dumps(dicList)
     return json.dumps(dicList)
 
+
+
 # 예시코드2 클래스로 빼서 등록 (차후 모듈화에 더 편리)
-
-
 class SampleClass(Resource):
     def get(self, userEmail):
         return "test"
