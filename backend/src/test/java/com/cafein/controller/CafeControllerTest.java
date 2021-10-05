@@ -95,6 +95,8 @@ public class CafeControllerTest extends ApiDocumentationTest {
                                                 .description("현재 위치에서 카페까지 거리"),
                                         fieldWithPath("result.[].cafeImgUrl").type(JsonFieldType.STRING)
                                                 .description("카페 이미지").optional(),
+                                        fieldWithPath("result.[].cafeAvgScore").type(JsonFieldType.NUMBER)
+                                                .description("카페 평균 별점").optional(),
                                         fieldWithPath("result.[].isBookMark").type(JsonFieldType.NUMBER)
                                                 .description("찜 여부 0 : 찜 x, 1 : 찜 o"),
                                         fieldWithPath("result.[].bookmarkCnt").type(JsonFieldType.NUMBER)
@@ -160,6 +162,8 @@ public class CafeControllerTest extends ApiDocumentationTest {
                                                 .description("카페 이미지").optional(),
                                         fieldWithPath("result.isBookMark").type(JsonFieldType.NUMBER)
                                                 .description("찜 여부 0 : 찜 x, 1 : 찜 o"),
+                                        fieldWithPath("result.cafeAvgScore").type(JsonFieldType.NUMBER)
+                                                .description("카페 평균 별점").optional(),
                                         fieldWithPath("result.bookmarkCnt").type(JsonFieldType.NUMBER)
                                                 .description("카페 찜 개수"),
                                         fieldWithPath("result.reviewCnt").type(JsonFieldType.NUMBER)

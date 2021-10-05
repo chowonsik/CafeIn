@@ -137,6 +137,8 @@ public class BookmarkControllerTest extends ApiDocumentationTest {
                                                 .description("카페 경도"),
                                         fieldWithPath("result.[].cafeImgUrl").type(JsonFieldType.STRING)
                                                 .description("카페 이미지").optional(),
+                                        fieldWithPath("result.[].cafeAvgScore").type(JsonFieldType.NUMBER)
+                                                .description("카페 평균 별점").optional(),
                                         fieldWithPath("result.[].isBookMark").type(JsonFieldType.NUMBER)
                                                 .description("찜 여부 0 : 찜 x, 1 : 찜 o"),
                                         fieldWithPath("result.[].bookmarkCnt").type(JsonFieldType.NUMBER)
