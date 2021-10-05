@@ -61,6 +61,7 @@ export default {
         const { data } = await createReview(reviewData)
         // console.log(reviewData)
         console.log(data)
+        location.reload()
 
       } catch (error) {
         console.log(error)
