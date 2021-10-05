@@ -3,17 +3,15 @@ package com.cafein.controller;
 import com.cafein.dto.cafe.search.CafeSearchOutput;
 import com.cafein.dto.cafe.search.CafeSearchInput;
 import com.cafein.dto.cafe.selectCafeDetail.SelectCafeDetailOutput;
-import com.cafein.entity.Cafe;
+import com.cafein.dto.cafe.suggest.CafeCurationInput;
+import com.cafein.dto.cafe.suggest.CafeCurationOutput;
 import com.cafein.response.PageResponse;
 import com.cafein.response.Response;
 import com.cafein.service.CafeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/api/cafes")
@@ -45,6 +43,18 @@ public class CafeController {
     public ResponseEntity<PageResponse<CafeSearchOutput>> searchCafeByWord(CafeSearchInput cafeSearchInput) {
         log.info("[GET] /cafes");
         return cafeService.selectCafeListByWord(cafeSearchInput);
+    }
+
+    /**
+     * 카페 카테로기로 추천 API [GET] /api/cafes/suggest/
+     *
+     * @return ResponseEntity<PageResponse<CafeSearchOutput>>
+     */
+    // Params
+    @GetMapping("/curation")
+    public ResponseEntity<PageResponse<CafeCurationOutput>> suggestByCategory(CafeCurationInput suggestByCategoryInput) {
+        log.info("[GET] /cafes/curation");
+        return cafeService.curationCafe(suggestByCategoryInput);
     }
 
 }
