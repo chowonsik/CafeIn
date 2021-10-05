@@ -65,15 +65,15 @@ public class UserServiceImpl implements UserService {
         try {
             String email = signInInput.getEmail();
             String password = new AES128(USER_INFO_PASSWORD_KEY).encrypt(signInInput.getPassword());
-            List<User> userDBs = userRepository.findByEmailAndStatus(email, "ACTIVATE");
-            if (userDBs.size() == 0) {
+            User user = userRepository.findByEmailAndStatus(email, "ACTIVATE").orElse(null);
+            if (user == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(NOT_FOUND_USER));
-            } else if (!userDBs.get(0).getPassword().equals(password)) {
+            } else if (!user.getPassword().equals(password)) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(FAILED_TO_SIGN_IN));
             } else {
-                userDB = userDBs.get(0);
+                userDB = user;
             }
         } catch (Exception e) {
             log.error("[users/signin/post] database error", e);

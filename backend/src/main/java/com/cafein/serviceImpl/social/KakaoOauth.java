@@ -92,8 +92,8 @@ public class KakaoOauth implements SocialOauth {
         // 3. user 정보 가져오기
         User userDB;
         try {
-            List<User> userDBs = userRepository.findByEmailAndStatus(email, "ACTIVATE");
-            if (userDBs.size() == 0) { // 최초 로그인
+            User user = userRepository.findByEmailAndStatus(email, "ACTIVATE").orElse(null);
+            if (user == null) { // 최초 로그인
                 SignInOutput oauthOutput =
                         SignInOutput.builder()
                                 .oauth(
@@ -106,12 +106,12 @@ public class KakaoOauth implements SocialOauth {
                                                 .build()).build();
                 return new Response<>(oauthOutput, NEED_SIGNUP);
             }
-            if (!StringUtils.isNotEmpty(userDBs.get(0).getOauthId())) { // 기존에 이메일로 가입했을 경우
-                userDBs.get(0).setOauth(SocialLoginType.KAKAO);
-                userDBs.get(0).setOauthId(kakaoId);
-                userDB = userRepository.save(userDBs.get(0));
+            if (!StringUtils.isNotEmpty(user.getOauthId())) { // 기존에 이메일로 가입했을 경우
+                user.setOauth(SocialLoginType.KAKAO);
+                user.setOauthId(kakaoId);
+                userDB = userRepository.save(user);
             } else {
-                userDB = userDBs.get(0);
+                userDB = user;
             }
         } catch (Exception e) {
             log.error("[auth/kakao/callback/get] database error", e);
