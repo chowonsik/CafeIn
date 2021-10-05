@@ -2,6 +2,7 @@ import { store } from "quasar/wrappers";
 import { createStore } from "vuex";
 import kakaomap from "./kakaomap";
 import auth from "./auth";
+import review from "./review";
 
 // import example from './module-example'
 
@@ -19,6 +20,7 @@ export default store(function (/* { ssrContext } */) {
     modules: {
       kakaomap: kakaomap,
       auth: auth,
+      review: review,
     },
 
     // enable strict mode (adds overhead!)

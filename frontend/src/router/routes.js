@@ -21,7 +21,7 @@ const routes = [
     component: () => import("layouts/EmptyLayout.vue"),
     children: [
       { path: "myreview", component: () => import("pages/MyReviewPage") },
-      { path: "cafe/:id", component: () => import("pages/CafeDetail.vue") },
+      { path: "cafes/:id", component: () => import("pages/CafeDetail.vue") },
     ],
   },
   {
