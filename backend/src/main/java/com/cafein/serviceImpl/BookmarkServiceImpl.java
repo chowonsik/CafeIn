@@ -137,6 +137,6 @@ public class BookmarkServiceImpl implements BookmarkService {
                     .body(new Response<>(DATABASE_ERROR));
         }
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new Response<>(SUCCESS_DELETE_BOOKMARK));
+                .body(new Response<>(null, SUCCESS_DELETE_BOOKMARK));
     }
 }
