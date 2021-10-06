@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div @click="goCuration()">
       <q-img
         src="../assets/image/coffeeimage1.jpg"
         :ratio="16/9"
@@ -76,7 +76,10 @@ export default defineComponent({
     this.geoFind()
   },
   methods: {
-    ...mapActions(['geoFind'])
+    ...mapActions(['geoFind']),
+    goCuration() {
+      this.$router.push({path:'/curation'}).catch(()=>{})
+    }
   }
 })
 </script>

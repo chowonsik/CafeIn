@@ -17,7 +17,7 @@
         <div class="col-gutter-none content-center">
           <q-avatar color="primary" size="xl" text-color="white" icon="search" />
         </div>
-        <div class="col-gutter-none">
+        <div class="col-gutter-none" @click="goTag()">
           <div class="text-center">
             <q-avatar text-color="grey" size="xl" icon="favorite" />
           </div>
@@ -46,6 +46,9 @@ export default {
     },
     goProfile() {
       this.$router.push({path:'/profile'}).catch(()=>{})
+    },
+    goTag() {
+      this.$router.push({path:'/mycafe'}).catch(()=>{})
     }
   }
 }

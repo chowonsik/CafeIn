@@ -7,10 +7,10 @@
       </q-toolbar>
     </q-header>
 
-    <q-item-label header class="text-h6 text-center text-weight-bold text-primary" style="marginTop: 1rem">코코님의 취향에 맞는 카페 큐레이션</q-item-label>
+    <q-item-label header class="text-h6 text-center text-weight-bold text-primary" style="marginTop: 1rem">{{ nickname }}님의 취향에 맞는 카페 큐레이션</q-item-label>
     
 
-    <q-item-label caption class="text-center" style="marginTop: 1rem">코코님의 관심 카페를 기반으로 추천한 카페입니다.</q-item-label>
+    <q-item-label caption class="text-center" style="marginTop: 1rem">{{ nickname }}님의 관심 카페를 기반으로 추천한 카페입니다.</q-item-label>
     <swiper :effect="'coverflow'" :grabCursor="true" :centeredSlides="true" :slidesPerView="'auto'" :coverflowEffect='{
       "rotate": 50,
       "stretch": 0,
@@ -57,6 +57,7 @@ import "swiper/css/pagination"
 
 import { getCuration } from '../api/curation'
 import { createNamespacedHelpers } from 'vuex'
+import { profileUser } from '../api/auth'
 const { mapState, mapActions } = createNamespacedHelpers("kakaomap")
 
 
@@ -78,6 +79,7 @@ export default {
   data() {
     return {
       curationList: [],
+      nickname: '',
     };
   },
   methods: {
@@ -96,6 +98,15 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    async getProfile() {
+      try {
+        const { data } = await profileUser()
+        // console.log(data)
+        this.nickname = data.result.nickname
+      } catch(error) {
+        console.error(error)
+      }
     }
   },
   computed: {
@@ -104,6 +115,7 @@ export default {
 
   created() {
     this.getCurationCafe()
+    this.getProfile()
   }
   
 }
