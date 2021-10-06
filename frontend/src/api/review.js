@@ -19,4 +19,9 @@ function getMyReview(userId) {
   );
 }
 
-export { createReview, getCafeReview, getMyReview };
+// 워드 클라우드 API
+function getReviewWord(cafeId) {
+  return api.get(`/flask/word?cafeid=${cafeId}`)
+}
+
+export { createReview, getCafeReview, getMyReview, getReviewWord };
