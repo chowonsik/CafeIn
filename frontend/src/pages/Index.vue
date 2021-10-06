@@ -1,42 +1,42 @@
 <template>
-  <div>
+  <div class="bg-grey-3">
     <MainCarousel />
-    <div class="bg-grey-3">
-      <div class="row justify-around font-center items-center q-pt-sm" style="height: 6rem">
+    <div >
+      <div class="row justify-around font-center items-center q-ma-md" style="height: 6rem">
         <div>
-          <q-avatar>
+          <q-avatar @click="$router.push({ path: `/tag/taste`})">
             <img src="../assets/image/coffeecup.png">
           </q-avatar>
           <p class="no-margin text-center">맛</p>
         </div>
         <div>
-          <q-avatar>
+          <q-avatar @click="$router.push({ path: `/tag/study`})">
             <img src="../assets/image/openbook.png">
           </q-avatar>
           <p class="no-margin text-center">공부</p>
         </div>
         <div>
-          <q-avatar>
+          <q-avatar @click="$router.push({ path: `/tag/mood`})">
             <img src="../assets/image/love.png">
           </q-avatar>
           <p class="no-margin text-center">분위기</p>
         </div>
       </div>
-      <div class="row justify-around font-center items-center" style="height: 6rem">
+      <div class="row justify-around font-center items-center q-ma-md" style="height: 6rem">
         <div>
-          <q-avatar>
+          <q-avatar @click="$router.push({ path: `/tag/view`})">
             <img src="../assets/image/camera.png">
           </q-avatar>
           <p class="no-margin text-center">뷰</p>
         </div>
         <div>
-          <q-avatar>
+          <q-avatar @click="$router.push({ path: `/tag/nice`})">
             <img src="../assets/image/service.png">
           </q-avatar>
           <p class="no-margin text-center">서비스</p>
         </div>
         <div>
-          <q-avatar>
+          <q-avatar @click="$router.push({ path: `/tag/wide`})">
             <img src="../assets/image/space.png">
           </q-avatar>
           <p class="no-margin text-center">공간</p>
