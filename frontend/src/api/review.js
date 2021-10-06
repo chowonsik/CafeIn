@@ -19,6 +19,11 @@ function getMyReview(userId) {
   );
 }
 
+// 워드 클라우드 API
+function getReviewWord(cafeId) {
+  return api.get(`/flask/word?cafeid=${cafeId}`)
+}
+
 // 리뷰 수정 API
 function editReview(reviewId, reviewData) {
   return api.patch(`/api/reviews/${reviewId}`, reviewData);
@@ -28,4 +33,6 @@ function editReview(reviewId, reviewData) {
 function deleteReview(reviewId) {
   return api.delete(`/api/reviews/${reviewId}`);
 }
-export { createReview, getCafeReview, getMyReview, editReview, deleteReview };
+
+export { createReview, getCafeReview, getMyReview, editReview, deleteReview, getReviewWord };
+

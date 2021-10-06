@@ -25,8 +25,8 @@
           <div class="text-subtitle2">{{ cafeInfo.cafeAddress }}</div>
         </q-card-section>
         <q-card-section style="paddingTop: 0">
-          <q-icon name="favorite" class="text-negative" /><span style="marginRight: 0.5rem">{{ bookmarkCount }}</span>
-          <q-icon name="star" class="text-yellow"/><span style="marginRight: 0.5rem">{{ cafeInfo.cafeAvgScore }}</span>
+          <q-icon name="favorite" class="text-negative" /><span style="marginRight: 0.5rem">{{ cafeInfo.bookmarkCnt }}</span>
+          <q-icon name="star" class="text-yellow"/><span style="marginRight: 0.5rem">{{ parseFloat(cafeInfo.cafeAvgScore).toFixed(1) }}</span>
           <q-icon name="edit_note" class="text-primary" /><span style="marginRight: 0.5rem">{{ cafeInfo.reviewCnt }}</span>
         </q-card-section>
 
@@ -45,7 +45,12 @@
 
       </q-card>
     </div>
-
+    <div class="row justify-center">
+      <div v-if="cafeInfo.reviewCnt >= 20">
+        <WordCloud />
+      </div>
+      <div v-else color="primary" class="text-subtitle2 text-bold">리뷰가 쌓이면 워드클라우드가 보여요!</div>
+    </div>
     <div class="q-pa-md">
       <q-card class="my-card" flat >
         <q-card-section>
@@ -57,7 +62,7 @@
             <q-item-section>
               <q-item-label>{{ review.reviewContent }}</q-item-label>
             </q-item-section>
-                      <q-item-section side top>
+            <q-item-section side top>
             <q-item-label caption>{{ dateTime(review.reviewCreatedAt) }}</q-item-label>
               <q-rating
                 v-model="review.reviewScore"
@@ -100,6 +105,7 @@
 import moment from 'moment'
 import ReviewDialog from '../components/cafe/ReviewDialog.vue'
 import CafeMenuDialog from '../components/cafe/CafeMenuDialog.vue'
+import WordCloud from '../components/cafe/WordCloud.vue'
 import { cafeDetail, cafeBhour, bookmark, cancelBookmark } from '../api/cafe'
 import { ref } from 'vue'
 import axios from 'axios'
@@ -110,7 +116,8 @@ export default {
 
   components: {
     ReviewDialog,
-    CafeMenuDialog
+    CafeMenuDialog,
+    WordCloud
   },
   data() {
     return {
