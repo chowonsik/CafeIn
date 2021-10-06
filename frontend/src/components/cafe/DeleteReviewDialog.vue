@@ -9,7 +9,7 @@
 
         <q-card-actions align="right">
           <q-btn flat label="아니요" color="primary" v-close-popup />
-          <q-btn flat label="예" color="red" v-close-popup />
+          <q-btn flat label="예" color="red" v-close-popup  @click="deleteMyReview()"/>
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -18,12 +18,33 @@
 
 <script>
 import { ref } from 'vue'
+import { createNamespacedHelpers } from 'vuex'
+import { deleteReview } from '../../api/review'
+const { mapState } = createNamespacedHelpers("review")
 
 export default {
   name: "DeleteReviewDialog",
   setup () {
     return {
       confirm: ref(false),
+    }
+  },
+  computed: {
+    ...mapState(['selectedReview'])
+  },
+  methods: {
+    async deleteMyReview() {
+      try {
+        const reviewId = this.selectedReview.reviewId
+        const { data } = await deleteReview(reviewId)
+        if (data.isSuccess === true) {
+          alert('리뷰가 삭제되었습니다.')
+          location.reload()
+        }
+      } catch (error) {
+        alert('리뷰 삭제에 실패했습니다.')
+        console.log(error)
+      }
     }
   }
 }

@@ -19,4 +19,13 @@ function getMyReview(userId) {
   );
 }
 
-export { createReview, getCafeReview, getMyReview };
+// 리뷰 수정 API
+function editReview(reviewId, reviewData) {
+  return api.patch(`/api/reviews/${reviewId}`, reviewData);
+}
+
+// 리뷰 삭제 API
+function deleteReview(reviewId) {
+  return api.delete(`/api/reviews/${reviewId}`);
+}
+export { createReview, getCafeReview, getMyReview, editReview, deleteReview };

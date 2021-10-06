@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<div v-for="cafe in myReviews" :key="cafe.cafeName">
+		<div v-for="cafe in myReviews" :key="cafe.id">
 			<q-card flat bordered>
       <q-card-section horizontal>
-				<q-card-section class="col-4 flex flex-center no-padding q-mt-xs">
+				<q-card-section class="col-4 flex flex-center no-padding q-mt-xs" @click="$router.push({ path: `/cafes/${cafe.cafeId}`})">
           <q-img
             class="rounded-borders"
-            :src="cafe.img"
+            :src="cafe.cafeImgUrl"
 						:ratio="1"
 						style="height: 100px; width: 100px"
           />
@@ -22,13 +22,12 @@
               icon-half="star_half"
               readonly
             />
-            <q-item-label>{{ cafe.reviewCreatedAt }}</q-item-label>
+          <q-item-label>{{ dateTime(cafe.reviewCreatedAt) }}</q-item-label>
         </q-card-section>
 				<q-card-section class="no-padding col-2">
-					<ReviewListDialog />
+					<ReviewListDialog @click="selectedMyReview(cafe)"/>
 				</q-card-section>
 					
-	
       </q-card-section>
 			<q-card-section class="q-ml-md q-mt-xs no-padding row items-center">
 				<div>
@@ -49,7 +48,8 @@
 <script>
 import ReviewListDialog from './ReviewListDialog.vue'
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions } = createNamespacedHelpers("review")
+import moment from 'moment'
+const { mapState, mapActions, mapMutations } = createNamespacedHelpers("review")
 
 export default {
 	name: 'ReviewItem',
@@ -62,6 +62,10 @@ export default {
 	},
   methods: {
     ...mapActions(['myReview']),
+    ...mapMutations(['selectedMyReview']),
+    dateTime(value) {
+      return moment(value).format('YYYY-MM-DD')
+    },
   },
   created() {
     this.myReview()
