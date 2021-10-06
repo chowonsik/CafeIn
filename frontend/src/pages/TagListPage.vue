@@ -49,9 +49,15 @@ import axios from 'axios'
 import state from "src/store/auth/state";
 import { bookmark, cancelBookmark } from 'src/api/cafe';
 import { useRoute } from 'vue-router'
+import { createNamespacedHelpers } from 'vuex'
+// const { mapState } = createNamespacedHelpers("kakaomap")
+import mapState from "src/store/kakaomap/state";
 
 export default {
   name: 'TagListPage',
+  // computed: {
+  //   ...mapState(['latitude', 'longitude'])
+  // },
   data() {
     return {
       bookmarked: 1
@@ -62,6 +68,8 @@ export default {
     const accessToken = state.accessToken
     const isBookmarked = ref([])
     const tagName = useRoute().params.tagname
+    const latitude = mapState.latitude
+    const longitude = mapState.longitude
 
     return {
       items,
@@ -69,7 +77,7 @@ export default {
       onLoad (index, done) {
         setTimeout(() => {
           axios
-          .get(`https://j5b204.p.ssafy.io/api/cafes/curation?type=1&latitude=37.265712&longitude=127.036734&category=${tagName}&distance=10&size=10&page=${index}`, {
+          .get(`https://j5b204.p.ssafy.io/api/cafes/curation?type=1&latitude=${latitude}&longitude=${longitude}&category=${tagName}&distance=10&size=10&page=${index}`, {
             headers: {
               "X-ACCESS-TOKEN": accessToken
             }
