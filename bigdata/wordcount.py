@@ -29,8 +29,8 @@ def count(String):
     #1번 이상 카운트된 단어 리스트 생성
     lst = []
     for s in remove_stopwords:
-        if(s[1]>1):
-            lst.append(s)
+        # if(s[1]>1):
+        lst.append(s)
         
     #딕셔너리로 변환하여 리턴    
     return dict(lst)
