@@ -4,11 +4,13 @@ import time
 from flask import Flask
 from flask_restful import Resource, Api,request
 from flask_restful import reqparse
+from flask_cors import CORS
 import json
 import time
 from common.db import db,engine,db_session
 import wordcount
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 app.config['JSON_AS_ASCII'] = False
 
