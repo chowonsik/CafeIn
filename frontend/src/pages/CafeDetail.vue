@@ -101,7 +101,6 @@ import moment from 'moment'
 import ReviewDialog from '../components/cafe/ReviewDialog.vue'
 import CafeMenuDialog from '../components/cafe/CafeMenuDialog.vue'
 import { cafeDetail, cafeBhour, bookmark, cancelBookmark } from '../api/cafe'
-import { getCafeReview } from '../api/review'
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
@@ -192,17 +191,6 @@ export default {
         console.error(error)
       } 
     },
-    // async reviewItem() {
-    //   try {
-    //     const cafeId = this.$route.params.id
-    //     const { data } = await getCafeReview(cafeId, this.page)
-    //     console.log(data)
-    //     this.reviews = data.result
-    //     this.items = data.result
-    //   } catch(error) {
-    //     console.error(error)
-    //   }
-    // },
     async registerBookmark() {
       try {
         const cafeId = {
@@ -278,7 +266,6 @@ export default {
   created() {
     this.cafeItem()
     this.bhourItem()
-    // this.reviewItem()
     this.addCookie(this.$route.params.id)
   }
 }
