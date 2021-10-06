@@ -48,9 +48,10 @@ import { ref } from 'vue'
 import axios from 'axios'
 import state from "src/store/auth/state";
 import { bookmark, cancelBookmark } from 'src/api/cafe';
+import { useRoute } from 'vue-router'
 
 export default {
-  name: 'MyCafe',
+  name: 'TagListPage',
   data() {
     return {
       bookmarked: 1
@@ -60,18 +61,21 @@ export default {
     const items = ref([])
     const accessToken = state.accessToken
     const isBookmarked = ref([])
+    const tagName = useRoute().params.tagname
 
     return {
       items,
       isBookmarked,
       onLoad (index, done) {
         setTimeout(() => {
-          axios.get(`https://j5b204.p.ssafy.io/api/bookmarks?size=10&page=${index}`, {
+          axios
+          .get(`https://j5b204.p.ssafy.io/api/cafes/curation?type=1&latitude=37.265712&longitude=127.036734&category=${tagName}&distance=10&size=10&page=${index}`, {
             headers: {
               "X-ACCESS-TOKEN": accessToken
             }
           })
           .then(({data}) => {
+            console.log(tagName)
             items.value.push(...data.result)
             isBookmarked.value.push()
             return data.result

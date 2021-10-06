@@ -24,4 +24,15 @@ function getReviewWord(cafeId) {
   return api.get(`/flask/word?cafeid=${cafeId}`)
 }
 
-export { createReview, getCafeReview, getMyReview, getReviewWord };
+// 리뷰 수정 API
+function editReview(reviewId, reviewData) {
+  return api.patch(`/api/reviews/${reviewId}`, reviewData);
+}
+
+// 리뷰 삭제 API
+function deleteReview(reviewId) {
+  return api.delete(`/api/reviews/${reviewId}`);
+}
+
+export { createReview, getCafeReview, getMyReview, editReview, deleteReview, getReviewWord };
+

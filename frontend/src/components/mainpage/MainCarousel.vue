@@ -2,31 +2,31 @@
   <q-carousel
       arrows
       animated
+      infinite
+      :autoplay="autoplay"
+      @mouseenter="autoplay = false"
+      @mouseleave="autoplay = true"
       v-model="slide"
       height="25vh"
     >
-      <q-carousel-slide name="first" img-src="../../assets/image/cafeimage2.jpg">
+      <q-carousel-slide :name="1" img-src="../../assets/image/cafeimage2.jpg">
         <div class="absolute-bottom custom-caption">
-          <div class="text-h4">First stop</div>
-          <div class="text-subtitle1">Popular Cafe</div>
+          <div class="text-subtitle1">카페를 좋아하는 Cafe人</div>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide name="second" img-src="../../assets/image/cafeimage1.jpg">
+      <q-carousel-slide :name="2" img-src="../../assets/image/cafeimage1.jpg">
         <div class="absolute-bottom custom-caption">
-          <div class="text-h4">Second stop</div>
-          <div class="text-subtitle1">Popular Cafe</div>
+          <div class="text-subtitle1">카페를 좋아하는 Cafe人</div>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide name="third" img-src="../../assets/image/cafeimage3.jpg">
+      <q-carousel-slide :name="3" img-src="../../assets/image/cafeimage3.jpg">
         <div class="absolute-bottom custom-caption">
-          <div class="text-h4">Third stop</div>
-          <div class="text-subtitle1">Famous Cafe</div>
+          <div class="text-subtitle1">카페를 좋아하는 Cafe人</div>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide name="fourth" img-src="../../assets/image/cafeimage4.jpg">
+      <q-carousel-slide :name="4" img-src="../../assets/image/cafeimage4.jpg">
         <div class="absolute-bottom custom-caption">
-          <div class="text-h4">Fourth stop</div>
-          <div class="text-subtitle1">Famous Cafe</div>
+          <div class="text-subtitle1">카페를 좋아하는 Cafe人</div>
         </div>
       </q-carousel-slide>
     </q-carousel>
@@ -38,7 +38,8 @@ export default {
   name: 'MainCarousel',
   setup () {
     return {
-      slide: ref('first')
+      slide: ref('first'),
+      autoplay: ref(true)
     }
   }
 
