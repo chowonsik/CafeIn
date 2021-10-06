@@ -15,7 +15,7 @@
           <p class="no-margin text-center" style="font-size: 12px">내주변</p>
         </div>
         <div class="col-gutter-none content-center">
-          <q-avatar color="primary" size="xl" text-color="white" icon="search" />
+          <SearchDialog />
         </div>
         <div class="col-gutter-none" @click="goTag()">
           <div class="text-center">
@@ -35,8 +35,12 @@
 </template>
 
 <script>
+import SearchDialog from '../mainpage/SearchDialog.vue'
 export default {
   name: 'Footer',
+  components: {
+    SearchDialog
+  },
   methods: {
     goHome() {
       this.$router.push({path:'/'}).catch(()=>{})

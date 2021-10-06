@@ -1,11 +1,21 @@
 <template>
   <div>
+    <q-header reveal bordered class="bg-white text-white">
+      <q-toolbar>
+        <q-icon size="sm" color="black" name="arrow_back_ios" @click="goBack()" />
+        <q-toolbar-title class="text-black text-weight-bold text-center no-padding">검색</q-toolbar-title>
+      </q-toolbar>
+    </q-header>
     <q-list padding>
       <q-infinite-scroll @load="onLoad" :offset="250">
       <q-item style="marginBottom: 1rem" v-ripple v-for="(cafe, index) in items" :key="index">
         <q-item-section avatar top @click="$router.push({ path: `/cafes/${cafe.cafeId}`})">
           <q-avatar rounded size="80px">
-            <img :src="cafe.cafeImgUrl" >
+            <q-img :src="cafe.cafeImgUrl">
+              <template v-slot:error>
+                <q-img :src="coffeeImg" />
+              </template>
+            </q-img>
           </q-avatar>
         </q-item-section>
         <q-item-section @click="$router.push({ path: `/cafes/${cafe.cafeId}`})">
@@ -49,18 +59,27 @@ import { api } from '../boot/axios'
 import state from "src/store/auth/state";
 import { useRoute } from 'vue-router'
 import mapState from "src/store/kakaomap/state";
+import coffeeImg from "../assets/image/coffee.png"
 
 export default {
-  name: 'TagListPage',
+  name: 'CafeSearch',
   data() {
     return {
-      bookmarked: 1
+      bookmarked: 1,
+      coffeeImg: coffeeImg,
     }
   },
-  setup () {
+  methods: {
+    goBack() {
+      window.history.back()
+    },
+  },
+  setup() {
+    const route = useRoute()
+    const cafeName = route.params.cafeName
     const items = ref([])
-    const accessToken = state.accessToken
     const isBookmarked = ref([])
+    const accessToken = state.accessToken
     const tagName = useRoute().params.tagname
     const latitude = mapState.latitude
     const longitude = mapState.longitude
@@ -68,10 +87,10 @@ export default {
     return {
       items,
       isBookmarked,
-      onLoad (index, done) {
+      onLoad (done) {
         setTimeout(() => {
           api
-          .get(`/api/cafes/curation?type=1&latitude=${latitude}&longitude=${longitude}&category=${tagName}&distance=10&size=10&page=${index}`, {
+          .get(`/api/cafes?latitude=${latitude}&longitude=${longitude}&search=${cafeName}&size=10&page=1`, {
             headers: {
               "X-ACCESS-TOKEN": accessToken
             }
@@ -92,7 +111,7 @@ export default {
         }, 2000)
       },
     }
-  },
+  }
 }
 </script>
 
