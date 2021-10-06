@@ -139,7 +139,7 @@ export default {
       items,
       onLoad (index, done) {
         setTimeout(() => {
-          axios.get(`https://j5b204.p.ssafy.io/api/reviews?cafeId=${cafeId}&search=&size=10&page=${index+1}`)
+          axios.get(`https://j5b204.p.ssafy.io/api/reviews?cafeId=${cafeId}&search=&size=10&page=${index}`)
           .then(({data}) => {
             console.log(data)
             for (let i = 0; i < data.result.length; i++) {
