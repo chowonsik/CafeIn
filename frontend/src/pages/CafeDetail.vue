@@ -278,7 +278,7 @@ export default {
   created() {
     this.cafeItem()
     this.bhourItem()
-    this.reviewItem()
+    // this.reviewItem()
     this.addCookie(this.$route.params.id)
   }
 }
