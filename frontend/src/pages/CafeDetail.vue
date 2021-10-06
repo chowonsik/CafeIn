@@ -73,14 +73,19 @@
         <q-separator />
       </q-card>
     </div>
-    <!-- <div class="row justify-center">
+    <div class="row justify-center">
       <div v-if="cafeInfo.reviewCnt >= 20">
         <WordCloud />
       </div>
-      <div v-else color="primary" class="text-subtitle2 text-bold">
+      <div
+        v-else
+        color="primary"
+        class="text-subtitle2 text-bold"
+        style="padding: 20px; color: gray"
+      >
         리뷰가 쌓이면 워드클라우드가 보여요!
       </div>
-    </div> -->
+    </div>
     <div class="q-pa-md">
       <q-card class="my-card" flat>
         <q-card-section style="padding-top: 0px; padding-bottom: 0px">
