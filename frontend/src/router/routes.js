@@ -61,6 +61,10 @@ const routes = [
         component: () => import("pages/CafeCuration.vue"),
         meta: { auth: true },
       },
+      {
+        path: "search/:cafeName",
+        component: () => import("pages/CafeSearch.vue")
+      }
       
     ],
   },
