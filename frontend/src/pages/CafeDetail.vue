@@ -106,16 +106,17 @@
               }}</q-item-label>
             </q-item>
             <!-- 확장되지 않았을 때 보일 리뷰 내용 -->
-            <q-item
-              v-show="review.reviewContent.length < 100 || review.expanded"
-            >
-              <q-item-label :lines="3">{{ review.reviewContent }}</q-item-label>
+            <q-item v-show="review.expanded">
+              <q-item-label v-if="review.reviewContent.length < 100">
+                {{ review.reviewContent }}
+              </q-item-label>
+              <q-item-label v-else :lines="3">
+                {{ review.reviewContent.substr(0, 100) }}
+              </q-item-label>
             </q-item>
 
             <!-- 확장 됐을 때 보일 리뷰 내용 -->
-            <q-item
-              v-show="review.reviewContent.length >= 100 && !review.expanded"
-            >
+            <q-item v-show="!review.expanded">
               <q-item-label>{{ review.reviewContent }}</q-item-label>
             </q-item>
             <!-- 확장 버튼 -->
