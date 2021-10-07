@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <q-btn label="리뷰 작성" color="primary" @click="card = true" />
+    <q-btn label="리뷰 작성" color="primary" @click="reviewButton()" />
 
     <q-dialog v-model="card">
       <q-card class="my-card" style="min-width: 300px">
@@ -40,6 +40,8 @@
 <script>
 import { ref } from 'vue'
 import { createReview } from '../../api/review'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers("auth")
 
 export default {
   setup () {
@@ -67,8 +69,19 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    reviewButton() {
+      if (this.accessToken === "") {
+        alert("로그인이 필요한 페이지입니다.")
+        this.$router.push("/users/login")
+      } else {
+        this.card = true
+      }
     }
-  }
+  },
+  computed: {
+    ...mapState(['accessToken'])
+  },
 }
 </script>
 

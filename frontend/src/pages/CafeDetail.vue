@@ -196,6 +196,9 @@ import { ref } from "vue";
 import { api } from "../boot/axios";
 import { useRoute } from "vue-router";
 import coffeeImg from "../assets/image/coffee.png"
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers("auth")
+
 
 export default {
   name: "CafeDetail",
@@ -216,7 +219,10 @@ export default {
       page: 1,
       list: [],
       coffeeImg: coffeeImg,
-    };
+    }
+  },
+  computed: {
+    ...mapState(['accessToken'])
   },
   setup() {
     const items = ref([]);
@@ -288,31 +294,42 @@ export default {
       }
     },
     async registerBookmark() {
-      try {
-        const cafeId = {
-          cafeId: this.$route.params.id,
-        };
-        const { data } = await bookmark(cafeId);
-        if (data.isSuccess === true) {
-          this.bookmarked = 1;
-          this.bookmarkCount += 1;
+      if (this.accessToken === "") {
+        alert("로그인이 필요한 페이지입니다.")
+        this.$router.push("/users/login")
+      } else {
+        try {
+          const cafeId = {
+            cafeId: this.$route.params.id,
+          };
+          const { data } = await bookmark(cafeId);
+          if (data.isSuccess === true) {
+            this.bookmarked = 1;
+            this.bookmarkCount += 1;
+          }
+          // console.log(data);
+        } catch (error) {
+          console.log(error);
         }
-        // console.log(data);
-      } catch (error) {
-        console.log(error);
       }
     },
     async deleteBookmark() {
-      try {
-        const cafeId = this.$route.params.id;
-        const { data } = await cancelBookmark(cafeId);
-        if (data.isSuccess === true) {
-          this.bookmarked = 0;
-          this.bookmarkCount -= 1;
+      if (this.accessToken === "") {
+        alert("로그인이 필요한 페이지입니다.")
+        this.$router.push("/users/login")
+      } else {
+        try {
+          const cafeId = this.$route.params.id;
+          const { data } = await cancelBookmark(cafeId);
+          if (data.isSuccess === true) {
+            this.bookmarked = 0;
+            this.bookmarkCount -= 1;
+          }
+          // console.log(data);
+        } catch (error) {
+          console.log(error);
         }
-        // console.log(data);
-      } catch (error) {
-        console.log(error);
+        
       }
     },
     setCookie(cookie_name, value, days) {
