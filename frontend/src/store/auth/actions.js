@@ -8,7 +8,7 @@ export async function LOGIN({ commit }, userData) {
     commit('setUserId', data.result.userId)
     saveAuthToCookie(data.result.accessToken)
     saveUserToCookie(data.result.userId)
-    console.log(data)
+    // console.log(data)
     alert(data.message)
     return data
   } else {

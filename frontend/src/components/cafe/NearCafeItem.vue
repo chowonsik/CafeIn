@@ -59,7 +59,7 @@ export default {
         const longitude = this.longitude
         const { data } = await nearCafeSearch(latitude, longitude)
         this.nearCafes = data.result
-        console.log(data.result)
+        // console.log(data.result)
       } catch (error) {
         console.log(error)
       }

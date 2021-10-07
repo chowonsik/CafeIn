@@ -7,7 +7,7 @@
             <img src="../../assets/image/cafeinLogo.png">
           </q-avatar>
         </q-btn>
-        <div class="col-gutter-none content-center">
+        <div hidden class="col-gutter-none content-center">
           <q-avatar color="grey" size="l" text-color="white" icon="search" />
         </div>
       </q-toolbar-title>

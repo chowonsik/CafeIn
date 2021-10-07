@@ -60,6 +60,7 @@ export default {
         }
         const { data } = await createReview(reviewData)
         // console.log(reviewData)
+        alert(data.message)
         console.log(data)
         location.reload()
 

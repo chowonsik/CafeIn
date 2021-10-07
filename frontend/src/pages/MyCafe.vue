@@ -45,9 +45,8 @@
 
 <script>
 import { ref } from 'vue'
-import axios from 'axios'
+import { api } from '../boot/axios'
 import state from "src/store/auth/state";
-import { bookmark, cancelBookmark } from 'src/api/cafe';
 
 export default {
   name: 'MyCafe',
@@ -66,7 +65,7 @@ export default {
       isBookmarked,
       onLoad (index, done) {
         setTimeout(() => {
-          axios.get(`https://j5b204.p.ssafy.io/api/bookmarks?size=10&page=${index}`, {
+          api.get(`/api/bookmarks?size=10&page=${index}`, {
             headers: {
               "X-ACCESS-TOKEN": accessToken
             }

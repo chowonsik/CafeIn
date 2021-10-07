@@ -188,7 +188,7 @@ import CafeMenuDialog from "../components/cafe/CafeMenuDialog.vue";
 import WordCloud from "../components/cafe/WordCloud.vue";
 import { cafeDetail, cafeBhour, bookmark, cancelBookmark } from "../api/cafe";
 import { ref } from "vue";
-import axios from "axios";
+import { api } from "../boot/axios";
 import { useRoute } from "vue-router";
 
 export default {
@@ -219,9 +219,9 @@ export default {
       items,
       onLoad(index, done) {
         setTimeout(() => {
-          axios
+          api
             .get(
-              `https://j5b204.p.ssafy.io/api/reviews?cafeId=${cafeId}&search=&size=10&page=${index}`
+              `/api/reviews?cafeId=${cafeId}&search=&size=10&page=${index}`
             )
             .then(({ data }) => {
               for (let i = 0; i < data.result.length; i++) {
@@ -255,7 +255,7 @@ export default {
       try {
         const cafeId = this.$route.params.id;
         const { data } = await cafeDetail(cafeId);
-        console.log(data);
+        // console.log(data);
         this.cafeInfo = data.result;
         this.bookmarkCount = data.result.bookmarkCnt;
         this.bookmarked = data.result.isBookMark;
@@ -290,7 +290,7 @@ export default {
           this.bookmarked = 1;
           this.bookmarkCount += 1;
         }
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -303,7 +303,7 @@ export default {
           this.bookmarked = 0;
           this.bookmarkCount -= 1;
         }
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.log(error);
       }
