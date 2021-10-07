@@ -39,8 +39,14 @@
     <div class="row justify-center" style="margin-top: 1rem">
       <q-card @click="goSignup()" flat bordered style="width: 90%">
         <q-card-section class="flex justify-around items-center">
-          <div class="text-h6">아직 회원이 아니세요?</div>
-          <div class="text-h6">회원가입</div>
+          <div class="text-h6 col">카페 "In" 하실분</div>
+          <q-btn outline color="primary" align="around" label="회원가입" icon="login" />
+        </q-card-section>
+      </q-card>
+      <q-card @click="goHome()" flat bordered style="width: 90%" class="q-mt-sm">
+        <q-card-section class="flex justify-around items-center">
+          <div class="text-h6 col">구경 하실분</div>
+          <q-btn outline color="primary" align="around" label="홈으로" icon="home" />
         </q-card-section>
       </q-card>
     </div>
@@ -86,6 +92,9 @@ export default {
     ...mapActions(['LOGIN']),
     goHome() {
       this.$router.push({path:'/'}).catch(()=>{})
+    },
+    goBack() {
+      window.history.back()
     },
     goSignup() {
       this.$router.push({path:'/users/signup'}).catch(()=>{})
