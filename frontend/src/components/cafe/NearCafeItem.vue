@@ -23,13 +23,33 @@
               icon-selected="star"
               icon-half="star_half"
               readonly
+              style="marginLeft: 0.3rem"
             />
             <q-item-label caption>({{nearCafe.reviewCnt}})</q-item-label>
           </div>
           <q-item-label caption>{{nearCafe.cafeAddress}}</q-item-label>
+          <q-item-label caption>{{nearCafe.cafeTel}}</q-item-label>
         </q-item-section>
-        <q-item-section side top>
-          <q-btn flat round text-color="negative" icon="favorite" />
+        <q-item-section side top style="paddingLeft: 0">
+          <!-- <q-btn flat round text-color="negative" icon="favorite" /> -->
+          <q-btn
+            v-if="nearCafe.isBookMark"
+            style="marginleft: 1rem"
+            flat
+          >
+            <span class="material-icons" style="font-size: 1.5rem; color: #ff6666"
+              >favorite</span
+            >
+          </q-btn>
+          <q-btn
+            v-else
+            style="marginleft: 1rem"
+            flat
+          >
+            <span class="material-icons" style="font-size: 1.5rem"
+              >favorite_border</span
+            >
+          </q-btn>
         </q-item-section>
         </q-item>
       </div>  
