@@ -4,16 +4,11 @@
 ### Local Env
 - Java 11
 - MYSQL Workbench 8.0.25
-- Intellij Ultimate 2021.1
+- Intellij Ultimate 2021.2
 
 ### Server Env
 - AWS EC2 (build & deploy server)
 - AWS RDS (DB server)
-- AWS S3 (image server)
-
-### API
-- [Kakao API](https://developers.kakao.com/)
-- [Google API](https://console.developers.google.com/apis/credentials)
 
 <br>
 
@@ -38,8 +33,10 @@ spring:
       username: ${YOUR_DATABASE_USERNAME}
       password: ${YOUR_DATABASE_PASSWORD}
   jpa:
-    hibernate:
-      use-new-id-generator-mappings: false
+    properties:
+      hibernate:
+        hbm2ddl.auto: update
+
   mail:
     host: ${YOUR_EMAIL_AUTHENTICATION_HOST}
     port: ${YOUR_EMAIL_AUTHENTICATION_PORT}
@@ -77,19 +74,20 @@ server:
 ### 3. Start Project
 > Before starting, you need to create a **Q table** through build (Querydsl setting)
 
-> Right-click on the project folder - [Run As] - [Spring Boot App] 
+> Right-click on the **src/main/java/com/cafein/Application.java** - [Run 'Application.main()'] 
 
 ## ✔ Tech Stack
-| Usage               | Stack                    |
-| ------------------- | ------------------------ |
-| `Spring Boot`       | Backend Framework        |
-| `Spring Data JPA`   | JPA Library(Module)      |
-| `Spring Security`   | Authentication Framework |
-| `Querydsl`          | Domain Specific Language |
-| `MySQL`             | Database                 |
-| `JWT`               | JSON Web Token           |
-
+| Usage               | Stack                      |
+| ------------------- | -------------------------- |
+| `Spring Boot`       | Backend Framework          |
+| `Spring Data JPA`   | JPA Library(Module)        |
+| `Spring Security`   | Authentication Framework   |
+| `Querydsl`          | Domain Specific Language   |
+| `MySQL`             | Database                   |
+| `JWT`               | JSON Web Token             |
+| `Spring Rest Docs`  | Document RESTful Services  |
 ## ✔ Project Structure
+---
 - `src/` 하위 폴더들은 다음과 같은 역할을 한다.
 - `configuration/` : 프로젝트를 실행하기 위한 설정이 세팅되어 있다.
 - `controller/` : 클라이언트의 요청을 받아, 처리한 후 응답 데이터를 넘겨주는 역할을 한다.
@@ -98,10 +96,13 @@ server:
 - `entity/` : DB의 엔티티가 Spring Boot JPA에 맞게 세팅되어 있다.
 - `response/` : 처리에 대한 응답 구조와 응답 리스트가 정의되어 있다.
 - `service/` : 실질적으로 클라이언트의 요청을 처리하는 business logic이 정의되어 있다.
-- `serviceImpl/` :  service interface로부터 받은 business logic이 구현되어 있다.
+- `serviceImpl/` : service interface로부터 받은 business logic이 구현되어 있다.
+- `docs/` : Rest Docs로 완성된 Document가 생선된다.
+- ---
+- `test/controller` : Document 생성 시 필요한 테스트를 위한 logic이 정의되어있다.
 
 ## ✔ cf) cafein ERD , API Document
 1. ERD Document
-- 
+- [Link](https://docs.google.com/spreadsheets/d/1jZAIGzhb0C-M9Qyd4KYL9DK-oNwo2-fbZzF8jKzWSdQ/edit#gid=624760907)
 2. API Document
-- 
+- [Link](https://docs.google.com/spreadsheets/d/1FAnu21jgw4U9ksR4kUqan0v7tEufhZk9hvCIRjBE0ig/edit#gid=177001099)
