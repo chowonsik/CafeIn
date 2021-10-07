@@ -2,65 +2,67 @@
 
 ![Generic badge](https://img.shields.io/badge/java-v11.0.11-green.svg) ![Generic badge](https://img.shields.io/badge/mysql-8.0.25-yellow.svg) ![Generic badge](https://img.shields.io/badge/springboot-v2.3.0-blue.svg) ![Generic badge](https://img.shields.io/badge/Gradle-v7.0.2-red.svg) ![Generic badge](https://img.shields.io/badge/querydsl-v4.3.1-blueviolet.svg) ![Generic badge](https://img.shields.io/badge/lombok-v1.18.12-orange.svg)
 
+```
 📦src
-┣ 📂docs
-┃ ┗ 📂asciidoc
-┃ ┃ ┗ 📜api-doc.adoc
-┣ 📂main
-┃ ┗ 📂java
-┃ ┃ ┗ 📂com
-┃ ┃ ┃ ┗ 📂cafein
-┃ ┃ ┃ ┃ ┣ 📂configuration
-┃ ┃ ┃ ┃ ┃ ┣ 📂security
-┃ ┃ ┃ ┃ ┃ ┣ 📜AES128.java
-┃ ┃ ┃ ┃ ┃ ┣ 📜DBConfig.java
-┃ ┃ ┃ ┃ ┃ ┣ 📜QuerydslConfiguration.java
-┃ ┃ ┃ ┃ ┃ ┗ 📜ValidationCheck.java
-┃ ┃ ┃ ┃ ┣ 📂controller
-┃ ┃ ┃ ┃ ┣ 📂dao
-┃ ┃ ┃ ┃ ┣ 📂dto
-┃ ┃ ┃ ┃ ┃ ┣ 📂cafe
-┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂search
-┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂selectCafeDetail
-┃ ┃ ┃ ┃ ┃ ┣ 📂common
-┃ ┃ ┃ ┃ ┃ ┣ 📂review
-┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂createreview
-┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂selectreview
-┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂updatereview
-┃ ┃ ┃ ┃ ┃ ┗ 📂user
-┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂email
-┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂jwt
-┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂selectprofile
-┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂signin
-┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂signup
-┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂updateprofile
-┃ ┃ ┃ ┃ ┣ 📂entity
-┃ ┃ ┃ ┃ ┣ 📂response
-┃ ┃ ┃ ┃ ┣ 📂service
-┃ ┃ ┃ ┃ ┃ ┣ 📂social
-┃ ┃ ┃ ┃ ┃ ┣ 📜CafeService.java
-┃ ┃ ┃ ┃ ┃ ┣ 📜JwtService.java
-┃ ┃ ┃ ┃ ┃ ┣ 📜ReviewService.java
-┃ ┃ ┃ ┃ ┃ ┗ 📜UserService.java
-┃ ┃ ┃ ┃ ┣ 📂serviceImpl
-┃ ┃ ┃ ┃ ┃ ┣ 📂social
-┃ ┃ ┃ ┃ ┃ ┣ 📜CafeServiceImpl.java
-┃ ┃ ┃ ┃ ┃ ┣ 📜JwtServiceImpl.java
-┃ ┃ ┃ ┃ ┃ ┣ 📜ReviewServiceImpl.java
-┃ ┃ ┃ ┃ ┃ ┗ 📜UserServiceImpl.java
-┃ ┃ ┃ ┃ ┗ 📜Application.java
-┗ 📂test
-┃ ┣ 📂java
-┃ ┃ ┗ 📂com
-┃ ┃ ┃ ┗ 📂cafein
-┃ ┃ ┃ ┃ ┣ 📂controller
-┃ ┃ ┃ ┃ ┣ 📜ApiDocumentationTest.java
-┃ ┃ ┃ ┃ ┗ 📜ApiDocumentUtils.java
-┃ ┗ 📂resources
-┃ ┃ ┗ 📂org
-┃ ┃ ┃ ┗ 📂springframework
-┃ ┃ ┃ ┃ ┗ 📂restdocs
-┃ ┃ ┃ ┃ ┃ ┗ 📂templates
+ ┣ 📂docs
+ ┃ ┗ 📂asciidoc
+ ┃ ┃ ┗ 📜api-doc.adoc
+ ┣ 📂main
+ ┃ ┗ 📂java
+ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┗ 📂cafein
+ ┃ ┃ ┃ ┃ ┣ 📂configuration
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂security
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜AES128.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DBConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜QuerydslConfiguration.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜ValidationCheck.java
+ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┣ 📂dao
+ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂cafe
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂selectCafeDetail
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂common
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂review
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂createreview
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂selectreview
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂updatereview
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂user
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂email
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂jwt
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂selectprofile
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂signin
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂signup
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂updateprofile
+ ┃ ┃ ┃ ┃ ┣ 📂entity
+ ┃ ┃ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂social
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CafeService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReviewService.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserService.java
+ ┃ ┃ ┃ ┃ ┣ 📂serviceImpl
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂social
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CafeServiceImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtServiceImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReviewServiceImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserServiceImpl.java
+ ┃ ┃ ┃ ┃ ┗ 📜Application.java
+ ┗ 📂test
+ ┃ ┣ 📂java
+ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┗ 📂cafein
+ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┣ 📜ApiDocumentationTest.java
+ ┃ ┃ ┃ ┃ ┗ 📜ApiDocumentUtils.java
+ ┃ ┗ 📂resources
+ ┃ ┃ ┗ 📂org
+ ┃ ┃ ┃ ┗ 📂springframework
+ ┃ ┃ ┃ ┃ ┗ 📂restdocs
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂templates
+```
 
 #### :star: You can change environment according to your setting
 
