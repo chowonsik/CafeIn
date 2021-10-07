@@ -97,7 +97,8 @@ server:
 - `response/` : 처리에 대한 응답 구조와 응답 리스트가 정의되어 있다.
 - `service/` : 실질적으로 클라이언트의 요청을 처리하는 business logic이 정의되어 있다.
 - `serviceImpl/` : service interface로부터 받은 business logic이 구현되어 있다.
-- `docs/` : Rest Docs로 완성된 Document가 생선된다.
+- `docs/asciidoc/` : Document 생성 시 사용되는 .adoc가 정의되어있다.
+- `main/resources/static/docs/` : Spring Rest Docs로 완성된 Document가 복사되는 곳이다.
 - ---
 - `test/controller` : Document 생성 시 필요한 테스트를 위한 logic이 정의되어있다.
 
