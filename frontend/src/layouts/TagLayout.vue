@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-icon size="sm" color="black" name="arrow_back_ios" @click="goBack()" />
         <q-toolbar-title class="text-black text-weight-bold text-center no-padding">찜 카페</q-toolbar-title>
-          <q-avatar @click="$router.push({ path: `/tag/taste`})">
+          <q-avatar>
             <img src="../assets/image/touch.png">
           </q-avatar>
       </q-toolbar>

@@ -9,6 +9,6 @@ export async function myReview({ commit }) {
     // console.log(data);
     commit("myReview", data.result);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

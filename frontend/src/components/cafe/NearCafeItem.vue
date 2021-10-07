@@ -34,7 +34,7 @@
           <q-item-label caption>{{nearCafe.cafeAddress}}</q-item-label>
           <q-item-label caption>{{nearCafe.cafeTel}}</q-item-label>
         </q-item-section>
-        <q-item-section side top style="paddingLeft: 0">
+        <q-item-section side top style="paddingLeft: 0" v-if="token">
           <!-- <q-btn flat round text-color="negative" icon="favorite" /> -->
           <q-btn
             v-if="nearCafe.isBookMark"
@@ -66,6 +66,8 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapState } = createNamespacedHelpers("kakaomap")
 import { nearCafeSearch } from "../../api/cafe" 
 import coffeeImg from "../../assets/image/coffee.png"
+import state from "src/store/auth/state";
+
 
 export default {
   name: "NearCafeItem",
@@ -73,6 +75,7 @@ export default {
     return {
       nearCafes: [],
       coffeeImg: coffeeImg,
+      token: state.accessToken
     }
   },
   computed: {

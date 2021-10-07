@@ -1,5 +1,8 @@
 <template>
 	<div>
+    <div v-if="myReviews.length == 0" class="text-subtitle1 text-bold text-center" style="marginTop: 50%">
+      <div>작성한 리뷰가 없어요.</div>
+    </div>
 		<div v-for="cafe in myReviews" :key="cafe.id">
 			<q-card flat bordered>
         <q-card-section style="padding: 0" class="row justify-between">

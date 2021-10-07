@@ -7,7 +7,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-item-label header class="text-h6 text-center text-weight-bold text-primary" style="marginTop: 1rem">{{ nickname }}님의 취향에 맞는 카페 큐레이션</q-item-label>
+    <q-item-label header class="text-h6 text-center text-weight-bold text-primary" style="marginTop: 1rem">{{ nickname }}님 취향에 맞는 카페 큐레이션</q-item-label>
     
 
     <q-item-label caption class="text-center" style="marginTop: 1rem">{{ nickname }}님의 관심 카페를 기반으로 추천한 카페입니다.</q-item-label>
@@ -96,7 +96,7 @@ export default {
         const { data } = await getCuration(this.latitude, this.longitude)
         this.curationList = data.result
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     },
     async getProfile() {

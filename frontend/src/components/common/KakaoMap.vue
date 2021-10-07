@@ -209,7 +209,7 @@ export default {
               if (isOpenList[i]) infowindows[i].close();
               else infowindows[i].open(map, marker);
               isOpenList[i] = !isOpenList[i];
-              console.log(isOpenList[i]);
+              // console.log(isOpenList[i]);
             };
           })(i)
         );
@@ -221,11 +221,11 @@ export default {
         const longitude = this.longitude;
         const { data } = await nearCafeSearch(latitude, longitude);
         this.nearCafes = data.result;
-        console.log(data.result);
+        // console.log(data.result);
         this.makeCafeMarker();
         this.map.setCenter(new kakao.maps.LatLng(latitude, longitude));
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
   },
