@@ -18,7 +18,7 @@
             <q-rating
               v-model="cafe.cafeAvgScore"
               size="1em"
-              color="primary"
+              color="orange"
               icon="star_border"
               icon-selected="star"
               icon-half="star_half"
@@ -35,7 +35,16 @@
       </q-item>
       <template v-slot:loading>
         <div class="row justify-center q-my-md">
-          <q-spinner-dots color="primary" size="40px" />
+          <div v-if="loaded">
+            <q-img 
+              src="../assets/image/coffeeanimated2.gif"
+              style="width: 200px; marginTop: 60%"
+            />
+            <p class="text-subtitle2 text-bold text-center">열심히 추천중...</p>
+          </div>
+          <div v-else>
+            <q-spinner-dots color="primary" size="40px" />
+          </div>
         </div>
       </template>
       </q-infinite-scroll>
@@ -74,10 +83,12 @@ export default {
     const tagName = useRoute().params.tagname
     const latitude = mapState.latitude
     const longitude = mapState.longitude
+    const loaded = ref(true)
 
     return {
       items,
       isBookmarked,
+      loaded,
       onLoad (index, done) {
         setTimeout(() => {
           api
@@ -90,6 +101,9 @@ export default {
             console.log(tagName)
             items.value.push(...data.result)
             isBookmarked.value.push()
+            if (index === 1) {
+              loaded.value = false
+            }
             return data.result
           })
           .then(response => {
@@ -99,7 +113,7 @@ export default {
               done(false)
             }
           })
-        }, 2000)
+        }, 1000)
       },
     }
   },

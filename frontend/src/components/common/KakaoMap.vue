@@ -8,7 +8,6 @@
       @click="myLocation"
       style="position: absolute; bottom: 0.5rem; right: 0.5rem; z-index: 2"
     />
-    <q-btn @click="getCafe">버튼</q-btn>
   </div>
 </template>
 
@@ -28,6 +27,8 @@ export default {
       isOpenList: [],
       marker: null,
       nearCafes: [],
+      newLat: null,
+      newLog: null,
     };
   },
   created() {

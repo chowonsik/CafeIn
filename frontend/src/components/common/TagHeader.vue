@@ -11,7 +11,7 @@
       <q-icon size="sm" color="black" name="arrow_back_ios" @click="goBack()" />
       <q-toolbar-title class="text-black text-weight-bold text-center no-padding">공부 태그 추천</q-toolbar-title>
         <q-avatar @click="$router.push({ path: `/tag/taste`})">
-          <img src="../../assets/image/openbook.png">
+          <img src="../../assets/image/student.png">
         </q-avatar>
     </q-toolbar>
     <q-toolbar v-else-if="tagName === 'mood'">

@@ -11,7 +11,7 @@
         </div>
         <div>
           <q-avatar @click="$router.push({ path: `/tag/study`})">
-            <img src="../assets/image/openbook.png">
+            <img src="../assets/image/student.png">
           </q-avatar>
           <p class="no-margin text-center">공부</p>
         </div>
@@ -60,7 +60,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import MainCarousel from '../components/mainpage/MainCarousel.vue'
+import MainCarousel from '../components/mainpage/MainCarousel1.vue'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers("kakaomap")
 
