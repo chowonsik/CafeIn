@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TagHeader />
     <q-list padding>
       <q-infinite-scroll @load="onLoad" :offset="250">
       <q-item style="marginBottom: 1rem" v-ripple v-for="(cafe, index) in items" :key="index">
@@ -49,13 +50,22 @@ import { api } from '../boot/axios'
 import state from "src/store/auth/state";
 import { useRoute } from 'vue-router'
 import mapState from "src/store/kakaomap/state";
+import TagHeader from '../components/common/TagHeader.vue'
 
 export default {
   name: 'TagListPage',
+  components: {
+    TagHeader,
+  },
   data() {
     return {
       bookmarked: 1
     }
+  },
+  methods: {
+    goBack() {
+      window.history.back()
+    },
   },
   setup () {
     const items = ref([])
