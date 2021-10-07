@@ -24,22 +24,22 @@ public class Tags {
     @JoinColumn(name="cafe_id", nullable=false)    
     private Cafe cafe;
 
-    @Column(name = "taste")
+    @Column(name = "taste", nullable = false)
     private int taste;
 
-    @Column(name = "view")
+    @Column(name = "view", nullable = false)
     private int view;
     
-    @Column(name = "mood")
+    @Column(name = "mood", nullable = false)
     private int mood;
     
-    @Column(name = "wide")
+    @Column(name = "wide", nullable = false)
     private int wide;
     
-    @Column(name = "study")
+    @Column(name = "study", nullable = false)
     private int study;
     
-    @Column(name = "nice")
+    @Column(name = "nice", nullable = false)
     private int nice;
     
 }
