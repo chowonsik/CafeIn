@@ -25,40 +25,40 @@ public class Bhour {
     @JoinColumn(name="cafe_id", nullable=false)    
     private Cafe cafe;
 
-    @Column(name = "type")
+    @Column(name = "type", nullable=false)
     private int type;
 
-    @Column(name = "week_type")
+    @Column(name = "week_type", nullable=false)
     private int weekType;
     
-    @Column(name = "mon")
+    @Column(name = "mon", nullable=false)
     private int mon;
     
-    @Column(name = "tue")
+    @Column(name = "tue", nullable=false)
     private int tue;
     
-    @Column(name = "wed")
+    @Column(name = "wed", nullable=false)
     private int wed;
     
-    @Column(name = "thu")
+    @Column(name = "thu", nullable=false)
     private int thu;
     
-    @Column(name = "fri")
+    @Column(name = "fri", nullable=false)
     private int fri;
     
-    @Column(name = "sat")
+    @Column(name = "sat", nullable=false)
     private int sat;
     
-    @Column(name = "sun")
+    @Column(name = "sun", nullable=false)
     private int sun;
     
-    @Column(name = "start_time")
+    @Column(name = "start_time", nullable=false)
     private String startTime;
 
-    @Column(name = "end_time")
+    @Column(name = "end_time", nullable=false)
     private String endTime;
 
-    @Column(name = "etc")
+    @Column(name = "etc", nullable=false)
     private String etc;
     
 }

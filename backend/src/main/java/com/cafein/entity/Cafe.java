@@ -20,25 +20,25 @@ public class Cafe {
     @GeneratedValue(strategy = IDENTITY)
     private int id;
 
-    @Column(name = "name", length = 100)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "branch",length = 100)
+    @Column(name = "branch", nullable=false, length = 100)
     private String branch;
 
-    @Column(name = "area",length = 100)
+    @Column(name = "area", nullable = false, length = 100)
     private String area;
 
-    @Column(name = "tel", length = 45)
+    @Column(name = "tel", nullable=false, length = 45)
     private String tel;
 
-    @Column(name = "address", length = 100)
+    @Column(name = "address", nullable = false, length = 100)
     private String address;
 
-    @Column(name = "latitude", length = 30)
+    @Column(name = "latitude", nullable = false, length = 30)
     private String latitude;
 
-    @Column(name = "longitude", length = 30)
+    @Column(name = "longitude", nullable = false, length = 30)
     private String longitude;
 
     @Column(name = "img_url", nullable = false, columnDefinition = "TEXT")

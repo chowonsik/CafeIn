@@ -29,10 +29,10 @@ public class Review {
     @JoinColumn(name="cafe_id", nullable=false)    
     private Cafe cafe;
     
-    @Column(name = "total_score")
+    @Column(name = "total_score", nullable = false)
     private int totalScore;
 
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String content;
 
     @CreationTimestamp

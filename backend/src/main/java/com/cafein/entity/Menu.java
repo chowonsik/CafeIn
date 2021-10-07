@@ -24,10 +24,10 @@ public class Menu {
     @JoinColumn(name="cafe_id", nullable=false)    
     private Cafe cafe;
     
-    @Column(name = "name", length = 126)
+    @Column(name = "name", nullable=false, length = 126)
     private String name;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable=false)
     private int price;
 
 }

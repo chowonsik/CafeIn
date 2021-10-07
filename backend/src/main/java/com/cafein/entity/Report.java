@@ -30,7 +30,7 @@ public class Report {
     @JoinColumn(name="review_id", nullable=false)    
     private Review review;
 
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String content;
 
     @CreationTimestamp
