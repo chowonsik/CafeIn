@@ -44,7 +44,16 @@
       </q-item>
       <template v-slot:loading>
         <div class="row justify-center q-my-md">
-          <q-spinner-dots color="primary" size="40px" />
+          <div v-if="loaded">
+            <q-img 
+              src="../assets/image/coffeeanimated2.gif"
+              style="width: 200px; marginTop: 60%"
+            />
+            <p class="text-subtitle2 text-bold text-center">열심히 검색중...</p>
+          </div>
+          <div v-else>
+            <q-spinner-dots color="primary" size="40px" />
+          </div>
         </div>
       </template>
       </q-infinite-scroll>
@@ -83,10 +92,12 @@ export default {
     const tagName = useRoute().params.tagname
     const latitude = mapState.latitude
     const longitude = mapState.longitude
+    const loaded = ref(true)
 
     return {
       items,
       isBookmarked,
+      loaded,
       onLoad (index, done) {
         setTimeout(() => {
           api
@@ -99,6 +110,9 @@ export default {
             // console.log(tagName)
             items.value.push(...data.result)
             isBookmarked.value.push()
+            if (index === 1) {
+              loaded.value = false
+            }
             return data.result
           })
           .then(response => {

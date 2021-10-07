@@ -22,7 +22,7 @@
             <q-rating
               v-model="nearCafe.cafeAvgScore"
               size="1em"
-              color="primary"
+              color="orange"
               icon="star_border"
               icon-selected="star"
               icon-half="star_half"

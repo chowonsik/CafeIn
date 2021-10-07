@@ -17,7 +17,7 @@
             <q-rating
               v-model="cafe.cafeAvgScore"
               size="1em"
-              color="primary"
+              color="orange"
               icon="star_border"
               icon-selected="star"
               icon-half="star_half"
@@ -37,6 +37,7 @@
           <q-spinner-dots color="primary" size="40px" />
         </div>
       </template>
+
       </q-infinite-scroll>
       
     </q-list>
@@ -59,10 +60,12 @@ export default {
     const items = ref([])
     const accessToken = state.accessToken
     const isBookmarked = ref([])
+    const loaded = ref(true)
 
     return {
       items,
       isBookmarked,
+      loaded,
       onLoad (index, done) {
         setTimeout(() => {
           api.get(`/api/bookmarks?size=10&page=${index}`, {
@@ -73,6 +76,10 @@ export default {
           .then(({data}) => {
             items.value.push(...data.result)
             isBookmarked.value.push()
+            if (index === 1) {
+              loaded.value = false
+            }
+            // console.log(loaded)
             return data.result
           })
           .then(response => {
@@ -83,7 +90,7 @@ export default {
             }
           })
           // done()
-        }, 2000)
+        })
       },
     }
   },

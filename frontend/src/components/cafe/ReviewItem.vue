@@ -2,41 +2,69 @@
 	<div>
 		<div v-for="cafe in myReviews" :key="cafe.id">
 			<q-card flat bordered>
-      <q-card-section horizontal>
-				<q-card-section class="col-4 flex flex-center no-padding q-mt-xs" @click="$router.push({ path: `/cafes/${cafe.cafeId}`})">
-          <q-img
-            class="rounded-borders"
-            :src="cafe.cafeImgUrl"
-						:ratio="1"
-						style="height: 100px; width: 100px"
+        <q-card-section style="padding: 0" class="row justify-between">
+          <q-rating
+            v-model="cafe.reviewScore"
+            size="1.5em"
+            color="orange"
+            icon="star_border"
+            icon-selected="star"
+            icon-half="star_half"
+            readonly
+            class="q-ml-md"
           />
+          <ReviewListDialog @click="selectedMyReview(cafe)"/>
         </q-card-section>
-        <q-card-section class="q-pt-xs col-6">
-          <div class="text-subtitle1 text-weight-bold q-mt-sm q-mb-xs">{{ cafe.cafeName }}</div>
-            <q-rating
-              v-model="cafe.reviewScore"
-              size="1em"
-              color="orange"
-              icon="star_border"
-              icon-selected="star"
-              icon-half="star_half"
-              readonly
+        <q-card-section style="padding: 0">
+          <div class="text-subtitle1 text-weight-bold q-ml-md">
+            {{ cafe.cafeName }}
+          </div>
+        </q-card-section>
+
+        <q-card-section class="row">
+          <div class="col-4">
+            <q-img
+              class="rounded-borders"
+              :src="cafe.cafeImgUrl"
+              :ratio="1"
+              style="height: 100px; width: 100px;"
             />
-          <q-item-label style="marginTop: 1rem">{{ dateTime(cafe.reviewCreatedAt) }}</q-item-label>
-        </q-card-section>
-				<q-card-section class="no-padding col-2" >
-					<ReviewListDialog @click="selectedMyReview(cafe)"/>
-				</q-card-section>
-					
-      </q-card-section>
-			<q-card-section class="q-ml-md q-mt-xs no-padding row items-center">
-        <div>
-          <q-avatar color="primary" icon="coffee" text-color="white" size="24px" class="q-mx-sm" />
-        </div>
-				<div class="col">
-					{{ cafe.reviewContent }}
+          </div>
+          <div class="col-8">
+          <!-- 확장되지 않았을 때 보일 리뷰 내용 -->
+            <q-item v-show="cafe.expanded" class="no-padding">
+              <q-item-label v-if="cafe.reviewContent.length < 100">
+                {{ cafe.reviewContent }}
+              </q-item-label>
+              <q-item-label v-else :lines="3">
+                {{ cafe.reviewContent.substr(0, 100) }}
+              </q-item-label>
+            </q-item>
+
+            <!-- 확장 됐을 때 보일 리뷰 내용 -->
+            <q-item v-show="!cafe.expanded" class="no-padding">
+              <q-item-label>{{ cafe.reviewContent }}</q-item-label>
+            </q-item>
+            <!-- 확장 버튼 -->
+            <q-item
+              v-show="cafe.reviewContent.length >= 100"
+              style="padding-bottom: 0px; padding-top: 0px"
+              class="no-padding"
+            >
+              <q-btn
+                color="grey"
+                round
+                flat
+                dense
+                :label="cafe.expanded ? '자세히 보기' : '간략히'"
+                @click="cafe.expanded = !cafe.expanded"
+              />
+            </q-item>
+            <div class="row justify-end">
+              <q-item-label caption class="no-margin" style="marginTop: 1rem">{{ dateTime(cafe.reviewCreatedAt) }}</q-item-label>
+            </div>
 				</div>
-			</q-card-section>
+        </q-card-section>
 			</q-card>
       <q-separator />
 		</div>
