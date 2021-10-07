@@ -24,7 +24,7 @@
               </div>
               <div class="q-mt-lg">
                 <span>변경할 비밀번호</span>
-                <q-input class="no-margin no-padding" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="변경할 비밀번호 입력(영문, 숫자 조합)" clearable autocapitalize="off" />
+                <q-input class="no-margin no-padding" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="변경할 비밀번호 입력(영문 혹은 숫자)" clearable autocapitalize="off" />
                 <span
                   v-for="error of v$.password.$errors"
                   :key="error.$uid"
@@ -35,7 +35,7 @@
               </div>
               <div class="q-mt-lg">
                 <span>변경할 비밀번호 확인</span>
-                <q-input class="no-margin no-padding" type="password" outlined v-model="v$.passwordConfirm.$model" :error="v$.passwordConfirm.$invalid" placeholder="변경할 비밀번호 확인(영문, 숫자 조합)" clearable autocapitalize="off" />
+                <q-input class="no-margin no-padding" type="password" outlined v-model="v$.passwordConfirm.$model" :error="v$.passwordConfirm.$invalid" placeholder="변경할 비밀번호 확인(영문 혹은 숫자)" clearable autocapitalize="off" />
                 <span
                   v-for="error of v$.passwordConfirm.$errors"
                   :key="error.$uid"
@@ -68,6 +68,7 @@ export default {
   data() {
     return {
       nickname: '',
+      oldNickname: '',
       password: '',
       passwordConfirm: '',
     }
@@ -110,8 +111,9 @@ export default {
       try {
         const { data } = await profileUser()
         this.nickname = data.result.nickname
+        this.oldNickname = data.result.nickname
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     },
     async editMyInfo() {
@@ -120,10 +122,16 @@ export default {
           nickname: this.nickname,
           password: this.password
         }
-        const { data } = await editUser(userData)
-        alert(data.message)
-        this.$router.push({path:'/profile'}).catch(()=>{})
-        // console.log(data)
+        if (this.oldNickname == this.nickname) {
+          alert("닉네임을 변경해주세요.")
+          this.password = ""
+          this.passwordConfirm = ""
+        } else {
+          const { data } = await editUser(userData)
+          alert(data.message)
+          this.$router.push({path:'/profile'}).catch(()=>{})
+
+        }
       } catch (error) {
         console.log(error)
       }

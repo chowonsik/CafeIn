@@ -96,7 +96,7 @@ export default {
         const { data } = await getCuration(this.latitude, this.longitude)
         this.curationList = data.result
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     },
     async getProfile() {

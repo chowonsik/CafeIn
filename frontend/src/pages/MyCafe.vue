@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div v-if="items.length == 0" class="text-subtitle1 text-bold text-center" style="marginTop: 50%">
+      <div>맘에 드는 카페를</div>
+      <div>찜 해주세요.</div>
+    </div>
     <q-list padding>
       <q-infinite-scroll @load="onLoad" :offset="250">
       <q-item style="marginBottom: 1rem" v-ripple v-for="(cafe, index) in items" :key="index">

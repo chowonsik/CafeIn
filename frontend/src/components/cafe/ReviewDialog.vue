@@ -63,11 +63,11 @@ export default {
         const { data } = await createReview(reviewData)
         // console.log(reviewData)
         alert(data.message)
-        console.log(data)
+        // console.log(data)
         location.reload()
 
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     },
     reviewButton() {

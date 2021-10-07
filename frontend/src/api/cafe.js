@@ -27,7 +27,16 @@ function cancelBookmark(cafeId) {
 
 // 근처 카페 조회 API
 function nearCafeSearch(latitude, longitude) {
-  return api.get(`/api/cafes?latitude=${latitude}&longitude=${longitude}&search=&size=10&page=1`)
+  return api.get(
+    `/api/cafes?latitude=${latitude}&longitude=${longitude}&search=&size=30&page=1`
+  );
 }
 
-export { cafeDetail, cafeBhour, cafeMenu, bookmark, cancelBookmark, nearCafeSearch };
+export {
+  cafeDetail,
+  cafeBhour,
+  cafeMenu,
+  bookmark,
+  cancelBookmark,
+  nearCafeSearch,
+};

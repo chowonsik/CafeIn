@@ -318,7 +318,7 @@ export default {
           }
           // console.log(data);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     },
@@ -336,7 +336,7 @@ export default {
           }
           // console.log(data);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
         
       }

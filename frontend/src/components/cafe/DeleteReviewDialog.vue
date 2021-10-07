@@ -43,7 +43,7 @@ export default {
         }
       } catch (error) {
         alert('리뷰 삭제에 실패했습니다.')
-        console.log(error)
+        console.error(error)
       }
     }
   }

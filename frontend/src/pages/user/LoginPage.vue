@@ -22,7 +22,7 @@
           </div>
           <div>
             <span>비밀번호</span>
-            <q-input class="no-margin no-padding" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="비밀번호 입력(영문, 숫자 조합)" clearable autocapitalize="off" />
+            <q-input class="no-margin no-padding" type="password" outlined v-model="v$.password.$model" :error="v$.password.$invalid" placeholder="비밀번호 입력(영문 혹은 숫자)" clearable autocapitalize="off" />
             <span
               v-for="error of v$.password.$errors"
               :key="error.$uid"
@@ -55,7 +55,7 @@
 
 <script>
 import useVuelidate from '@vuelidate/core'
-import { required, email, helpers, minLength, maxLength } from '@vuelidate/validators'
+import { required, email, helpers, minLength, maxLength, alphaNum } from '@vuelidate/validators'
 import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers("auth")
 
@@ -81,7 +81,7 @@ export default {
       },
       password: {
         required: helpers.withMessage('비밀번호는 필수 항목입니다.', required), 
-        // alphaNum,
+        alphaNum: helpers.withMessage('비밀번호는 영문 혹은 숫자입니다.', alphaNum),
         minLength: helpers.withMessage('비밀번호는 3~20사이 입니다.', minLength(3)),
         maxLength: helpers.withMessage('비밀번호는 3~20사이 입니다.', maxLength(20)),
         $autoDirty: true, $lazy: true
