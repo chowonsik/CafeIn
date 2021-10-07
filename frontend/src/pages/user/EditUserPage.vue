@@ -121,7 +121,9 @@ export default {
           password: this.password
         }
         const { data } = await editUser(userData)
-        console.log(data)
+        alert(data.message)
+        this.$router.push({path:'/profile'}).catch(()=>{})
+        // console.log(data)
       } catch (error) {
         console.log(error)
       }
