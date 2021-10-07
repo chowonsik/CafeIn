@@ -20,18 +20,22 @@
         :src="cafeInfo.cafeImgUrl"
         :ratio="4 / 3"
         style="max-height: 300px"
-      />
+      >
+        <template v-slot:error>
+          <q-img :src="coffeeImg" />
+        </template>
+      </q-img>
     </div>
-    <div class="q-pa-md">
+    <div class="q-py-none">
       <q-card class="my-card" flat>
-        <q-card-section>
+        <q-card-section class="q-mx-md">
           <div class="row justify-between">
             <div class="text-h5 text-bold">{{ cafeInfo.cafeName }}</div>
             <CafeMenuDialog />
           </div>
           <div class="text-subtitle2">{{ cafeInfo.cafeAddress }}</div>
         </q-card-section>
-        <q-card-section style="paddingtop: 0">
+        <q-card-section class="q-py-xs q-mx-md">
           <!-- 북마크 개수 -->
           <q-icon name="favorite" class="text-negative" /><span
             style="margin-left: 3px"
@@ -55,7 +59,7 @@
 
         <q-separator />
 
-        <q-card-section>
+        <q-card-section class="q-py-xs q-mx-md">
           <div class="text-h6 text-bold">매장소개</div>
           <q-item-label caption style="padding: 3px; margin-bottom: 5px"
             >전화번호 : {{ cafeInfo.cafeTel }}</q-item-label
@@ -86,6 +90,7 @@
         리뷰가 쌓이면 워드클라우드가 보여요!
       </div>
     </div>
+    <q-separator />
     <div class="q-pa-md">
       <q-card class="my-card" flat>
         <q-card-section style="padding-top: 0px; padding-bottom: 0px">
@@ -190,6 +195,7 @@ import { cafeDetail, cafeBhour, bookmark, cancelBookmark } from "../api/cafe";
 import { ref } from "vue";
 import { api } from "../boot/axios";
 import { useRoute } from "vue-router";
+import coffeeImg from "../assets/image/coffee.png"
 
 export default {
   name: "CafeDetail",
@@ -209,6 +215,7 @@ export default {
       bookmarkCount: 0,
       page: 1,
       list: [],
+      coffeeImg: coffeeImg,
     };
   },
   setup() {

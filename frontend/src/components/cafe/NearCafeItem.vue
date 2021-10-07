@@ -5,7 +5,11 @@
         <q-item :to="`/cafes/${nearCafe.cafeId}`">
         <q-item-section avatar top>
           <q-avatar rounded size="80px">
-            <img :src="nearCafe.cafeImgUrl" >
+            <q-img :src="nearCafe.cafeImgUrl" >
+              <template v-slot:error>
+                <q-img :src="coffeeImg" />
+              </template>
+            </q-img>
           </q-avatar>
         </q-item-section>
         <q-item-section>
@@ -41,12 +45,14 @@
 import { createNamespacedHelpers } from 'vuex'
 const { mapState } = createNamespacedHelpers("kakaomap")
 import { nearCafeSearch } from "../../api/cafe" 
+import coffeeImg from "../../assets/image/coffee.png"
 
 export default {
   name: "NearCafeItem",
   data() {
     return {
       nearCafes: [],
+      coffeeImg: coffeeImg,
     }
   },
   computed: {
