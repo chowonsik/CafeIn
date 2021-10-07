@@ -16,10 +16,10 @@
               class="row items-center"
               v-model="cafeName"
               filled
-              autogrow
               placeholder="오늘의 카페 검색"
+              v-on:keyup.enter="goSearch()"
             >
-              <div class="col-gutter-none content-center row items-center" @click="goSearch()">
+              <div class="col-gutter-none content-center row items-center" @click="goSearch()" >
                 <q-avatar color="primary" size="lg" text-color="white" icon="search" />
               </div>
             </q-input>

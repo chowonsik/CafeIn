@@ -87,10 +87,10 @@ export default {
     return {
       items,
       isBookmarked,
-      onLoad (done) {
+      onLoad (index, done) {
         setTimeout(() => {
           api
-          .get(`/api/cafes?latitude=${latitude}&longitude=${longitude}&search=${cafeName}&size=10&page=1`, {
+          .get(`/api/cafes?latitude=${latitude}&longitude=${longitude}&search=${cafeName}&size=10&page=${index}`, {
             headers: {
               "X-ACCESS-TOKEN": accessToken
             }
