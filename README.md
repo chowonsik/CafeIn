@@ -13,12 +13,12 @@
 <img src="./exec/assets/cafein_deploy_architecture.PNG" width="700"><br><br>
 <img src="./exec/assets/cafein_application_architecture.PNG" width="700">
 
-## :heavy_check_mark: 프로젝트 세팅 방법
+## 🎈프로젝트 세팅 방법
 
 - [Frontend](./frontend/README.md)
 - [Backend](./backend/README.md)
 
-## 1. 일정표
+## 🎈개발 일정표
 
 ```mermaid
 gantt
@@ -77,11 +77,9 @@ UCC제작 :after, 10-05, 3d
 
 ```
 
-##
+## 🎈CAFE 人 주요 기능 소개
 
-### CAFE 人 주요 기능 소개
-
-## :bulb: 팀원 역할
+## 🎈팀원 역할
 
 |        | 팀장/팀원 |     역할      |
 | :----: | :-------: | :-----------: |
