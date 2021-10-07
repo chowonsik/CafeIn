@@ -81,7 +81,7 @@ UCC제작 :after, 10-05, 3d
 
 ### 카페 검색 서비스
 
-<img src="./exec/assets/search.gif" width="200" align="left" hspace="10">
+<img src="./exec/assets/search.gif" width="200" align="left" hspace="20">
 1. 검색어를 입력하여 내 위치로부터 가까운 카페들을 찾습니다.
 <br>
 <br>
@@ -97,7 +97,7 @@ UCC제작 :after, 10-05, 3d
 
 ### 카페 검색 서비스 - 내주변
 
-<img src="./exec/assets/search_map.gif" width="200" align="left" hspace="10">
+<img src="./exec/assets/search_map.gif" width="200" align="left" hspace="20">
 1. 내주변 탭을 클릭합니다.
 <br>
 <br>
@@ -114,7 +114,7 @@ UCC제작 :after, 10-05, 3d
 
 ### 카테고리 기반의 카페 추천 서비스
 
-<img src="./exec/assets/curation.gif" width="200" align="left" hspace="10">
+<img src="./exec/assets/curation.gif" width="200" align="left" hspace="20">
 1. 메인화면에서 설정된 카테고리들을 클릭하여 내 주변에서 해당 카테고리와 연관성이 높은 카페들을 추천 받습니다.
 <br>
 <br>
@@ -131,7 +131,7 @@ UCC제작 :after, 10-05, 3d
 
 ### 사용자 찜 기반의 카페 추천 서비스
 
-<img src="./exec/assets/curation_bookmark.gif" width="200" align="left" hspace="10">
+<img src="./exec/assets/curation_bookmark.gif" width="200" align="left" hspace="20">
 1. 인증된 사용자가 나에게 맞는 카페 큐레이션을 클릭할 수 있습니다.
 <br>
 <br>
@@ -145,7 +145,7 @@ UCC제작 :after, 10-05, 3d
 
 ### 카페 리뷰 서비스
 
-<img src="./exec/assets/review.gif" width="200" align="left" hspace="10">
+<img src="./exec/assets/review.gif" width="200" align="left" hspace="20">
 1. 사용자가 추천된 카페를 클릭합니다.
 <br>
 <br>
