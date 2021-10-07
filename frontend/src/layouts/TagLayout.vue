@@ -1,28 +1,26 @@
 <template>
-  <q-layout view="lHr LpR lFr">
-
+  <q-layout>
     <Header />
-
     <q-page-container>
       <router-view />
     </q-page-container>
-
-    <HomeFooter />
-
+    <TagFooter />
   </q-layout>
 </template>
-
 
 <script>
 import { defineComponent } from 'vue'
 import Header from '../components/common/Header.vue'
-import HomeFooter from '../components/common/HomeFooter.vue'
-
-export default defineComponent({
-  name: 'MainLayout',
+import TagFooter from '../components/common/TagFooter.vue'
+export default defineComponent ({
+  name: 'TagLayout',
   components: {
+    TagFooter,
     Header,
-    HomeFooter,
   }
 })
 </script>
+
+<style>
+
+</style>

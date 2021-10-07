@@ -10,9 +10,9 @@
         </div>
         <div class="col-gutter-none" @click="goNear()">
           <div class="text-center">
-            <q-avatar text-color="grey" size="xl" icon="explore" />
+            <q-avatar text-color="primary" size="xl" icon="explore" />
           </div>
-          <p class="no-margin text-center" style="font-size: 12px">내주변</p>
+          <p class="no-margin text-center word-color" style="font-size: 12px">내주변</p>
         </div>
         <div class="col-gutter-none content-center">
           <SearchDialog />
@@ -37,7 +37,7 @@
 <script>
 import SearchDialog from '../mainpage/SearchDialog.vue'
 export default {
-  name: 'Footer',
+  name: 'NearFooter',
   components: {
     SearchDialog
   },

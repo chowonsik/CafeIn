@@ -4,15 +4,6 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       { path: "", component: () => import("pages/Index.vue") },
-      { 
-        path: "mycafe",
-        component: () => import("pages/MyCafe.vue"),
-        meta: { auth: true },
-      },
-      {
-        path: "tag/:tagname",
-        component: () => import("pages/TagListPage.vue"),
-      },
     ],
   },
   {
@@ -42,7 +33,7 @@ const routes = [
   },
   {
     path: "/",
-    component: () => import("layouts/SubLayout.vue"),
+    component: () => import("layouts/MyLayout.vue"),
     children: [
       {
         path: "profile",
@@ -54,8 +45,31 @@ const routes = [
         component: () => import("pages/user/EditUserPage.vue"),
         meta: { auth: true },
       },
-      { path: "tag", component: () => import("pages/TagRecommend.vue") },
+    ]
+  },
+  {
+    path: "/",
+    component: () => import("layouts/NearLayout.vue"),
+    children: [
       { path: "nearcafe", component: () => import("pages/NearCafe.vue") },
+    ]
+  },
+  {
+    path: "/",
+    component: () => import("layouts/TagLayout.vue"),
+    children: [
+      { 
+        path: "mycafe",
+        component: () => import("pages/MyCafe.vue"),
+        meta: { auth: true },
+      },
+    ]
+  },
+  {
+    path: "/",
+    component: () => import("layouts/SubLayout.vue"),
+    children: [
+      { path: "tag", component: () => import("pages/TagRecommend.vue") },
       { 
         path: "curation",
         component: () => import("pages/CafeCuration.vue"),
@@ -64,8 +78,11 @@ const routes = [
       {
         path: "search/:cafeName",
         component: () => import("pages/CafeSearch.vue")
-      }
-      
+      },
+      {
+        path: "tag/:tagname",
+        component: () => import("pages/TagListPage.vue"),
+      },
     ],
   },
   // Always leave this as last one,
