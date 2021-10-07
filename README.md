@@ -1,13 +1,25 @@
-# ***CAFE人***
+# **_CAFE 人_**
 
-# 목차
-1. [일정표](#1-일정표)
-2. [산출물](#2-산출물)
-<br> 2-1. [ERD diagram](#2\-1-erd-diagram)
-<br> 2-2. [화면정의서](#2\-2-화면정의서)
-3. [팀원 역할](#3-팀원-역할)
+<img src="./exec/assets/cafeinLogo.png" width="500">
+
+## CAFE 人 서비스
+
+- 자신에게 맞는 카페로 카페 in 할 수 있게
+  도와주는 카페 추천 서비스
+
+## :heavy_check_mark: 기술 스택
+
+<img src="./exec/assets/cafein_tect_stack.PNG" width="700"><br><br>
+<img src="./exec/assets/cafein_deploy_architecture.PNG" width="700"><br><br>
+<img src="./exec/assets/cafein_application_architecture.PNG" width="700">
+
+## :heavy_check_mark: 프로젝트 세팅 방법
+
+- [Frontend](./frontend/README.md)
+- [Backend](./backend/README.md)
 
 ## 1. 일정표
+
 ```mermaid
 gantt
 dateFormat MM-DD
@@ -20,7 +32,7 @@ section 기획
 디자인 :done, 09-08, 1d
 개발 환경 구성 :done, 09-06, 5d
 스토리보드 :done, 09-13, 2d
-데이터 검증 :done, 09-15, 3d 
+데이터 검증 :done, 09-15, 3d
 
 section 공부
 자기계발 :after, 09-20, 2d
@@ -64,23 +76,17 @@ UCC제작 :after, 10-05, 3d
 발표준비 :after, 10-06, 2d
 
 ```
-## 2. 산출물
-### 2-1. ERD diagram
-![ERD_diagram](/uploads/8674178b46ad2ad8caba9029d13c076e/ERD_diagram.png)
 
+##
 
-### 2-2. 화면정의서
-[Figma](https://www.figma.com/file/msAae4hEesmSnv3aJeYxuU/Coffee)
+### CAFE 人 주요 기능 소개
 
----
+## :bulb: 팀원 역할
 
-## 3. 팀원 역할
-||팀장/팀원|역할|
-|:---:|:---:|:---:|
-|한훈희|**팀장**|Frontend|
-|한상정|팀원|Frontend|
-|김민정|팀원|Backend|
-|조원식|팀원|Backend|
-|오수형|팀원|Bigdata|
-
-
+|        | 팀장/팀원 |     역할      |
+| :----: | :-------: | :-----------: |
+| 한훈희 | **팀장**  |   Frontend    |
+| 한상정 |   팀원    |   Frontend    |
+| 김민정 |   팀원    |    Backend    |
+| 조원식 |   팀원    | Backend&CI/CD |
+| 오수형 |   팀원    |    Bigdata    |

@@ -7,7 +7,7 @@
 - JVM: java-11-openjdk-amd64
 - Gradle: 7.0.2
 - WAS: Tomcat 9.0.33
-- Frontend IDE: Visual Studio 1.59
+- Frontend IDE: Visual Studio 1.60.2
 - Backend IDE: Intellij Ultimate 2021.1
 - MYSQL Workbench 8.0.25
 - Docker: 20.10.7
