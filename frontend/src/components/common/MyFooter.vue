@@ -25,9 +25,9 @@
         </div>
         <div class="col-gutter-none" @click="goProfile()">
           <div class="text-center">
-            <q-avatar text-color="grey" size="xl" icon="person" />
+            <q-avatar text-color="primary" size="xl" icon="person" />
           </div>
-          <p class="no-margin text-center" style="font-size: 12px">MY</p>
+          <p class="no-margin text-center word-color" style="font-size: 12px">MY</p>
         </div>
       </q-toolbar-title>
     </q-toolbar>
@@ -37,7 +37,7 @@
 <script>
 import SearchDialog from '../mainpage/SearchDialog.vue'
 export default {
-  name: 'Footer',
+  name: 'MyFooter',
   components: {
     SearchDialog
   },

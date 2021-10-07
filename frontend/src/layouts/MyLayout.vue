@@ -1,23 +1,19 @@
 <template>
-  <q-layout view="lHr LpR lFr">
-
+  <q-layout>
     <q-page-container>
       <router-view />
     </q-page-container>
-
-    <Footer />
-
+    <MyFooter />
   </q-layout>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import Footer from '../components/common/Footer.vue'
-
-export default defineComponent({
-  name: 'SubLayout',
+import MyFooter from '../components/common/MyFooter.vue'
+export default defineComponent ({
+  name: 'MyLayout',
   components: {
-    Footer,
+    MyFooter,
   }
 })
 </script>

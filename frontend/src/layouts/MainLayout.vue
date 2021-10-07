@@ -7,7 +7,7 @@
       <router-view />
     </q-page-container>
 
-    <Footer />
+    <HomeFooter />
 
   </q-layout>
 </template>
@@ -16,13 +16,13 @@
 <script>
 import { defineComponent } from 'vue'
 import Header from '../components/common/Header.vue'
-import Footer from '../components/common/Footer.vue'
+import HomeFooter from '../components/common/HomeFooter.vue'
 
 export default defineComponent({
   name: 'MainLayout',
   components: {
     Header,
-    Footer,
+    HomeFooter,
   }
 })
 </script>

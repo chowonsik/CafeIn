@@ -2,7 +2,7 @@
   <div>
     <q-header reveal bordered class="bg-white text-white">
       <q-toolbar>
-        <q-icon size="sm" color="black" name="arrow_back_ios" @click="goBack()" />
+        <q-icon size="sm" color="black" name="arrow_back_ios" @click="goHome()" />
         <q-toolbar-title class="text-black text-weight-bold text-center no-padding">로그인</q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -35,17 +35,18 @@
         </div>
       </div>
     </q-form>
-    <q-separator style="margin-top: 50px" />
-    <div class="flex justify-center" style="margin-top: 30px">
-      <p>아이디 찾기  |</p>
-      <p>비밀번호 찾기  |</p>
-      <p>홈</p>
-    </div>
-    <div class="row justify-center" style="margin-top: 100px">
+    <q-separator />
+    <div class="row justify-center" style="margin-top: 1rem">
       <q-card @click="goSignup()" flat bordered style="width: 90%">
         <q-card-section class="flex justify-around items-center">
-          <div class="text-h6">아직 회원이 아니세요?</div>
-          <div class="text-h6">회원가입</div>
+          <div class="text-h6 col">카페 "In" 하실분</div>
+          <q-btn outline color="primary" align="around" label="회원가입" icon="login" />
+        </q-card-section>
+      </q-card>
+      <q-card @click="goHome()" flat bordered style="width: 90%" class="q-mt-sm">
+        <q-card-section class="flex justify-around items-center">
+          <div class="text-h6 col">구경 하실분</div>
+          <q-btn outline color="primary" align="around" label="홈으로" icon="home" />
         </q-card-section>
       </q-card>
     </div>
@@ -89,6 +90,9 @@ export default {
   },
   methods: {
     ...mapActions(['LOGIN']),
+    goHome() {
+      this.$router.push({path:'/'}).catch(()=>{})
+    },
     goBack() {
       window.history.back()
     },

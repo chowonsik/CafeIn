@@ -4,9 +4,9 @@
       <q-toolbar-title class="row justify-around font-center items-center">
         <div class="col-gutter-none">
           <div class="text-center" @click="goHome()">
-            <q-avatar text-color="grey" size="xl" icon="home" />
+            <q-avatar text-color="primary" size="xl" icon="home" />
           </div>
-          <p class="no-margin text-center" style="font-size: 12px">홈</p>
+          <p class="no-margin text-center word-color" style="font-size: 12px">홈</p>
         </div>
         <div class="col-gutter-none" @click="goNear()">
           <div class="text-center">
@@ -37,7 +37,7 @@
 <script>
 import SearchDialog from '../mainpage/SearchDialog.vue'
 export default {
-  name: 'Footer',
+  name: 'HomeFooter',
   components: {
     SearchDialog
   },

@@ -19,9 +19,9 @@
         </div>
         <div class="col-gutter-none" @click="goTag()">
           <div class="text-center">
-            <q-avatar text-color="grey" size="xl" icon="favorite" />
+            <q-avatar text-color="primary" size="xl" icon="favorite" />
           </div>
-          <p class="no-margin text-center" style="font-size: 12px">찜</p>
+          <p class="no-margin text-center word-color" style="font-size: 12px">찜</p>
         </div>
         <div class="col-gutter-none" @click="goProfile()">
           <div class="text-center">
@@ -37,7 +37,7 @@
 <script>
 import SearchDialog from '../mainpage/SearchDialog.vue'
 export default {
-  name: 'Footer',
+  name: 'TagFooter',
   components: {
     SearchDialog
   },
