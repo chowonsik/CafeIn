@@ -4,5 +4,5 @@ export function myReview(state, payload) {
 
 export function selectedMyReview(state, payload) {
   state.selectedReview = payload;
-  console.log(state.selectedReview);
+  // console.log(state.selectedReview);
 }

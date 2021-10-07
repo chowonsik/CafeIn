@@ -16,7 +16,7 @@
             <q-rating
               v-model="cafe.reviewScore"
               size="1em"
-              color="primary"
+              color="orange"
               icon="star_border"
               icon-selected="star"
               icon-half="star_half"
@@ -30,7 +30,9 @@
 					
       </q-card-section>
 			<q-card-section class="q-ml-md q-mt-xs no-padding row items-center">
-
+        <div>
+          <q-avatar color="primary" icon="coffee" text-color="white" size="24px" class="q-mx-sm" />
+        </div>
 				<div class="col">
 					{{ cafe.reviewContent }}
 				</div>
