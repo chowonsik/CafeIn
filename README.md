@@ -7,7 +7,7 @@
 - 자신에게 맞는 카페로 카페 in 할 수 있게
   도와주는 카페 추천 서비스
 
-## :heavy_check_mark: 기술 스택
+## 🎈기술 스택
 
 <img src="./exec/assets/cafein_tect_stack.PNG" width="700"><br><br>
 <img src="./exec/assets/cafein_deploy_architecture.PNG" width="700"><br><br>
@@ -78,6 +78,90 @@ UCC제작 :after, 10-05, 3d
 ```
 
 ## 🎈CAFE 人 주요 기능 소개
+
+### 카페 검색 서비스
+
+<img src="./exec/assets/검색.gif" width="200" align="left" hspace="10">
+1. 검색어를 입력하여 내 위치로부터 가까운 카페들을 찾습니다.
+<br>
+<br>
+2. 검색된 카페리스트를 클릭하면 카페의 상세 정보를 볼 수 있습니다.
+<br>
+<br>
+3. 인증된 사용자는 검색된 카페를 찜할 수 있습니다.
+<br clear="left">
+<div>
+<br>
+<br>
+</div>
+
+### 카페 검색 서비스 - 내주변
+
+<img src="./exec/assets/내주변.gif" width="200" align="left" hspace="10">
+1. 내주변 탭을 클릭합니다.
+<br>
+<br>
+2. 내주변 카페 리스트를 카카오 맵으로 볼 수 있습니다.
+<br>
+<br>
+3. 인증된 사용자는 검색된 카페를 찜할 수 있습니다.
+<br clear="left">
+
+<div>
+<br>
+<br>
+</div>
+
+### 카테고리 기반의 카페 추천 서비스
+
+<img src="./exec/assets/태그추천.gif" width="200" align="left" hspace="10">
+1. 메인화면에서 설정된 카테고리들을 클릭하여 내 주변에서 해당 카테고리와 연관성이 높은 카페들을 추천 받습니다.
+<br>
+<br>
+2. 검색된 카페리스트를 클릭하면 카페의 상세 정보를 볼 수 있습니다.
+<br>
+<br>
+3. 인증된 사용자는 추천받은 카페를 찜할 수 있습니다.
+<br clear="left">
+
+<div>
+<br>
+<br>
+</div>
+
+### 사용자 찜 기반의 카페 추천 서비스
+
+<img src="./exec/assets/카페큐레이션.gif" width="200" align="left" hspace="10">
+1. 인증된 사용자가 나에게 맞는 카페 큐레이션을 클릭할 수 있습니다.
+<br>
+<br>
+2. 나의 찜 리스트를 기반으로 나에게 맞는 카페들을 추천 받을 수 있습니다.
+<br clear="left">
+
+<div>
+<br>
+<br>
+</div>
+
+### 카페 리뷰 서비스
+
+<img src="./exec/assets/리뷰작성.gif" width="200" align="left" hspace="10">
+1. 사용자가 추천된 카페를 클릭합니다.
+<br>
+<br>
+2. 카페 상세 정보를 보여주고 카페 리뷰에 들어간 명사들을 워드 클라우드 형태와 리스트형태로 보여줍니다.
+<br>
+<br>
+3. 인증되지 않은 사용자는 카페 리뷰를 보는것만 가능 합니다. 인증된 사용자는 카페에 대한 리뷰를 작성 할 수 있습니다.
+<br>
+<br>
+4. 작성된 리뷰는 내 리뷰 보기에서 모아 볼 수 있습니다.
+<br clear="left">
+
+<div>
+<br>
+<br>
+</div>
 
 ## 🎈팀원 역할
 
