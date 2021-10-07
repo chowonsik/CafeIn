@@ -39,7 +39,7 @@ section 공부
 
 section Frontend
 스켈레톤 코드 제작 :done, 09-13, 1d
-layouts :active, 09-16, 2d
+layouts :done, 09-16, 2d
 auth :done, 09-23, 1d
 profile :done, 09-23, 1d
 main :done, 09-24, 2d
@@ -66,7 +66,7 @@ sync (unit) :done, 10-05, 3d
 
 section Bigdata
 추천 알고리즘 설계 : done, 09-13, 4d
-크롤링 : active, 09-15, 9d
+크롤링 : done, 09-15, 9d
 전처리 및 개발 : done, 09-27, 3d
 QA : done, 09-29, 8d
 
