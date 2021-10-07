@@ -1,23 +1,19 @@
 <template>
-  <q-layout view="lHr LpR lFr">
-
+  <q-layout>
     <q-page-container>
       <router-view />
     </q-page-container>
-
-    <Footer />
-
+    <NearFooter />
   </q-layout>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import Footer from '../components/common/Footer.vue'
-
-export default defineComponent({
-  name: 'SubLayout',
+import NearFooter from '../components/common/NearFooter.vue'
+export default defineComponent ({
+  name: 'NearLayout',
   components: {
-    Footer,
+    NearFooter
   }
 })
 </script>
