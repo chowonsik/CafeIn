@@ -1,0 +1,559 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+= API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:docinfo: shared-head
+
+[[introduction]]
+== 소개
+
+Cafein API
+
+[[common]]
+== 공통 사항
+
+API에 관계없이 아래 사항을 지켜주셔야 합니다.
+
+=== Domain
+
+|===
+| 환경 | Domain
+
+| 개발서버
+| `https://j5b204.p.ssafy.io`
+
+|===
+
+=== Common Response
+
+&#160;
+
+== 1. 개요
+
+== 2. User API
+
+=== 2-1. 회원가입
+
+==== 회원가입
+
+include::{snippets}/users/signup/successful/request-fields.adoc[]
+
+include::{snippets}/users/signup/successful/response-fields.adoc[]
+
+==== 회원가입 성공
+
+Request Example
+
+include::{snippets}/users/signup/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/signup/successful/http-response.adoc[]
+
+=== 2-2. 로그인
+
+==== 로그인
+
+include::{snippets}/users/signin/successful/request-fields.adoc[]
+
+include::{snippets}/users/signin/successful/response-fields.adoc[]
+
+==== 로그인 성공
+
+Request Example
+
+include::{snippets}/users/signin/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/signin/successful/http-response.adoc[]
+
+=== 2-3. 회원탈퇴
+
+==== 회원탈퇴
+
+Request Header
+
+include::{snippets}/users/deactivate/successful/request-headers.adoc[]
+
+include::{snippets}/users/deactivate/successful/response-fields.adoc[]
+
+==== 회원탈퇴 성공
+
+Request Example
+
+include::{snippets}/users/deactivate/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/deactivate/successful/http-response.adoc[]
+
+=== 2-4. JWT 토큰 검증
+
+==== JWT 토큰 검증
+
+Request Header
+
+include::{snippets}/users/jwt/successful/request-headers.adoc[]
+
+include::{snippets}/users/jwt/successful/response-fields.adoc[]
+
+==== JWT 토큰 검증 성공
+
+Request Example
+
+include::{snippets}/users/jwt/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/jwt/successful/http-response.adoc[]
+
+=== 2-5. 이메일 인증
+
+==== 이메일 인증
+
+include::{snippets}/users/email/successful/request-fields.adoc[]
+
+include::{snippets}/users/email/successful/response-fields.adoc[]
+
+==== 이메일 인증 성공
+
+Request Example
+
+include::{snippets}/users/email/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/email/successful/http-response.adoc[]
+
+=== 2-6. 프로필 조회
+
+==== 프로필 조회
+
+Request Header
+
+include::{snippets}/users/me/successful/request-headers.adoc[]
+
+include::{snippets}/users/me/successful/response-fields.adoc[]
+
+==== 프로필 조회 성공
+
+Request Example
+
+include::{snippets}/users/me/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/me/successful/http-response.adoc[]
+
+=== 2-7. 프로필 수정
+
+==== 프로필 수정
+
+Request Header
+
+include::{snippets}/users/update/successful/request-headers.adoc[]
+
+include::{snippets}/users/update/successful/request-fields.adoc[]
+
+include::{snippets}/users/update/successful/response-fields.adoc[]
+
+==== 프로필 수정 성공
+
+Request Example
+
+include::{snippets}/users/update/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/users/update/successful/http-response.adoc[]
+
+== 3. Review API
+
+=== 3-1. 리뷰 작성
+
+==== 리뷰 작성
+
+Request Header
+
+include::{snippets}/reviews/create/successful/request-headers.adoc[]
+
+include::{snippets}/reviews/create/successful/request-fields.adoc[]
+
+include::{snippets}/reviews/create/successful/response-fields.adoc[]
+
+==== 리뷰 작성 성공
+
+Request Example
+
+include::{snippets}/reviews/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/create/successful/http-response.adoc[]
+
+=== 3-2. 리뷰 조회
+
+==== 카페 리뷰 조회
+
+include::{snippets}/reviews/select/cafe/successful/request-parameters.adoc[]
+
+include::{snippets}/reviews/select/cafe/successful/response-fields.adoc[]
+
+==== 카페 리뷰 조회 성공
+
+Request Example
+
+include::{snippets}/reviews/select/cafe/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/select/cafe/successful/http-response.adoc[]
+
+==== 유저 리뷰 조회
+
+include::{snippets}/reviews/select/user/successful/request-parameters.adoc[]
+
+include::{snippets}/reviews/select/user/successful/response-fields.adoc[]
+
+==== 유저 리뷰 조회 성공
+
+Request Example
+
+include::{snippets}/reviews/select/user/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/select/user/successful/http-response.adoc[]
+
+==== 워드클라우드 리뷰 조회
+
+include::{snippets}/reviews/select/search/successful/request-parameters.adoc[]
+
+include::{snippets}/reviews/select/search/successful/response-fields.adoc[]
+
+==== 워드클라우드 리뷰 조회 성공
+
+Request Example
+
+include::{snippets}/reviews/select/search/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/select/search/successful/http-response.adoc[]
+
+=== 3-3. 리뷰 수정
+
+==== 리뷰 수정
+
+Request Header
+
+include::{snippets}/reviews/update/successful/request-headers.adoc[]
+
+include::{snippets}/reviews/update/successful/path-parameters.adoc[]
+
+include::{snippets}/reviews/update/successful/request-fields.adoc[]
+
+include::{snippets}/reviews/update/successful/response-fields.adoc[]
+
+==== 리뷰 수정 성공
+
+Request Example
+
+include::{snippets}/reviews/update/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/update/successful/http-response.adoc[]
+
+=== 3-4. 리뷰 삭제
+
+==== 리뷰 삭제
+
+Request Header
+
+include::{snippets}/reviews/delete/successful/request-headers.adoc[]
+
+include::{snippets}/reviews/delete/successful/path-parameters.adoc[]
+
+include::{snippets}/reviews/delete/successful/response-fields.adoc[]
+
+==== 리뷰 삭제 성공
+
+Request Example
+
+include::{snippets}/reviews/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reviews/delete/successful/http-response.adoc[]
+
+== 4. Report API
+
+=== 4-1. 리뷰 신고 등록
+
+==== 리뷰 신고 등록
+
+Request Header
+
+include::{snippets}/reports/create/successful/request-headers.adoc[]
+
+include::{snippets}/reports/create/successful/request-fields.adoc[]
+
+include::{snippets}/reports/create/successful/response-fields.adoc[]
+
+==== 리뷰 신고 등록 성공
+
+Request Example
+
+include::{snippets}/reports/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reports/create/successful/http-response.adoc[]
+
+=== 4-2. 리뷰 신고 조회
+
+==== 리뷰 신고 조회
+
+Request Header
+
+include::{snippets}/reports/select/successful/request-headers.adoc[]
+
+include::{snippets}/reports/select/successful/request-parameters.adoc[]
+
+include::{snippets}/reports/select/successful/response-fields.adoc[]
+
+==== 리뷰 신고 조회 성공
+
+Request Example
+
+include::{snippets}/reports/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reports/select/successful/http-response.adoc[]
+
+=== 4-3. 리뷰 신고 삭제
+
+==== 리뷰 신고 삭제
+
+Request Header
+
+include::{snippets}/reports/delete/successful/request-headers.adoc[]
+
+include::{snippets}/reports/delete/successful/path-parameters.adoc[]
+
+include::{snippets}/reports/delete/successful/response-fields.adoc[]
+
+==== 리뷰 신고 삭제 성공
+
+Request Example
+
+include::{snippets}/reports/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/reports/delete/successful/http-response.adoc[]
+
+== 5. Cafe API
+
+=== 5-1. 카페 조회
+
+==== 카페 조회
+
+Request Header
+
+include::{snippets}/cafes/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafes/select/successful/request-parameters.adoc[]
+
+include::{snippets}/cafes/select/successful/response-fields.adoc[]
+
+==== 카페 조회 성공
+
+Request Example
+
+include::{snippets}/cafes/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafes/select/successful/http-response.adoc[]
+
+=== 5-2. 카페 상세 조회
+
+==== 카페 상세 조회
+
+Request Header
+
+include::{snippets}/cafe_detail/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafe_detail/select/successful/path-parameters.adoc[]
+
+include::{snippets}/cafe_detail/select/successful/response-fields.adoc[]
+
+==== 카페 상세 조회 성공
+
+Request Example
+
+include::{snippets}/cafe_detail/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafe_detail/select/successful/http-response.adoc[]
+
+=== 5-3. 카페 큐레이션
+
+==== 카페 큐레이션 카테고리 기반 조회
+
+Request Header
+
+include::{snippets}/cafe_curation_category/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafe_curation_category/select/successful/request-parameters.adoc[]
+
+include::{snippets}/cafe_curation_category/select/successful/response-fields.adoc[]
+
+==== 카페 큐레이션 카테고리 기반 조회 성공
+
+Request Example
+
+include::{snippets}/cafe_curation_category/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafe_curation_category/select/successful/http-response.adoc[]
+
+==== 카페 큐레이션 유저 찜 기반 조회
+
+Request Header
+
+include::{snippets}/cafe_curation_bookmark/select/successful/request-headers.adoc[]
+
+include::{snippets}/cafe_curation_bookmark/select/successful/request-parameters.adoc[]
+
+include::{snippets}/cafe_curation_bookmark/select/successful/response-fields.adoc[]
+
+==== 카페 큐레이션 유저 찜 기반 조회 성공
+
+Request Example
+
+include::{snippets}/cafe_curation_bookmark/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/cafe_curation_bookmark/select/successful/http-response.adoc[]
+
+== 6. Menu API
+
+=== 6-1. 카페 메뉴 조회
+
+==== 카페 메뉴 조회
+
+include::{snippets}/menus/select/successful/request-parameters.adoc[]
+
+include::{snippets}/menus/select/successful/response-fields.adoc[]
+
+==== 카페 메뉴 조회 성공
+
+Request Example
+
+include::{snippets}/menus/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/menus/select/successful/http-response.adoc[]
+
+== 7. Bhour API
+
+=== 7-1. 카페 영업시간 조회
+
+==== 카페 영업시간 조회
+
+include::{snippets}/bhours/select/successful/request-parameters.adoc[]
+
+include::{snippets}/bhours/select/successful/response-fields.adoc[]
+
+==== 카페 영업시간 성공
+
+Request Example
+
+include::{snippets}/bhours/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/bhours/select/successful/http-response.adoc[]
+
+== 8. Bookmark API
+
+=== 8-1. 카페 찜 등록
+
+==== 카페 찜 등록
+
+Request Header
+
+include::{snippets}/bookmarks/create/successful/request-headers.adoc[]
+
+include::{snippets}/bookmarks/create/successful/request-fields.adoc[]
+
+include::{snippets}/bookmarks/create/successful/response-fields.adoc[]
+
+==== 카페 찜 등록 성공
+
+Request Example
+
+include::{snippets}/bookmarks/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/bookmarks/create/successful/http-response.adoc[]
+
+=== 8-2. 카페 찜 조회
+
+==== 카페 찜 조회
+
+Request Header
+
+include::{snippets}/bookmarks/select/successful/request-headers.adoc[]
+
+include::{snippets}/bookmarks/select/successful/request-parameters.adoc[]
+
+include::{snippets}/bookmarks/select/successful/response-fields.adoc[]
+
+==== 카페 찜 조회 성공
+
+Request Example
+
+include::{snippets}/bookmarks/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/bookmarks/select/successful/http-response.adoc[]
+
+=== 8-3. 카페 찜 삭제
+
+==== 카페 찜 삭제
+
+Request Header
+
+include::{snippets}/bookmarks/delete/successful/request-headers.adoc[]
+
+include::{snippets}/bookmarks/delete/successful/request-parameters.adoc[]
+
+include::{snippets}/bookmarks/delete/successful/response-fields.adoc[]
+
+==== 카페 찜 삭제 성공
+
+Request Example
+
+include::{snippets}/bookmarks/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/bookmarks/delete/successful/http-response.adoc[]

@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://cafein.cckcnhsswc6w.ap-northeast-2.rds.amazonaws.com:3306/cafein?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      username: admin
+      password: ssafy204
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+  logging:
+    level:
+      org:
+        hibernate:
+          type:
+            descriptor:
+              sql: trace
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ssafy.cafein@gmail.com
+    password: ssafy1234!@#
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+custom:
+  oauth2:
+    google:
+      client:
+        id: test
+        secret: test
+    kakao:
+      client:
+        id: test
+  constant:
+    access:
+      token:
+        secret:
+          key: cafein*cafein*cafein*cafein*cafein
+    user:
+      info:
+        password:
+          key: o9pqYVC9-F8_.PEzEiw!L9F6.AYj9jcfVJ*_i.ifXYnyE68kix@Q2dL6rw*bV-rpdZYwcqZG-jPF-fw3CiJyKsfZ778ks-*jnZn
