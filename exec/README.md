@@ -1,4 +1,4 @@
-# How to build & deploy LinkedBook project
+# How to build & deploy CafeIn project
 
 ## 1. Setting
 
@@ -285,7 +285,7 @@ $ sudo docker-compose up -d --build
 
 ## 5. API
 
-- [CafeIn API](./api-doc.html)
+- [CafeIn API](https://j5b204.p.ssafy.io/docs)
 
 ## 6. ERD Description
 
