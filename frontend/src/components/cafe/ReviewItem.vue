@@ -22,20 +22,16 @@
               icon-half="star_half"
               readonly
             />
-          <q-item-label>{{ dateTime(cafe.reviewCreatedAt) }}</q-item-label>
+          <q-item-label style="marginTop: 1rem">{{ dateTime(cafe.reviewCreatedAt) }}</q-item-label>
         </q-card-section>
-				<q-card-section class="no-padding col-2">
+				<q-card-section class="no-padding col-2" >
 					<ReviewListDialog @click="selectedMyReview(cafe)"/>
 				</q-card-section>
 					
       </q-card-section>
 			<q-card-section class="q-ml-md q-mt-xs no-padding row items-center">
-				<div>
-					<q-chip outline color="primary" text-color="white" icon="coffee">
-						리뷰
-					</q-chip>
-				</div>
-				<div class="col-9">
+
+				<div class="col">
 					{{ cafe.reviewContent }}
 				</div>
 			</q-card-section>
